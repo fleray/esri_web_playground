@@ -1,0 +1,14 @@
+﻿/* Type definitions for ArcGIS API for JavaScript Version 3.4
+ * Project: http://developers.arcgis.com/en/javascript/
+ * Definitions by: Fabrice Leray <https://github.com/fleray>
+ * Definitions: https://github.com/fleray/esri_web_playground.git 
+ */
+
+body
+{
+    font-family: 'Segoe UI', sans-serif
+}
+
+span {
+    font-style: italic
+}
