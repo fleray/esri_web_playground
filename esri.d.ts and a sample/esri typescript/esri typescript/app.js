@@ -1,7 +1,9 @@
-// Type definitions for ArcGIS API for JavaScript Version 3.4
-// Project: http://developers.arcgis.com/en/javascript/
-// Definitions by: Fabrice Leray <https://github.com/fleray>
-// Definitions: https://github.com/fleray/esri_web_playground.git
+// Code under MIT License (see main license file).
+// Typescript definition file for ArcGIS API for JavaScript Version 3.4
+// Associated API : http://developers.arcgis.com/en/javascript/
+// Git repo : https://github.com/fleray/esri_web_playground.git
+// Email : fabrice.leray.dev(at)gmail(dot)com
+// Copyright (c) 2013 Fabrice Leray
 /// <reference path="definition_typescripts/esri.d.ts" />
 window.onload = function () {
     // create the map with a default basemap (strret) and add it inside the HTML mapDiv
