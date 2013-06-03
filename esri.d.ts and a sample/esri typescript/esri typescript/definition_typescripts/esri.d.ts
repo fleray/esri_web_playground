@@ -378,14 +378,13 @@ declare module esri {
     }
 }
 
-// fleray : TODOXXX : Modules checked till there
-
 declare module esri.arcgis {
     export class utils {
         arcgisUrl: string;
-        createMap(itemIdOritemInfo: any, mapDiv: string, options: Object): dojo.Deferred;
-        getItem(itemId): dojo.Deferred;
-        getLegendLayers(): Array;
+        createMap(itemId: string, mapDiv: string, options?: Object): dojo.Deferred;
+        createMap(itemInfo: Object, mapDiv: string, options?: Object): dojo.Deferred;
+        getItem(itemId : string): dojo.Deferred;
+        getLegendLayers(): Array;   
     }
 
     export class Portal {
@@ -414,9 +413,9 @@ declare module esri.arcgis {
         thumbnailUrl: string;
         url: string;
         getPortalUser(): PortalUser;
-        queryGroups(queryParams): dojo.Deferred;
-        queryItems(queryParams): dojo.Deferred;
-        queryUsers(queryParams): dojo.Deferred;
+        queryGroups(queryParams : esri.arcgis.PortalQueryParams): dojo.Deferred;
+        queryItems(queryParams : esri.arcgis.PortalQueryParams): dojo.Deferred;
+        queryUsers(queryParams : esri.arcgis.PortalQueryParams): dojo.Deferred;
         signIn(): dojo.Deferred;
         signOut(): Portal;
         onLoad(): void;
@@ -446,7 +445,7 @@ declare module esri.arcgis {
         owner: Portal;
         portal: Portal;
         snippet: string;
-        tags: String[];
+        tags: string;
         thumbnailUrl: string;
         title: string;
         url: string;
@@ -454,9 +453,9 @@ declare module esri.arcgis {
         queryItems(queryParams): dojo.Deferred;
     }
     export class PortalGroupMembers {
-        admins: String[];
+        admins: string[];
         owner: string;
-        users: String[];
+        users: string[];
     }
     export class PortalItem {
         access: string;
@@ -480,20 +479,20 @@ declare module esri.arcgis {
         size: number;
         snippet: string;
         spatialReference: string;
-        tags: String[];
+        tags: string[];
         thumbnailUrl: string;
         title: string;
         type: string;
-        typeKeywords: String[];
+        typeKeywords: string[];
         url: string;
         userItemUrl: string;
-        addComment(comment): dojo.Deferred;
-        addRating(rating): void;
-        deleteComment(comment): void;
-        deleteRating(rating): dojo.Deferred;
+        addComment(comment : string): dojo.Deferred;
+        addRating(rating : number): void;
+        deleteComment(comment: string): void;
+        deleteRating(rating : esri.arcgis.PortalRating): dojo.Deferred;
         getComments(): dojo.Deferred;
         getRating(): dojo.Deferred;
-        updateComment(comment): void;
+        updateComment(comment : esri.arcgis.PortalComment): void;
     }
     export class PortalQueryParams {
         num: string;
@@ -524,7 +523,7 @@ declare module esri.arcgis {
         preferredView: string;
         region: string;
         role: string;
-        tags: String[];
+        tags: string[];
         thumbnailUrl: string;
         userContentUrl: string;
         username: string;
@@ -534,20 +533,20 @@ declare module esri.arcgis {
         getItem(itemId): PortalItem;
         getItems(folderId): dojo.Deferred;
         getNotifications(): dojo.Deferred;
-        getTags(): void;
+        getTags(): dojo.Deferred;
     }
 }
 
 declare module esri.dijit.editing {
     export class AttachmentEditor {
-        constructor(params, srcNodeRef);
-        showAttachments(graphic, featureLayer): void;
+        constructor(params : Object, srcNodeRef : string);
+        showAttachments(graphic : esri.Graphic, featureLayer : esri.layers.FeatureLayer): void;
         startup(): void;
     }
 }
 declare module esri.dijit {
     export class AttributeInspector {
-        constructor(params, srcNodeRef);
+        constructor(params : Object, srcNodeRef : string);
         STRING_FIELD_OPTION_TEXTBOX: string;
         STRING_FIELD_OPTION_TEXTAREA: string;
         STRING_FIELD_OPTION_RICHTEXT: string;
@@ -570,58 +569,58 @@ declare module esri.dijit {
         next(): void;
         previous(): void;
         refresh(): void;
-        onAttributeChange(feature, fieldName, fieldValue): void;
-        onDelete(feature): void;
-        onNext(feature): void;
+        onAttributeChange(feature : esri.Graphic, fieldName : string, fieldValue : string): void;
+        onDelete(feature : esri.Graphic): void;
+        onNext(feature : esri.Graphic): void;
     }
     export class Attribution {
-        constructor(options, srcNodeRef);
+        constructor(options : Object, srcNodeRef : string);
         esriAttributionList: string;
         esriAttributionItem: string;
         esriAttributionLastItem: string;
         esriAttributionDelim: string;
         itemDelimiter: string;
-        itemNodes: any; //HTML Span Element;
-        listNode: any; //HTML Span Element;
+        itemNodes: HTMLSpanElement;
+        listNode: HTMLSpanElement;
         map: Map;
         destroy(): void;
     }
     export class Basemap {
-        constructor(params?);
+        constructor(params? : Object);
         id: string;
         thumbnailUrl: string;
         title: string;
         getLayers(): BasemapLayer[];
     }
     export class BasemapGallery {
-        constructor(params, srcNodeRef?);
+        constructor(params : Object, srcNodeRef? : string);
         esriBasemapGallery: string;
         esriBasemapGalleryNode: string;
         esriBasemapGallerySelectedNode: string;
         esriBasemapGalleryThumbnail: string;
         basemaps: Basemap[];
         loaded: boolean;
-        add(basemap): boolean;
+        add(basemap : esri.dijit.Basemap): boolean;
         destroy(): void;
-        get(id): Basemap;
+        get(id : string): Basemap;
         getSelected(): Basemap;
-        remove(id): Basemap;
-        select(id): Basemap;
+        remove(id : string): Basemap;
+        select(id : string): Basemap;
         startup(): void;
-        onAdd(basemap): void;
+        onAdd(basemap : esri.dijit.Basemap): void;
         onError(): void;
         onLoad(): void;
-        onRemove(basemap): void;
+        onRemove(basemap: esri.dijit.Basemap): void;
         onSelectionChange(): void;
     }
     export class BasemapLayer {
-        constructor(params?);
+        constructor(params? : Object);
     }
     export class BookmarkItem {
-        constructor(name, extent);
+        constructor(name : string, extent : esri.geometry.Extent);
     }
     export class Bookmarks {
-        constructor(params, srcNodeRef);
+        constructor(params : Object, srcNodeRef : Object);
         esriBookmarks: string;
         esriBookmarkTable: string;
         esriBookmarkItem: string;
@@ -632,10 +631,10 @@ declare module esri.dijit {
         esriAddBookmark: string;
         esriBookmarkHighlight: string;
         bookmarks: BookmarkItem;
-        addBookmark(bookmarkItem): void;
+        addBookmark(bookmarkItem : esri.dijit.BookmarkItem): void;
         destroy(): void;
         hide(): void;
-        removeBookmark(bookmarkName): void;
+        removeBookmark(bookmarkName : string): void;
         show(): void;
         toJson(): Object;
         onClick(): void;
@@ -643,7 +642,7 @@ declare module esri.dijit {
         onRemove(): void;
     }
     export class Directions {
-        constructor(params, srcNodeRef);
+        constructor(params : Object, srcNodeRef : string);
         esriDirectionsContainer: string;
         esriStopsContainer: string;
         esriStopsReverse: string;
@@ -699,31 +698,33 @@ declare module esri.dijit {
         mergedRouteGraphic: Graphic;
         stops: Graphic[];
         theme: string;
-        addStop(stop, index): dojo.Deferred;
-        addStops(stops, index): dojo.Deferred;
-        centerAtSegmentStart(index): void;
+        addStop(stop :Array, index : number): dojo.Deferred;
+        addStop(stop : esri.geometry.Point, index : number): dojo.Deferred;
+        addStops(stops : Array, index: number): dojo.Deferred;
+        centerAtSegmentStart(index : number): void;
         clearDirections(): void;
         destroy(): void;
         getDirections(): dojo.Deferred;
-        highlightSegment(index): void;
-        removeStop(index): dojo.Deferred;
+        highlightSegment(index : number): void;
+        removeStop(index : number): dojo.Deferred;
         removeStops(): void;
         reset(): void;
         startup(): void;
         unhighlightSegment(): void;
-        updateStop(stop, index): dojo.Deferred;
-        updateStops(stops): dojo.Deferred;
+        updateStop(stop : string, index: number): dojo.Deferred;
+        updateStop(stop : esri.geometry.Point, index: number): dojo.Deferred;
+        updateStops(stops: Array<esri.geometry.Point>): dojo.Deferred;
         zoomToFullRoute(): void;
-        zoomToSegment(index): void;
+        zoomToSegment(index : number): void;
         onDirectionsClear(): void;
-        onDirectionsFinish(result): void;
+        onDirectionsFinish(result : esri.tasks.RouteResult): void;
         onDirectionsStart(): void;
         onLoad(): void;
-        onSegmentHighlight(graphic): void;
-        onSegmentSelect(graphic): void;
+        onSegmentHighlight(graphic : esri.Graphic): void;
+        onSegmentSelect(graphic : esri.Graphic): void;
     }
     export class Editor {
-        constructor(params, srcNodeRef);
+        constructor(params : Object, srcNodeRef : Object);
         CREATE_TOOL_FREEHAND_POLYGON: string;
         CREATE_TOOL_POLYGON: string;
         CREATE_TOOL_AUTOCOMPLETE: string;
@@ -736,9 +737,9 @@ declare module esri.dijit {
         CREATE_TOOL_ELLIPSE: string;
     }
     export class Gallery {
-        constructor(params, srcNodeRef);
+        constructor(params : Object, srcNodeRef : string);
         esriMobileGallery: string;
-        //esriMobileGallery.galleryLandscape : string;
+        //esriMobileGallery.galleryLandscape : string; // TODO FLE : remove CSS Stuff
         //esriMobileGallery.thumbnailContainer : string;
         //esriMobileGallery .thumbnailContainer.small : string;
         //esriMobileGallery .thumbnail : string;
@@ -752,22 +753,23 @@ declare module esri.dijit {
         getSelectedItem(): Object;
         next(): void;
         previous(): void;
-        select(item): void;
-        setFocus(item): void;
+        select(item : Object): void;
+        setFocus(item : Object): void;
         startup(): void;
-        onFocus(item): void;
-        onSelect(item): void;
+        onFocus(item : Object): void;
+        onSelect(item : Object): void;
     }
     export class Gauge {
-        constructor(params, srcNodeRef);
+        constructor(params : Object, srcNodeRef : string);
         gaugeContainer: string;
         destroy(): void;
-        get(): number; //varies;
-        set(): number; //varies;
+        get(): any; //varies;
+        set(): any; //varies;
         startup(): void;
     }
     export class Geocoder {
-        constructor(params, srcNodeRef);
+        constructor(params: Object, srcNodeRef: string);
+        constructor(params: Object, srcNodeRef: Node);
         esriGeocoder: string;
         esriGeocoderMultiple: string;
         esriGeocoderContainer: string;
@@ -811,17 +813,18 @@ declare module esri.dijit {
         find(): dojo.Deferred;
         focus(): void;
         hide(): void;
-        select(result): void;
+        select(result : Object): void;
         show(): void;
         startup(): void;
-        onAutoComplete(results): void;
+        onAutoComplete(results : Object): void;
         onClear(): void;
-        onFindResults(results): void;
-        onGeocoderSelect(geocoder): void;
-        onSelect(results): void;
+        onFindResults(results: Object): void;
+        onGeocoderSelect(geocoder: Object): void;
+        onSelect(results: Object): void;
     }
     export class InfoWindow {
-        constructor(params, srcNodeRef);
+        constructor(params: Object, srcNodeRef: string);
+        constructor(params: Object, srcNodeRef: Node);
         ANCHOR_UPPERRIGHT: string;
         ANCHOR_LOWERRIGHT: string;
         ANCHOR_LOWERLEFT: string;
@@ -833,21 +836,24 @@ declare module esri.dijit {
         isShowing: boolean;
         destroyDijits(): void;
         hide(): void;
-        move(point): void;
-        place(value, parentNode): void;
+        move(point : esri.geometry.Point): void;
+        place(value: string, parentNode: Node): void;
+        place(value: Node, parentNode: Node): void;
         resize(width : number, height : number): void;
-        setContent(content): InfoWindow;
-        setFixedAnchor(anchor): void;
+        setContent(content: string): InfoWindow;
+        setContent(content: Object): InfoWindow;
+        setFixedAnchor(anchor : string): void;
         setMap(map : esri.Map): void;
-        setTitle(title): InfoWindow;
-        show(point, location, placement): void;
+        setTitle(title: string): InfoWindow;
+        setTitle(title: Object): InfoWindow;
+        show(point: esri.geometry.Point, location : esri.geometry.Point, placement? : string): void;
         startupDijits(): void;
         unsetMap(map : esri.Map): void;
         onHide(): void;
         onShow(): void;
     }
     export class Legend {
-        constructor(srcNodeRef, params);
+        constructor(srcNodeRef : string, params : Object); // TO CHECK : in esri code sample parameters are inversed..??
         esriLegendService: string;
         esriLegendServiceLabel: string;
         esriLegendGroupLayer: string;
@@ -858,7 +864,7 @@ declare module esri.dijit {
         startup(): void;
     }
     export class Measurement {
-        constructor(params, srcNodeRef);
+        constructor(params : Object, srcNodeRef : string);
         distanceIcon: string;
         areaIcon: string;
         locationIcon: string;
@@ -868,22 +874,22 @@ declare module esri.dijit {
         clearResult(): void;
         destroy(): void;
         hide(): void;
-        hideTool(toolName): void;
-        setTool(toolName, activate): void;
+        hideTool(toolName : string): void;
+        setTool(toolName : string, activate : boolean): void;
         show(): void;
-        showTool(toolName): void;
+        showTool(toolName : string): void;
         startup(): void;
-        onMeasureEnd(activeToolName, geometry): void;
+        onMeasureEnd(activeToolName : string, geometry : esri.geometry.Geometry): void;
     }
     export class OverviewMap {
-        constructor(params, srcNodeRef);
+        constructor(params : Object, srcNodeRef : Object);
         destroy(): void;
         hide(): void;
         show(): void;
         startup(): void;
     }
     export class Popup {
-        constructor(options: Object, srcNodeRef);
+        constructor(options: Object, srcNodeRef : string);
         count: number;
         deferreds: dojo.Deferred[];
         domNode: Object;
@@ -896,16 +902,20 @@ declare module esri.dijit {
         getSelectedFeature(): Graphic;
         hide(): void;
         maximize(): void;
-        place(value, parentNode): void;
+        place(value : string, parentNode : Node): void;
+        place(value : Node, parentNode : Node): void;
         reposition(): void;
         resize(width: number, height: number): void;
         restore(): void;
-        select(index): void;
-        setContent(content: any): void;
-        setFeatures(features): any[];// esri.Graphic[] | dojo.Deferred[];
+        select(index : number): void;
+        setContent(content: string): void;
+        setContent(content: Object): void;
+        setContent(content: Function): void;
+        setFeatures(features : esri.Graphic[]): esri.Graphic[];
+        setFeatures(features : dojo.Deferred[]): dojo.Deferred[];
         setMap(map : esri.Map): void;
         setTitle(title: string): void;
-        show(location, options): void;
+        show(location : esri.geometry.Point, options?: Object): void;
         startupDijits(): void;
         unsetMap(map : esri.Map): void;
         onClearFeatures(): void;
@@ -917,20 +927,23 @@ declare module esri.dijit {
         onShow(): void;
     }
     export class PopupMobile {
-        constructor(options: Object, srcNodeRef);
+        constructor(options: Object, srcNodeRef : string);
+        constructor(options: Object, srcNodeRef : Node);
         titlePane: string;
         //pointer.top : string;
         //pointer.bottom : string;
-        esriMobileNavigationBar: string;
+        //esriMobileNavigationBar: string;
         clearFeatures(): void;
         destroy(): void;
         getSelectedFeature(): Graphic;
         hide(): void;
         select(index): void;
-        setContent(content): void;
-        setFeatures(features): any[]; //Graphics[] | dojo.Deferred[];
-        setTitle(title): void;
-        show(location): void;
+        setContent(content : string): void;
+        setContent(content : Function): void;
+        setFeatures(features : esri.Graphic[]): esri.Graphic[];
+        setFeatures(features : dojo.Deferred[]): dojo.Deferred[];
+        setTitle(title : string): void;
+        show(location : esri.geometry.Point): void;
         onClearFeatures(): void;
         onHide(): void;
         onSelectionChange(): void;
@@ -938,11 +951,11 @@ declare module esri.dijit {
         onShow(): void;
     }
     export class PopupTemplate {
-        constructor(popupInfo, options?);
+        constructor(popupInfo : Object, options? : Object);
         info: Object;
     }
     export class Print {
-        constructor(params, srcNodeRef);
+        constructor(params : Object, srcNodeRef : Object);
         esriPrint: string;
         esriPrintButton: string;
         esriPrintout: string;
@@ -951,11 +964,11 @@ declare module esri.dijit {
         show(): void;
         startup(): void;
         onError(error): void;
-        onPrintComplete(value): void;
+        onPrintComplete(value : Object): void;
         onPrintStart(): void;
     }
     export class Scalebar {
-        constructor(params, srcNodeRef?);
+        constructor(params : Object, srcNodeRef? : string);
         esriScalebar: string;
         esriScalebarRuler: string;
         esriScalebarLabel: string;
@@ -966,7 +979,7 @@ declare module esri.dijit {
         show(): void;
     }
     export class TemplatePicker {
-        constructor(params, srcNodeRef);
+        constructor(params : Object, srcNodeRef : Object);
         templatePicker: string;
         // grid : string; // TODO FLE : remove all CSS stuff !!!
         groupLabel: string;
@@ -977,7 +990,7 @@ declare module esri.dijit {
         // tooltip : string; // TODO FLE : remove all CSS stuff !!!
         grid: dojox.grid.DataGrid;
         tooltip: any; //div;
-        attr(name, value): void;
+        attr(name : string, value? : Object): void;
         clearSelection(): void;
         destroy(): void;
         getSelected(): Object;
@@ -986,30 +999,33 @@ declare module esri.dijit {
         onSelectionChange(): void;
     }
     export class TimeSlider {
-        constructor(params, srcNodeRef);
+        constructor(params: string, srcNodeRef: Object);
         loop: boolean;
         playing: boolean;
         thumbCount: number;
         thumbMovingRate: number;
         timeStops: Date[];
-        createTimeStopsByCount(timeExtent, count): void;
-        createTimeStopsByTimeInterval(timeExtent, timeInterval, timeIntervalUnits): void;
+        createTimeStopsByCount(timeExtent: esri.TimeExtent, count?: number): void;
+        createTimeStopsByTimeInterval(timeExtent: esri.TimeExtent, timeInterval?: number, timeIntervalUnits?: string): void;
         getCurrentTimeExtent(): TimeExtent;
         next(): void;
         pause(): void;
         play(): void;
         previous(): void;
-        setLabels(labels): void;
-        setLoop(loop): void;
-        setThumbCount(thumbCount): void;
-        setThumbIndexes(indexes): void;
-        setThumbMovingRate(thumbMovingRate): void;
-        setTickCount(count): void;
-        setTimeStops(timeStops): void;
-        singleThumbAsTimeInstant(createTimeInstants): void;
-        onTimeExtentChange(timeExtent): void;
+        setLabels(labels: string[]): void;
+        setLoop(loop: boolean): void;
+        setThumbCount(thumbCount: number): void;
+        setThumbIndexes(indexes: Array<number>): void;
+        setThumbMovingRate(thumbMovingRate: number): void;
+        setTickCount(count: number): void;
+        setTimeStops(timeStops: Date[]): void;
+        singleThumbAsTimeInstant(createTimeInstants : boolean): void;
+        onTimeExtentChange(timeExtent : esri.TimeExtent): void;
     }
 }
+
+// fleray : TODOXXX : Modules checked till there
+
 declare module esri.geometry {
     export function fromJson(json : Object) : Object;
     export function geodesicAreas(polygons,areaUnit) : number[];
@@ -1149,7 +1165,7 @@ declare module esri.layers {
         imageFormat: string;
         imageTransparency: boolean;
         initialExtent: esri.geometry.Extent;
-        layerDefinitions: String[];
+        layerDefinitions: string[];
         layerDrawingOptions: LayerDrawingOptions[];
         layerInfos: LayerInfo[];
         layerTimeOptions: LayerTimeOptions[];
@@ -1721,7 +1737,7 @@ declare module esri.layers {
         format: string;
         height: number;
         imageSpatialReference: SpatialReference;
-        layerDefinitions: String[];
+        layerDefinitions: string[];
         layerIds: void;
         layerOption: string;
         layerTimeOptions: LayerTimeOptions[];
@@ -2017,7 +2033,7 @@ declare module esri.layers {
     export class QueryDataSource {
         constructor(json?);
         geometryType: string;
-        oidFields: String[];
+        oidFields: string[];
         query: string;
         spatialReference: SpatialReference;
         workspaceId: string;
@@ -2561,7 +2577,7 @@ declare module esri.tasks {
     }
     export class ClosestFacilityParameters {
         constructor();
-        accumulateAttributes: String[];
+        accumulateAttributes: string[];
         attributeParameterValues: Object[];
         defaultCutoff: number;
         defaultTargetFacilityCount: number;
@@ -2582,7 +2598,7 @@ declare module esri.tasks {
         polygonBarriers: void;
         polylineBarriers: void;
         restrictUTurns: string;
-        restrictionAttributes: String[];
+        restrictionAttributes: string[];
         returnDirections: boolean;
         returnFacilities: boolean;
         returnIncidents: boolean;
@@ -2673,12 +2689,12 @@ declare module esri.tasks {
         constructor();
         contains: boolean;
         dynamicLayerInfos: esri.layers.DynamicLayerInfo[];
-        layerDefinitions: String[];
+        layerDefinitions: string[];
         layerIds: void;
         maxAllowableOffset: number;
         outSpatialReference: SpatialReference;
         returnGeometry: boolean;
-        searchFields: String[];
+        searchFields: string[];
         searchText: string;
     }
     export class FindResult {
@@ -2846,7 +2862,7 @@ declare module esri.tasks {
         dynamicLayerInfos: esri.layers.DynamicLayerInfo[];
         geometry: esri.geometry.Geometry;
         height: number;
-        layerDefinitions: String[];
+        layerDefinitions: string[];
         layerIds: void;
         layerOption: string;
         layerTimeOptions: esri.layers.LayerTimeOptions[];
@@ -2916,7 +2932,7 @@ declare module esri.tasks {
     export class LegendLayer {
         constructor();
         layerId: string;
-        subLayerIds: String[];
+        subLayerIds: string[];
     }
     export class LengthsParameters {
         constructor();
@@ -3042,10 +3058,10 @@ declare module esri.tasks {
         SPATIAL_REL_RELATION: string;
         geometry: esri.geometry.Geometry;
         geometryPrecision: number;
-        groupByFieldsForStatistics: String[];
+        groupByFieldsForStatistics: string[];
         maxAllowableOffset: number;
         objectIds: number[];
-        orderByFields: String[];
+        orderByFields: string[];
         outFields: void;
         outSpatialReference: SpatialReference;
         outStatistics: StatisticDefinition[];
@@ -3112,7 +3128,7 @@ declare module esri.tasks {
     }
     export class RouteParameters {
         constructor();
-        accumulateAttributes: String[];
+        accumulateAttributes: string[];
         attributeParameterValues: Object[];
         barriers: Object;
         directionsLanguage: string;
@@ -3133,7 +3149,7 @@ declare module esri.tasks {
         preserveFirstStop: boolean;
         preserveLastStop: boolean;
         restrictUTurns: string;
-        restrictionAttributes: String[];
+        restrictionAttributes: string[];
         returnBarriers: boolean;
         returnDirections: void;
         returnPolygonBarriers: boolean;
@@ -3161,11 +3177,11 @@ declare module esri.tasks {
     }
     export class ServiceAreaParameters {
         constructor();
-        accumulateAttributes: String[];
+        accumulateAttributes: string[];
         attributeParameterValues: Object[];
         defaultBreaks: number[];
         doNotLocateOnRestrictedElements: boolean;
-        excludeSourcesFromPolygons: String[];
+        excludeSourcesFromPolygons: string[];
         facilities: void;
         impedanceAttribute: string;
         mergeSimilarPolygonRanges: boolean;
@@ -3180,7 +3196,7 @@ declare module esri.tasks {
         polygonBarriers: void;
         polylineBarriers: void;
         restrictUTurns: void;
-        restrictionAttributes: String[];
+        restrictionAttributes: string[];
         returnFacilities: boolean;
         returnPointBarriers: boolean;
         returnPolygonBarriers: boolean;
