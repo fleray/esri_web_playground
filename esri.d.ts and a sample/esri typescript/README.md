@@ -49,7 +49,7 @@ Quick FAQ :
 
  - Do I have to have Microsoft Visual Studio 2012 ?
  
-	No you don't. Although Microsoft Visual Studio 2012 is the most integrated IDE with TypeScript (code completion, highlighting...), you can use install and use TypeScript with SublimeText, Emacs or Vim). For more details : http://msopentech.com/blog/2012/10/01/sublime-text-vi-emacs-typescript-enabled
+	No you don't. Although Microsoft Visual Studio 2012 is the most integrated IDE with TypeScript (code completion, highlighting...), you can install and use TypeScript with SublimeText, Emacs or Vim). For more details : http://msopentech.com/blog/2012/10/01/sublime-text-vi-emacs-typescript-enabled
 
  - Can I contribute to this developement ?
 
