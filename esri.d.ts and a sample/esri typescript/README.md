@@ -44,7 +44,7 @@ Quick FAQ :
 
  - Why this development ?
  
-	To be used in TypeScript, each library must have a given definition  file (an XXX.d.ts file where XX stands for the name of the associated JavaScript library).
+	To be used in TypeScript, each library must have a given definition  file (an XXX.d.ts file where XXX stands for the name of the associated JavaScript library).
 	Here is proposed a TypeScript definition file for the esri Javascript library named "ArcGIS API for JavaScript Version 3.4"
 
  - Do I have to have Microsoft Visual Studio 2012 ?
