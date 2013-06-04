@@ -1,9 +1,9 @@
-<i>This document is under MIT License (see main license file).</p>
-Typescript definition file for ArcGIS API for JavaScript Version 3.4</p>
-Associated API : http://developers.arcgis.com/en/javascript/</p>
-Git repo : https://github.com/fleray/esri_web_playground.git</p>
-Email : fabrice.leray.dev(at)gmail(dot)com</p>
-Copyright (c) 2013 Fabrice Leray </i></p>
+<i>This document is under MIT License (see main license file).</i></p>
+<i>Typescript definition file for ArcGIS API for JavaScript Version 3.4</i></p>
+<i>Associated API : http://developers.arcgis.com/en/javascript/</i></p>
+<i>Git repo : https://github.com/fleray/esri_web_playground.git</i></p>
+<i>Email : fabrice.leray.dev(at)gmail(dot)com</i></p>
+<i>Copyright (c) 2013 Fabrice Leray </i></p>
 
 The esri TypeScript definition file (esri.d.ts) is inside the definition_typescripts folder. Also in this foler is the dojo.d.ts file for the dojo dependency.
 
