@@ -37,10 +37,10 @@ Quick FAQ :
 
  - What is TypeScript ?
  
-As it is said on the TypeScript web site (http://www.typescriptlang.org/) : 
-"TypeScript is a language for application-scale JavaScript development.
-TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
-Any browser. Any host. Any OS. Open Source."
+	As it is said on the TypeScript web site (http://www.typescriptlang.org/) : 
+	"TypeScript is a language for application-scale JavaScript development.
+	TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
+	Any browser. Any host. Any OS. Open Source."
 
  - Why this development ?
  
