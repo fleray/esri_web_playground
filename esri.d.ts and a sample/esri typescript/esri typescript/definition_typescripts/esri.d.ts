@@ -822,7 +822,7 @@ declare module esri.dijit {
         onGeocoderSelect(geocoder: Object): void;
         onSelect(results: Object): void;
     }
-    export class InfoWindow {
+    export class InfoWindow extends InfoWindowBase {
         constructor(params: Object, srcNodeRef: string);
         constructor(params: Object, srcNodeRef: Node);
         ANCHOR_UPPERRIGHT: string;
@@ -846,6 +846,7 @@ declare module esri.dijit {
         setMap(map : esri.Map): void;
         setTitle(title: string): InfoWindow;
         setTitle(title: Object): InfoWindow;
+        show(point: esri.geometry.Point): void;
         show(point: esri.geometry.Point, location : esri.geometry.Point, placement? : string): void;
         startupDijits(): void;
         unsetMap(map : esri.Map): void;
@@ -888,7 +889,7 @@ declare module esri.dijit {
         show(): void;
         startup(): void;
     }
-    export class Popup {
+    export class Popup extends InfoWindowBase {
         constructor(options: Object, srcNodeRef : string);
         count: number;
         deferreds: dojo.Deferred[];
@@ -926,7 +927,7 @@ declare module esri.dijit {
         onSetFeatures(): void;
         onShow(): void;
     }
-    export class PopupMobile {
+    export class PopupMobile extends InfoWindowBase {
         constructor(options: Object, srcNodeRef : string);
         constructor(options: Object, srcNodeRef : Node);
         titlePane: string;
@@ -950,7 +951,7 @@ declare module esri.dijit {
         onSetFeatures(): void;
         onShow(): void;
     }
-    export class PopupTemplate {
+    export class PopupTemplate extends InfoTemplate {
         constructor(popupInfo : Object, options? : Object);
         info: Object;
     }
@@ -1024,31 +1025,29 @@ declare module esri.dijit {
     }
 }
 
-// fleray : TODOXXX : Modules checked till there
-
 declare module esri.geometry {
     export function fromJson(json : Object) : Object;
-    export function geodesicAreas(polygons,areaUnit) : number[];
-    export function geodesicDensify(geometry,maxSegmentLength) : esri.geometry.Geometry;
-    export function geodesicLengths(polylines,lengthUnit) : number[];
-    export function geographicToWebMercator(geometry) : esri.geometry.Geometry;
-    export function getExtentForScale(map,scale) : esri.geometry.Extent;
-    export function getJsonType(geometry) : string;
-    export function getLength(point1,point2) : number;
-    export function getLineIntersection(line1start,line1end,line2start,line2end) : esri.geometry.Point;
+    export function geodesicAreas(polygons : esri.geometry.Geometry[], areaUnit : esri.Units) : number[];
+    export function geodesicDensify(geometry : esri.geometry.Geometry, maxSegmentLength : number) : esri.geometry.Geometry;
+    export function geodesicLengths(polylines : esri.geometry.Polyline[], lengthUnit : esri.Units) : number[];
+    export function geographicToWebMercator(geometry : esri.geometry.Geometry) : esri.geometry.Geometry;
+    export function getExtentForScale(map : esri.Map, scale : number) : esri.geometry.Extent;
+    export function getJsonType(geometry : esri.geometry.Geometry) : string;
+    export function getLength(point1: esri.geometry.Point, point2 : esri.geometry.Point) : number;
+    export function getLineIntersection(line1start: esri.geometry.Point, line1end: esri.geometry.Point, line2start: esri.geometry.Point, line2end: esri.geometry.Point) : esri.geometry.Point;
     export function getScale(map : esri.Map) : number;
-    export function isClockwise(ring) : void;
-    export function lngLatToXY(long,lat,isLinear) : number[];
-    export function normalizeCentralMeridian(geometries,geometryService,callback,errback) : dojo.Deferred;
-    export function polygonSelfIntersecting(polygon) : boolean;
-    export function toMapGeometry(extent,width,height,mapGeometry) : esri.geometry.Geometry;
-    export function toMapPoint(extent,width,height,screenPoint) : esri.geometry.Point;
-    export function toScreenGeometry(extent,width,height,screenGeometry) : esri.geometry.Geometry;
-    export function toScreenPoint(extent,width,height,mapPoint) : ScreenPoint;
-    export function webMercatorToGeographic(geometry) : esri.geometry.Geometry;
-    export function xyToLngLat(long,lat) : number[];
+    export function isClockwise(ring : any) : boolean; // any for Ring
+    export function lngLatToXY(long : number,lat : number,isLinear : boolean) : number[];
+    export function normalizeCentralMeridian(geometries: esri.geometry.Geometry[], geometryService : esri.tasks.GeometryService, callback : Function,errback : Function) : dojo.Deferred;
+    export function polygonSelfIntersecting(polygon : esri.geometry.Polygon) : boolean;
+    export function toMapGeometry(extent : esri.geometry.Extent,width : number,height : number,mapGeometry: esri.geometry.Geometry) : esri.geometry.Geometry;
+    export function toMapPoint(extent: esri.geometry.Extent,width : number,height : number,screenPoint : esri.geometry.ScreenPoint) : esri.geometry.Point;
+    export function toScreenGeometry(extent: esri.geometry.Extent, width: number, height: number, screenGeometry : esri.geometry.Geometry) : esri.geometry.Geometry;
+    export function toScreenPoint(extent: esri.geometry.Extent, width: number, height: number,mapPoint : esri.geometry.Point) : ScreenPoint;
+    export function webMercatorToGeographic(geometry: esri.geometry.Geometry) : esri.geometry.Geometry;
+    export function xyToLngLat(long : number,lat : number) : number[];
 
-    export class Extent {
+    export class Extent extends Geometry {
         constructor(xmin: number, ymin: number, xmax: number, ymax: number, spatialReference : esri.SpatialReference);
         constructor(json : Object);
         spatialReference: SpatialReference;
@@ -1057,100 +1056,105 @@ declare module esri.geometry {
         xmin: number;
         ymax: number;
         ymin: number;
-        static centerAt(point): esri.geometry.Extent;
-        contains(geometry): boolean;
-        expand(factor): esri.geometry.Extent;
+        static centerAt(point : esri.geometry.Point): esri.geometry.Extent;
+        contains(geometry: esri.geometry.Geometry): boolean;
+        expand(factor : number): esri.geometry.Extent;
         getCenter(): esri.geometry.Point;
         getHeight(): number;
         getWidth(): number;
-        intersects(geometry): any; // esri.geometry.Extent or boolean;
-        offset(dx, dy): esri.geometry.Extent;
-        setSpatialReference(sr): esri.geometry.Geometry;
+        intersects(geometry: esri.geometry.Geometry): boolean;
+        intersects(extent: esri.geometry.Extent): esri.geometry.Extent;
+        offset(dx: number, dy : number): esri.geometry.Extent;
+        setSpatialReference(sr : esri.SpatialReference): esri.geometry.Geometry;
         toJson(): Object;
-        union(extent): esri.geometry.Extent;
-        update(xmin, ymin, xmax, ymax, spatialReference): esri.geometry.Extent;
+        union(extent : esri.geometry.Extent): esri.geometry.Extent;
+        update(xmin: number, ymin: number, xmax: number, ymax: number, spatialReference : esri.SpatialReference): esri.geometry.Extent;
     }
     export class Geometry {
         spatialReference: SpatialReference;
         type: string;
-        setSpatialReference(sr): esri.geometry.Geometry;
+        setSpatialReference(sr : esri.SpatialReference): esri.geometry.Geometry;
         toJson(): Object;
     }
-    export class Multipoint {
+    export class Multipoint extends Geometry {
         constructor(spatialReference: esri.SpatialReference);
         constructor(json: string);
         points: number[][];
         spatialReference: SpatialReference;
         type: string;
-        addPoint(): Multipoint;
+        addPoint(point : esri.geometry.Point): Multipoint;
         getExtent(): esri.geometry.Extent;
-        getPoint(index): esri.geometry.Point;
-        removePoint(index): esri.geometry.Point;
-        setPoint(index, point): Multipoint;
-        setSpatialReference(sr): esri.geometry.Geometry;
+        getPoint(index : number): esri.geometry.Point;
+        removePoint(index : number): esri.geometry.Point;
+        setPoint(index : number, point : esri.geometry.Point): Multipoint;
+        setSpatialReference(sr : esri.SpatialReference): esri.geometry.Geometry;
         toJson(): Object;
     }
-    export class Point {
+    export class Point extends Geometry {
         constructor(x: number, y: number, spatialReference: esri.SpatialReference);
         constructor(xy: number[], spatialReference: esri.SpatialReference);
-        constructor(json: string);
+        constructor(json: Object);
         constructor(long: number, lat: number);
+        constructor(pointXY : number[]);
         constructor(point: esri.geometry.Point);
-        // constructor(point);
         spatialReference: SpatialReference;
         type: string;
         x: number;
         y: number;
         getLatitude(): number;
         getLongitude(): number;
-        offset(dx, dy): esri.geometry.Point;
-        setLatitude(lat): esri.geometry.Point;
-        setLongitude(lon): esri.geometry.Point;
-        setSpatialReference(sr): esri.geometry.Geometry;
-        setX(x): esri.geometry.Point;
-        setY(y): esri.geometry.Point;
+        offset(dx : number, dy : number): esri.geometry.Point;
+        setLatitude(lat : number): esri.geometry.Point;
+        setLongitude(lon : number): esri.geometry.Point;
+        setSpatialReference(sr : esri.SpatialReference): esri.geometry.Geometry;
+        setX(x : number): esri.geometry.Point;
+        setY(y : number): esri.geometry.Point;
         toJson(): Object;
-        update(x, y): esri.geometry.Point;
+        update(x : number, y : number): esri.geometry.Point;
     }
-    export class Polygon {
+    export class Polygon extends Geometry {
         constructor(spatialReference: esri.SpatialReference);
         constructor(json: Object);
         rings: number[][][];
         spatialReference: esri.SpatialReference;
         type: string;
-        addRing(): esri.geometry.Polygon;
-        contains(point): boolean;
+        addRing(ringAsArrayOfLatLon : number[][]): esri.geometry.Polygon;
+        addRing(ringAsArrayOfPoints : esri.geometry.Point[]): esri.geometry.Polygon;
+        addRing(json : Object): esri.geometry.Polygon;
+        contains(point : esri.geometry.Point): boolean;
         getExtent(): esri.geometry.Extent;
-        getPoint(ringIndex, pointIndex): esri.geometry.Point;
-        insertPoint(ringIndex, pointIndex, point): esri.geometry.Polygon;
-        removePoint(ringIndex, pointIndex): esri.geometry.Point;
-        removeRing(ringIndex): esri.geometry.Point[];
-        setPoint(ringIndex, pointIndex, point): esri.geometry.Polygon;
-        setSpatialReference(sr): esri.geometry.Geometry;
+        getPoint(ringIndex : number, pointIndex : number): esri.geometry.Point;
+        insertPoint(ringIndex : number, pointIndex : number, point : esri.geometry.Point): esri.geometry.Polygon;
+        removePoint(ringIndex : number, pointIndex : number): esri.geometry.Point;
+        removeRing(ringIndex : number): esri.geometry.Point[];
+        setPoint(ringIndex: number, pointIndex: number, point : esri.geometry.Point): esri.geometry.Polygon;
+        setSpatialReference(sr : esri.SpatialReference): esri.geometry.Geometry;
         toJson(): Object;
     }
-    export class Polyline {
+    export class Polyline extends Geometry {
         constructor(spatialReference: esri.SpatialReference);
-        constructor(json: string);
+        constructor(json: Object);
         paths: number[][][];
         spatialReference: SpatialReference;
         type: string;
-        addPath(): esri.geometry.Polyline;
+        addPath(pathAsArrayOfLatLon: number[][]): esri.geometry.Polyline;
+        addPath(pathAsArrayOfPoints: esri.geometry.Point[]): esri.geometry.Polyline;
+        addPath(json: Object): esri.geometry.Polygon;
         getExtent(): esri.geometry.Extent;
-        getPoint(pathIndex, pointIndex): esri.geometry.Point;
-        insertPoint(pathIndex, pointIndex, point): esri.geometry.Polyline;
-        removePath(pathIndex): esri.geometry.Point[];
-        removePoint(pathIndex, pointIndex): esri.geometry.Point;
-        setPoint(pathIndex, pointIndex, point): esri.geometry.Polyline;
-        setSpatialReference(sr): esri.geometry.Geometry;
+        getPoint(pathIndex : number, pointIndex : number): esri.geometry.Point;
+        insertPoint(pathIndex: number, pointIndex: number, point : esri.geometry.Point): esri.geometry.Polyline;
+        removePath(pathIndex: number): esri.geometry.Point[];
+        removePoint(pathIndex: number, pointIndex: number): esri.geometry.Point;
+        setPoint(pathIndex: number, pointIndex: number, point : esri.geometry.Point): esri.geometry.Polyline;
+        setSpatialReference(sr : esri.SpatialReference): esri.geometry.Geometry;
         toJson(): Object;
     }
-    export class ScreenPoint {
+    export class ScreenPoint extends Point {
     }
 }
 declare module esri.layers {
-    export class ArcGISDynamicMapServiceLayer {
-        constructor(url, options?);
+    export class ArcGISDynamicMapServiceLayer extends DynamicMapServiceLayer {
+        constructor(url : string, options? : Object);
         attributionDataUrl: string;
         capabilities: string;
         copyright: string;
@@ -1166,10 +1170,10 @@ declare module esri.layers {
         imageTransparency: boolean;
         initialExtent: esri.geometry.Extent;
         layerDefinitions: string[];
-        layerDrawingOptions: LayerDrawingOptions[];
-        layerInfos: LayerInfo[];
-        layerTimeOptions: LayerTimeOptions[];
-        loaded: void;
+        layerDrawingOptions: esri.layers.LayerDrawingOptions[];
+        layerInfos: esri.layers.LayerInfo[];
+        layerTimeOptions: esri.layers.LayerTimeOptions[];
+        loaded: boolean;
         maxImageHeight: number;
         maxImageWidgth: number;
         maxRecordCount: number;
@@ -1179,7 +1183,7 @@ declare module esri.layers {
         showAttribution: boolean;
         spatialReference: esri.SpatialReference;
         suspended: boolean;
-        timeInfo: TimeInfo;
+        timeInfo: esri.layers.TimeInfo;
         units: string;
         url: void;
         useMapImage: boolean;
@@ -1188,46 +1192,46 @@ declare module esri.layers {
         visibleAtMapScale: boolean;
         visibleLayers: number[];
         createDynamicLayerInfosFromLayerInfos(): DynamicLayerInfo[];
-        exportMapImage(imageParameters, callback): void;
+        exportMapImage(imageParameters: esri.layers.ImageParameters, callback : Function): void;
         getAttributionData(): dojo.Deferred;
-        getImageUrl(extent, width : number, height : number, callback): string;
+        getImageUrl(extent : esri.geometry.Extent, width : number, height : number, callback : Function): string;
         hide(): void;
-        isVisibleAtScale(scale): boolean;
+        isVisibleAtScale(scale : number): boolean;
         refresh(): void;
         resume(): void;
-        setDPI(dpi, doNotRefresh): void;
-        setDefaultLayerDefinitions(doNotRefresh): void;
-        setDefaultVisibleLayers(doNotRefresh): void;
-        setDisableClientCaching(disable): void;
-        setDynamicLayerInfos(dynamicLayerInfos, doNotRefresh): void;
-        setGDBVersion(gdbVersion, doNotRefresh): void;
-        setImageFormat(imageFormat, doNotRefresh): void;
-        setImageTransparency(transparent, doNotRefresh): void;
-        setLayerDefinitions(layerDefinitions, doNotRefresh): void;
-        setLayerDrawingOptions(layerDrawingOptions, doNotRefresh): void;
-        setLayerTimeOptions(options, doNotRefresh): void;
-        setMaxScale(scale): void;
-        setMinScale(scale): void;
-        setOpacity(): void;
+        setDPI(dpi : number, doNotRefresh? : boolean): void;
+        setDefaultLayerDefinitions(doNotRefresh?: boolean): void;
+        setDefaultVisibleLayers(doNotRefresh?: boolean): void;
+        setDisableClientCaching(disable: boolean): void;
+        setDynamicLayerInfos(dynamicLayerInfos: esri.layers.DynamicLayerInfo[], doNotRefresh?: boolean): void;
+        setGDBVersion(gdbVersion : string, doNotRefresh?: boolean): void;
+        setImageFormat(imageFormat: string, doNotRefresh?: boolean): void;
+        setImageTransparency(transparent: boolean, doNotRefresh?: boolean): void;
+        setLayerDefinitions(layerDefinitions: string[], doNotRefresh?: boolean): void;
+        setLayerDrawingOptions(layerDrawingOptions : esri.layers.LayerDrawingOptions[], doNotRefresh?: boolean): void;
+        setLayerTimeOptions(options : esri.layers.LayerTimeOptions[], doNotRefresh?: boolean): void;
+        setMaxScale(scale : number): void;
+        setMinScale(scale : number): void;
+        setOpacity(valueBetweenZeroAndOne: number): void;
         setScaleRange(minScale: number, maxScale: number): void;
-        setUseMapTime(update): void;
-        setVisibility(isVisible): void;
-        setVisibleLayers(ids, doNotRefresh): void;
+        setUseMapTime(update : boolean): void;
+        setVisibility(isVisible : boolean): void;
+        setVisibleLayers(ids: number[], doNotRefresh?: boolean): void;
         show(): void;
         suspend(): void;
-        onError(error): void;
+        onError(error: Error): void;
         onGDBVersionChange(): void;
         onLoad(layer : esri.layers.Layer): void;
-        onMapImageExport(mapImage): void;
-        onOpacityChange(opacity): void;
+        onMapImageExport(mapImage : esri.layers.MapImage): void;
+        onOpacityChange(valueBetweenZeroAndOne: number): void;
         onResume(): void;
         onScaleRangeChange(): void;
         onScaleVisibilityChange(): void;
         onSuspend(): void;
         onUpdate(): void;
-        onUpdateEnd(error): void;
+        onUpdateEnd(error : Error): void;
         onUpdateStart(): void;
-        onVisibilityChange(visbility): void;
+        onVisibilityChange(visbility : boolean): void;
         //error : <Error> error;
         //gdb-version-change : void;
         //load : Layer;
@@ -1241,8 +1245,8 @@ declare module esri.layers {
         //update-start : void;
         //visibility-change : <boolean> visible;
     }
-    export class ArcGISImageServiceLayer {
-        constructor(url, options?);
+    export class ArcGISImageServiceLayer extends DynamicMapServiceLayer {
+        constructor(url : string, options? : Object);
         attributionDataUrl: string;
         bandCount: number;
         bandIds: number[];
@@ -1259,7 +1263,7 @@ declare module esri.layers {
         id: string;
         initialExtent: esri.geometry.Extent;
         interpolation: string;
-        loaded: void;
+        loaded: boolean;
         maxImageHeight: number;
         maxImageWidgth: number;
         maxRecordCount: number;
@@ -1279,42 +1283,42 @@ declare module esri.layers {
         version: number;
         visible: boolean;
         visibleAtMapScale: boolean;
-        exportMapImage(imageServiceParameters, callback): void;
+        exportMapImage(imageServiceParameters : esri.layers.ImageServiceParameters, callback : Function): void;
         getAttributionData(): dojo.Deferred;
-        getImageUrl(extent, width : number, height : number, callback): string;
+        getImageUrl(extent : esri.geometry.Extent, width : number, height : number, callback : Function): string;
         getKeyProperties(): dojo.Deferred;
         hide(): void;
-        isVisibleAtScale(scale): boolean;
+        isVisibleAtScale(scale : number): boolean;
         refresh(): void;
         resume(): void;
-        setBandIds(bandIds, doNotRefresh): void;
-        setCompressionQuality(quality, doNotRefresh): void;
-        setDisableClientCaching(disable): void;
-        setImageFormat(imageFormat, doNotRefresh): void;
-        setInterpolation(interpolation, doNotRefresh): void;
-        setMaxScale(scale): void;
-        setMinScale(scale): void;
-        setMosaicRule(mosaicRule, doNotRefresh): MosaicRule;
-        setOpacity(): void;
-        setRenderingRule(renderingRule, doNotRefresh): RasterFunction;
-        setScaleRange(minScale, maxScale): void;
-        setUseMapTime(update): void;
-        setVisibility(isVisible): void;
+        setBandIds(bandIds : number[], doNotRefresh? : boolean): void;
+        setCompressionQuality(quality : number, doNotRefresh? : boolean): void;
+        setDisableClientCaching(disable : boolean): void;
+        setImageFormat(imageFormat : string, doNotRefresh? : boolean): void;
+        setInterpolation(interpolation : string, doNotRefresh?: boolean): void;
+        setMaxScale(scale : number): void;
+        setMinScale(scale : number): void;
+        setMosaicRule(mosaicRule: MosaicRule, doNotRefresh?: boolean): MosaicRule;
+        setOpacity(valueBetweenZeroAndOne : number): void;
+        setRenderingRule(renderingRule : RasterFunction, doNotRefresh : boolean): RasterFunction;
+        setScaleRange(minScale : number, maxScale : number): void;
+        setUseMapTime(update : boolean): void;
+        setVisibility(isVisible : boolean): void;
         show(): void;
         suspend(): void;
         OnRenderingChange(): void;
-        onError(error): void;
+        onError(error : Error): void;
         onLoad(layer : esri.layers.Layer): void;
-        onMapImageExport(mapImage): void;
-        onOpacityChange(opacity): void;
+        onMapImageExport(mapImage : esri.layers.MapImage): void;
+        onOpacityChange(opacity : number): void;
         onResume(): void;
         onScaleRangeChange(): void;
         onScaleVisibilityChange(): void;
         onSuspend(): void;
         onUpdate(): void;
-        onUpdateEnd(error): void;
+        onUpdateEnd(error : Error): void;
         onUpdateStart(): void;
-        onVisibilityChange(visbility): void;
+        onVisibilityChange(visibility : boolean): void;
         //error : <Error> error;
         //gdb-version-change : void;
         //load : Layer;
@@ -1329,7 +1333,11 @@ declare module esri.layers {
         //update-start : void;
         //visibility-change : <boolean> visible;
     }
-    export class ArcGISTiledMapServiceLayer {
+
+
+    // fleray : TODOXXX : Classes checked till there in module esri.layers !
+
+    export class ArcGISTiledMapServiceLayer extends TiledMapServiceLayer {
         constructor(url, options?);
         attributionDataUrl: string;
         capabilities: string;
@@ -1341,7 +1349,7 @@ declare module esri.layers {
         id: string;
         initialExtent: esri.geometry.Extent;
         layerInfos: LayerInfo[];
-        loaded: void;
+        loaded: boolean;
         maxImageHeight: number;
         maxImageWidgth: number;
         maxRecordCount: number;
@@ -1401,8 +1409,8 @@ declare module esri.layers {
         type: string;
         toJson(): Object;
     }
-    export class DynamicLayerInfo {
-        constructor(json?);
+    export class DynamicLayerInfo extends LayerInfo {
+        constructor(json? : Object);
         defaultVisibility: boolean;
         id: number;
         maxScale: number;
@@ -1413,14 +1421,14 @@ declare module esri.layers {
         subLayerIds: number[];
         toJson(): Object;
     }
-    export class DynamicMapServiceLayer {
+    export class DynamicMapServiceLayer extends Layer {
         attributionDataUrl: string;
         credential: Credential;
         fullExtent: esri.geometry.Extent;
         hasAttributionData: boolean;
         id: string;
         initialExtent: esri.geometry.Extent;
-        loaded: void;
+        loaded: boolean;
         maxScale: number;
         minScale: number;
         opacity: number;
@@ -1438,7 +1446,7 @@ declare module esri.layers {
         resume(): void;
         setMaxScale(scale): void;
         setMinScale(scale): void;
-        setOpacity(): void;
+        setOpacity(valueBetweenZeroAndOne : number): void;
         setScaleRange(minScale, maxScale): void;
         setVisibility(isVisible): void;
         show(): void;
@@ -1473,7 +1481,7 @@ declare module esri.layers {
         objectId: number;
         success: boolean;
     }
-    export class FeatureLayer {
+    export class FeatureLayer extends GraphicsLayer {
         constructor(url: string, options?);
         constructor(featureCollectionObject: Object, options?);
         SELECTION_SUBTRACT: string;
@@ -1582,7 +1590,7 @@ declare module esri.layers {
         onSelectionClear(): void;
         onSelectionComplete(features, selectionMethod): void;
         onSuspend(): void;
-        onUpdateEnd(error, info): void;
+        onUpdateEnd(error, info?): void;
         onUpdateStart(): void;
         //add-attachment-complete : FeatureEditResult;
         //before-apply-edits : Graphic[];
@@ -1645,7 +1653,7 @@ declare module esri.layers {
         getFeatureLayers(): FeatureLayer[];
         onRefresh(): void;
     }
-    export class GraphicsLayer {
+    export class GraphicsLayer extends Layer {
         constructor();
         constructor(options: Object);
         attributionDataUrl: string;
@@ -1653,7 +1661,7 @@ declare module esri.layers {
         graphics: Graphic[];
         hasAttributionData: boolean;
         id: string;
-        loaded: void;
+        loaded: boolean;
         maxScale: number;
         minScale: number;
         opacity: number;
@@ -1763,7 +1771,7 @@ declare module esri.layers {
         timeExtent: TimeExtent;
         width: number;
     }
-    export class InheritedDomain {
+    export class InheritedDomain extends Domain {
     }
     export class JoinDataSource {
         constructor(json?);
@@ -1796,7 +1804,7 @@ declare module esri.layers {
         visibility: number;
         width: number;
     }
-    export class KMLLayer {
+    export class KMLLayer extends Layer {
         constructor(id, url, options?);
         attributionDataUrl: string;
         credential: Credential;
@@ -1805,7 +1813,7 @@ declare module esri.layers {
         hasAttributionData: boolean;
         id: string;
         linkInfo: Object;
-        loaded: void;
+        loaded: boolean;
         maxScale: number;
         minScale: number;
         opacity: number;
@@ -1863,7 +1871,7 @@ declare module esri.layers {
         credential: Credential;
         hasAttributionData: boolean;
         id: string;
-        loaded: void;
+        loaded: boolean;
         maxScale: number;
         minScale: number;
         opacity: number;
@@ -1878,9 +1886,9 @@ declare module esri.layers {
         resume(): void;
         setMaxScale(scale): void;
         setMinScale(scale): void;
-        setOpacity(): void;
-        setScaleRange(minScale, maxScale): void;
-        setVisibility(isVisible): void;
+        setOpacity(valueBetweenZeroAndOne : number): void;
+        setScaleRange(minScale: number, maxScale: number): void;
+        setVisibility(isVisible : boolean): void;
         show(): void;
         suspend(): void;
         onError(error): void;
@@ -1947,13 +1955,13 @@ declare module esri.layers {
         scale: number;
         width: number;
     }
-    export class MapImageLayer {
+    export class MapImageLayer extends Layer {
         constructor(options: Object);
         attributionDataUrl: string;
         credential: Credential;
         hasAttributionData: boolean;
         id: string;
-        loaded: void;
+        loaded: boolean;
         maxScale: number;
         minScale: number;
         opacity: number;
@@ -2074,14 +2082,14 @@ declare module esri.layers {
         width: number;
         toJson(): Object;
     }
-    export class TiledMapServiceLayer {
+    export class TiledMapServiceLayer extends Layer {
         attributionDataUrl: string;
         credential: Credential;
         fullExtent: esri.geometry.Extent;
         hasAttributionData: boolean;
         id: string;
         initialExtent: esri.geometry.Extent;
-        loaded: void;
+        loaded: boolean;
         maxScale: number;
         minScale: number;
         opacity: number;
@@ -2206,7 +2214,7 @@ declare module esri.layers {
 }
 declare module esri.renderer {
     export function fromJson(json : Object) : Object;
-    export class ClassBreaksRenderer {
+    export class ClassBreaksRenderer extends Renderer {
         constructor(defaultSymbol: Object, attributeField);
         constructor(json : Object);
         attributeField: void;
@@ -2229,7 +2237,7 @@ declare module esri.renderer {
         getSymbol(graphic): esri.symbol.Symbol;
         toJson(): Object;
     }
-    export class SimpleRenderer {
+    export class SimpleRenderer extends Renderer {
         constructor(defaultSymbol: esri.symbol.Symbol);
         constructor(json: Object);
         defaultSymbol: esri.symbol.Symbol;
@@ -2246,7 +2254,7 @@ declare module esri.renderer {
         constructor(observationRenderer, latestObservationRenderer?, trackRenderer?, observationAger?);
         getSymbol(graphic): esri.symbol.Symbol;
     }
-    export class TimeClassBreaksAger {
+    export class TimeClassBreaksAger extends SymbolAger {
         constructor(infos);
         UNIT_DAYS: string;
         UNIT_HOURS: string;
@@ -2258,7 +2266,11 @@ declare module esri.renderer {
         UNIT_YEARS: string;
         getAgedSymbol(symbol, graphic): esri.symbol.Symbol;
     }
-    export class UniqueValueRenderer {
+    export class TimeRampAger extends SymbolAger {
+        constructor(colorRange?, sizeRange?, alphaRange?);
+        getAgedSymbol(symbol, graphic): esri.symbol.Symbol;
+    }
+    export class UniqueValueRenderer extends Renderer {
         constructor(defaultSymbol: Object, attributeField, attributeField2?, attributeField3?, fieldDelimeter?);
         constructor(json : Object);
         attributeField: void;
@@ -2282,7 +2294,7 @@ declare module esri.symbol {
     export function fromJson(json : Object): esri.symbol.Symbol;
     export function getShapeDescriptors(): Object;
 
-    export class CartographicLineSymbol {
+    export class CartographicLineSymbol extends SimpleLineSymbol{
         constructor();
         constructor(style?, color?, width?, cap?, join?, miterLimit?);
         constructor(json : Object);
@@ -2313,7 +2325,7 @@ declare module esri.symbol {
         setWidth(width): LineSymbol;
         toJson(): Object;
     }
-    export class FillSymbol {
+    export class FillSymbol extends Symbol {
         color: void;
         outline: esri.symbol.SimpleLineSymbol;
         type: string;
@@ -2345,7 +2357,7 @@ declare module esri.symbol {
         setVariant(): Font;
         setWeight(): Font;
     }
-    export class LineSymbol {
+    export class LineSymbol extends Symbol {
         color: void;
         type: string;
         width: number;
@@ -2353,7 +2365,7 @@ declare module esri.symbol {
         setWidth(width): LineSymbol;
         toJson(): Object;
     }
-    export class MarkerSymbol {
+    export class MarkerSymbol extends Symbol {
         angle: number;
         color: void;
         size: number;
@@ -2366,7 +2378,7 @@ declare module esri.symbol {
         setSize(size): MarkerSymbol;
         toJson(): Object;
     }
-    export class PictureFillSymbol {
+    export class PictureFillSymbol extends FillSymbol {
         constructor(url, outline, width : number, height : number);
         constructor(json : Object);
         color: void;
@@ -2389,7 +2401,7 @@ declare module esri.symbol {
         setYScale(scale): PictureFillSymbol;
         toJson(): Object;
     }
-    export class PictureMarkerSymbol {
+    export class PictureMarkerSymbol extends MarkerSymbol {
         constructor(url, width : number, height : number);
         constructor(json : Object);
         angle: number;
@@ -2410,7 +2422,7 @@ declare module esri.symbol {
         setWidth(width): PictureMarkerSymbol;
         toJson(): Object;
     }
-    export class SimpleFillSymbol {
+    export class SimpleFillSymbol extends FillSymbol {
         constructor();
         constructor(style, outline, color);
         constructor(json : Object);
@@ -2431,7 +2443,7 @@ declare module esri.symbol {
         setStyle(style): SimpleFillSymbol;
         toJson(): Object;
     }
-    export class SimpleLineSymbol {
+    export class SimpleLineSymbol extends LineSymbol {
         constructor();
         constructor(style, color, width);
         constructor(json : Object);
@@ -2456,7 +2468,7 @@ declare module esri.symbol {
         setWidth(width): LineSymbol;
         toJson(): Object;
     }
-    export class SimpleMarkerSymbol {
+    export class SimpleMarkerSymbol extends MarkerSymbol {
         constructor();
         constructor(style, size, outline, color);
         constructor(json : Object);
@@ -2489,7 +2501,7 @@ declare module esri.symbol {
         setColor(color): esri.symbol.Symbol;
         toJson(): Object;
     }
-    export class TextSymbol {
+    export class TextSymbol extends Symbol {
         constructor(text: string);
         constructor(text: string, font: string, color: string);
         constructor(json: Object);
@@ -3374,7 +3386,7 @@ declare module esri.virtualearth {
         hasAttributionData: boolean;
         id: string;
         initialExtent: esri.geometry.Extent;
-        loaded: void;
+        loaded: boolean;
         mapStyle: string;
         maxScale: number;
         minScale: number;
