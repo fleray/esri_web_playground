@@ -1,5 +1,5 @@
 <p><i>This document is under MIT License (see main license file).</i></p>
-<p><i>Typescript definition file for ArcGIS API for JavaScript Version 3.4</i></p>
+<p><i>Typescript definition file for ESRI ArcGIS API for JavaScript Version 3.4</i></p>
 <p><i>Associated API : http://developers.arcgis.com/en/javascript/</i></p>
 <p><i>Git repo : https://github.com/fleray/esri_web_playground.git</i></p>
 <p><i>Email : fabrice.leray.dev(at)gmail(dot)com</i></p>
