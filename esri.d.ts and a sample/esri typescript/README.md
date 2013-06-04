@@ -15,14 +15,16 @@ A) using Microsoft Visual Studio 2012
 ===============================
  - Step 1 : install Microsoft Visual Studio 2012.
  - Step 2 : get and install the TypeScript 0.9.0 alpha from https://typescript.codeplex.com/releases/view/105503
- - Step 3 : double-click the esri "typescript.sln" solution file.
- - Step 4 : build and run the solution using Visual Studio.
+ - Step 3 : download the current project "esri.d.ts and a sample" from GitHub.
+ - Step 4 : double-click the esri "typescript.sln" solution file.
+ - Step 5 : build and run the solution using Visual Studio.
 
 B) using the TypeScript command line tool
 =========================================
  - Step 1 : get and install the TypeScript 0.9.0 alpha from https://typescript.codeplex.com/releases/view/105503
- - Step 2 : open a the Windows command line and change directory to the first "esri typescript" folder.
- - Step 3 : execute the following command line to build the project:
+ - Step 2 : download the current project "esri.d.ts and a sample" from GitHub.
+ - Step 3 : open a the Windows command line and change directory to the first "esri typescript" folder.
+ - Step 4 : execute the following command line to build the project:
 
 <pre><code>
 tsc.exe --comments --module AMD --sourcemap --target ES3 "esri typescript\definition_typescripts\dojo.d.ts" "esri typescript\definition_typescripts\esri.d.ts" "esri typescript\app.ts"
