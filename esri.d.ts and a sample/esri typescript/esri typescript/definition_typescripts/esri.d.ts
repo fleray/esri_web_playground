@@ -2667,7 +2667,7 @@ declare module esri.tasks {
         date: Date;
         format: string;
     }
-    export class DirectionsFeatureSet {
+    export class DirectionsFeatureSet extends FeatureSet {
         displayFieldName: string;
         exceededTransferLimit: number;
         extent: esri.geometry.Extent;
