@@ -1185,7 +1185,7 @@ declare module esri.layers {
         suspended: boolean;
         timeInfo: esri.layers.TimeInfo;
         units: string;
-        url: void;
+        url: string;
         useMapImage: boolean;
         version: number;
         visible: boolean;
@@ -1231,7 +1231,7 @@ declare module esri.layers {
         onUpdate(): void;
         onUpdateEnd(error : Error): void;
         onUpdateStart(): void;
-        onVisibilityChange(visbility : boolean): void;
+        onVisibilityChange(visibility : boolean): void;
         //error : <Error> error;
         //gdb-version-change : void;
         //load : Layer;
@@ -1279,7 +1279,7 @@ declare module esri.layers {
         spatialReference: SpatialReference;
         suspended: boolean;
         timeInfo: TimeInfo;
-        url: void;
+        url: string;
         version: number;
         visible: boolean;
         visibleAtMapScale: boolean;
@@ -1359,7 +1359,7 @@ declare module esri.layers {
         tileInfo: TileInfo;
         timeInfo: TimeInfo;
         units: string;
-        url: void;
+        url: string;
         version: number;
         visible: boolean;
         visibleAtMapScale: boolean;
@@ -1386,7 +1386,7 @@ declare module esri.layers {
         onUpdate(): void;
         onUpdateEnd(error: Error): void;
         onUpdateStart(): void;
-        onVisibilityChange(visbility : boolean): void;
+        onVisibilityChange(visibility : boolean): void;
         //error : <Error> error;
         load: Layer;
         //opacity-change : <number> opacity;
@@ -1433,7 +1433,7 @@ declare module esri.layers {
         showAttribution: boolean;
         spatialReference: SpatialReference;
         suspended: boolean;
-        url: void;
+        url: string;
         visible: boolean;
         visibleAtMapScale: boolean;
         getAttributionData(): dojo.Deferred;
@@ -1459,7 +1459,7 @@ declare module esri.layers {
         onUpdate(): void;
         onUpdateEnd(error: Error): void;
         onUpdateStart(): void;
-        onVisibilityChange(visbility: boolean): void;
+        onVisibilityChange(visibility: boolean): void;
         //error : <Error> error;
         //gdb-version-change : void;
         load: Layer;
@@ -1608,8 +1608,6 @@ declare module esri.layers {
         //update-end : <Error> error;
     }
 
-    // fleray : TODOXXX : Classes checked till there in module esri.layers !
-
 
     export class FeatureTemplate {
         TOOL_AUTO_COMPLETE_POLYGON: string;
@@ -1646,7 +1644,7 @@ declare module esri.layers {
         type: string;
     }
     export class GeoRSSLayer {
-        constructor(url, options?);
+        constructor(url : string, options? : Object);
         copyright: string;
         defaultVisibility: boolean;
         description: string;
@@ -1657,7 +1655,7 @@ declare module esri.layers {
     }
     export class GraphicsLayer extends Layer {
         constructor();
-        constructor(options: Object);
+        constructor(options?: Object);
         attributionDataUrl: string;
         credential: Credential;
         graphics: Graphic[];
@@ -1670,33 +1668,33 @@ declare module esri.layers {
         renderer: esri.renderer.Renderer;
         showAttribution: boolean;
         suspended: boolean;
-        url: void;
+        url: string;
         visible: boolean;
         visibleAtMapScale: boolean;
-        add(graphic): Graphic;
+        add(graphic: esri.Graphic): Graphic;
         clear(): void;
         disableMouseEvents(): void;
         enableMouseEvents(): void;
         getAttributionData(): dojo.Deferred;
         hide(): void;
-        isVisibleAtScale(scale): boolean;
+        isVisibleAtScale(scale: number): boolean;
         redraw(): void;
-        remove(graphic): Graphic;
+        remove(graphic: esri.Graphic): Graphic;
         resume(): void;
-        setInfoTemplate(infoTemplate): void;
-        setMaxScale(scale): void;
-        setMinScale(scale): void;
-        setOpacity(opacity): void;
-        setRenderer(renderer): void;
-        setScaleRange(minScale, maxScale): void;
-        setVisibility(isVisible): void;
+        setInfoTemplate(infoTemplate : esri.InfoTemplate): void;
+        setMaxScale(scale : number): void;
+        setMinScale(scale: number): void;
+        setOpacity(valueBetweenZeroAndOne : number): void;
+        setRenderer(renderer : esri.renderer.Renderer): void;
+        setScaleRange(minScale: number, maxScale: number): void;
+        setVisibility(isVisible: boolean): void;
         show(): void;
         suspend(): void;
         onClick(event : Object): void;
         onDblClick(event : Object): void;
-        onError(error): void;
-        onGraphicAdd(graphic): void;
-        onGraphicRemove(graphic): void;
+        onError(error: Error): void;
+        onGraphicAdd(graphic: esri.Graphic): void;
+        onGraphicRemove(graphic: esri.Graphic): void;
         onGraphicsClear(): void;
         onLoad(layer : esri.layers.Layer): void;
         onMouseDown(event : Object): void;
@@ -1711,9 +1709,9 @@ declare module esri.layers {
         onScaleVisibilityChange(): void;
         onSuspend(): void;
         onUpdate(): void;
-        onUpdateEnd(error): void;
+        onUpdateEnd(error : Error): void;
         onUpdateStart(): void;
-        onVisibilityChange(visbility): void;
+        onVisibilityChange(visibility: boolean): void;
         click: void;
         //dbl-click : void;
         //error : <Error> error;
@@ -1776,12 +1774,12 @@ declare module esri.layers {
     export class InheritedDomain extends Domain {
     }
     export class JoinDataSource {
-        constructor(json?);
+        constructor(json? : Object);
         joinType: string;
         leftTableKey: string;
-        leftTableSource: LayerMapSource;
+        leftTableSource: any; // LayerMapSource or LayerDataSource
         rightTableKey: string;
-        rightTableSource: LayerMapSource;
+        rightTableSource: any; // LayerMapSource or LayerDataSource
         toJson(): Object;
     }
     export class KMLFolder {
@@ -1807,7 +1805,7 @@ declare module esri.layers {
         width: number;
     }
     export class KMLLayer extends Layer {
-        constructor(id, url, options?);
+        constructor(id: string, url: string, options?: Object);
         attributionDataUrl: string;
         credential: Credential;
         featureInfos: Object[];
@@ -1821,35 +1819,35 @@ declare module esri.layers {
         opacity: number;
         showAttribution: boolean;
         suspended: boolean;
-        url: void;
+        url: string;
         visible: boolean;
         visibleAtMapScale: boolean;
         getAttributionData(): dojo.Deferred;
         getFeature(featureInfo): Object;
         getLayers(): Layer[];
         hide(): void;
-        isVisibleAtScale(scale): boolean;
+        isVisibleAtScale(scale : number): boolean;
         resume(): void;
         setFolderVisibility(folder: esri.layers.KMLFolder, visibility: boolean): void;
-        setMaxScale(scale): void;
-        setMinScale(scale): void;
-        setOpacity(): void;
-        setScaleRange(minScale, maxScale): void;
-        setVisibility(isVisible): void;
+        setMaxScale(scale: number): void;
+        setMinScale(scale: number): void;
+        setOpacity(valueBetweenZeroAndOne: number): void;
+        setScaleRange(minScale: number, maxScale: number): void;
+        setVisibility(isVisible: boolean): void;
         show(): void;
         suspend(): void;
-        onError(error): void;
+        onError(error: Error): void;
         onLoad(layer : esri.layers.Layer): void;
-        onOpacityChange(opacity): void;
+        onOpacityChange(opacity: number): void;
         onRefresh(): void;
         onResume(): void;
         onScaleRangeChange(): void;
         onScaleVisibilityChange(): void;
         onSuspend(): void;
         onUpdate(): void;
-        onUpdateEnd(error): void;
+        onUpdateEnd(error: Error): void;
         onUpdateStart(): void;
-        onVisibilityChange(visbility): void;
+        onVisibilityChange(visibility: boolean): void;
         //error : <Error> error;
         //load : Layer;
         //opacity-change : <number> opacity;
@@ -1862,13 +1860,13 @@ declare module esri.layers {
         //visibility-change : <boolean> visible;
     }
     export class LOD {
-        level: void;
+        level: number;
         levelValue: string;
         resolution: number;
         scale: number;
     }
     export class Layer {
-        constructor(options: Object);
+        constructor(options?: Object);
         attributionDataUrl: string;
         credential: Credential;
         hasAttributionData: boolean;
@@ -1879,15 +1877,15 @@ declare module esri.layers {
         opacity: number;
         showAttribution: boolean;
         suspended: boolean;
-        url: void;
+        url: string;
         visible: boolean;
         visibleAtMapScale: boolean;
         getAttributionData(): dojo.Deferred;
         hide(): void;
-        isVisibleAtScale(scale): boolean;
+        isVisibleAtScale(scale: number): boolean;
         resume(): void;
-        setMaxScale(scale): void;
-        setMinScale(scale): void;
+        setMaxScale(scale: number): void;
+        setMinScale(scale: number): void;
         setOpacity(valueBetweenZeroAndOne : number): void;
         setScaleRange(minScale: number, maxScale: number): void;
         setVisibility(isVisible : boolean): void;
@@ -1895,15 +1893,15 @@ declare module esri.layers {
         suspend(): void;
         onError(error): void;
         onLoad(layer : esri.layers.Layer): void;
-        onOpacityChange(opacity): void;
+        onOpacityChange(opacity: number): void;
         onResume(): void;
         onScaleRangeChange(): void;
         onScaleVisibilityChange(): void;
         onSuspend(): void;
         onUpdate(): void;
-        onUpdateEnd(error): void;
+        onUpdateEnd(error: Error): void;
         onUpdateStart(): void;
-        onVisibilityChange(visbility): void;
+        onVisibilityChange(visibility: boolean): void;
         //error : <Error> error;
         //load : Layer;
         //opacity-change : <number> opacity;
@@ -1958,7 +1956,7 @@ declare module esri.layers {
         width: number;
     }
     export class MapImageLayer extends Layer {
-        constructor(options: Object);
+        constructor(options?: Object);
         attributionDataUrl: string;
         credential: Credential;
         hasAttributionData: boolean;
@@ -1969,7 +1967,7 @@ declare module esri.layers {
         opacity: number;
         showAttribution: boolean;
         suspended: boolean;
-        url: void;
+        url: string;
         visible: boolean;
         visibleAtMapScale: boolean;
         addImage(mapImage): void;
@@ -1978,18 +1976,18 @@ declare module esri.layers {
         hide(): void;
         isVisibleAtScale(scale): boolean;
         removeAllImages(): void;
-        removeImage(mapImage): void;
+        removeImage(mapImage: esri.layers.MapImage): void;
         resume(): void;
-        setMaxScale(scale): void;
-        setMinScale(scale): void;
+        setMaxScale(scale: number): void;
+        setMinScale(scale: number): void;
         setOpacity(): void;
-        setScaleRange(minScale, maxScale): void;
-        setVisibility(isVisible): void;
+        setScaleRange(minScale: number, maxScale: number): void;
+        setVisibility(isVisible: boolean): void;
         show(): void;
         suspend(): void;
         onError(error): void;
         onLoad(layer : esri.layers.Layer): void;
-        onOpacityChange(opacity): void;
+        onOpacityChange(valueBetweenZeroAndOne: number): void;
         onResume(): void;
         onScaleRangeChange(): void;
         onScaleVisibilityChange(): void;
@@ -1997,7 +1995,7 @@ declare module esri.layers {
         onUpdate(): void;
         onUpdateEnd(error): void;
         onUpdateStart(): void;
-        onVisibilityChange(visbility): void;
+        onVisibilityChange(visibility: boolean): void;
         //error : <Error> error;
         //load : Layer;
         //opacity-change : <number> opacity;
@@ -2041,7 +2039,7 @@ declare module esri.layers {
         copyright: string;
     }
     export class QueryDataSource {
-        constructor(json?);
+        constructor(json?: Object);
         geometryType: string;
         oidFields: string[];
         query: string;
@@ -2054,7 +2052,7 @@ declare module esri.layers {
         minValue: number;
     }
     export class RasterDataSource {
-        constructor(json?);
+        constructor(json?: Object);
         dataSourceName: string;
         workspaceId: string;
         toJson(): Object;
@@ -2062,19 +2060,19 @@ declare module esri.layers {
     export class RasterFunction {
         constructor();
         arguments: Object;
-        functionName: void;
+        functionName: string;
         variableName: string;
         toJson(): Object;
     }
     export class TableDataSource {
-        constructor(json?);
+        constructor(json?: Object);
         dataSourceName: string;
         gdbVersion: string;
         workspaceId: string;
         toJson(): Object;
     }
     export class TileInfo {
-        constructor(properties);
+        constructor(properties: Object);
         dpi: number;
         format: string;
         height: number;
@@ -2099,25 +2097,25 @@ declare module esri.layers {
         spatialReference: SpatialReference;
         suspended: boolean;
         tileInfo: TileInfo;
-        url: void;
+        url: string;
         visible: boolean;
         visibleAtMapScale: boolean;
         getAttributionData(): dojo.Deferred;
-        getTileUrl(level, row, column): string;
+        getTileUrl(level: number, row: number, column: number): string;
         hide(): void;
-        isVisibleAtScale(scale): boolean;
+        isVisibleAtScale(scale: number): boolean;
         refresh(): void;
         resume(): void;
-        setMaxScale(scale): void;
-        setMinScale(scale): void;
+        setMaxScale(scale: number): void;
+        setMinScale(scale: number): void;
         setOpacity(valueBetweenZeroAndOne : number): void;
-        setScaleRange(minScale, maxScale): void;
-        setVisibility(isVisible): void;
+        setScaleRange(minScale: number, maxScale: number): void;
+        setVisibility(isVisible: boolean): void;
         show(): void;
         suspend(): void;
         onError(error): void;
         onLoad(layer : esri.layers.Layer): void;
-        onOpacityChange(opacity): void;
+        onOpacityChange(opacity: number): void;
         onResume(): void;
         onScaleRangeChange(): void;
         onScaleVisibilityChange(): void;
@@ -2125,7 +2123,7 @@ declare module esri.layers {
         onUpdate(): void;
         onUpdateEnd(error): void;
         onUpdateStart(): void;
-        onVisibilityChange(visbility): void;
+        onVisibilityChange(visibility: boolean): void;
         //error : <Error> error;
         //load : Layer;
         //opacity-change : <number> opacity;
@@ -2163,7 +2161,7 @@ declare module esri.layers {
         timeZone: string;
     }
     export class WMSLayer {
-        constructor(url, options?);
+        constructor(url: string, options? : Object);
         copyright: string;
         description: string;
         extent: esri.geometry.Extent;
@@ -2175,9 +2173,9 @@ declare module esri.layers {
         spatialReference: SpatialReference;
         title: string;
         version: string;
-        setImageFormat(format): void;
-        setImageTransparency(transparency): void;
-        setVisibleLayers(layers): void;
+        setImageFormat(format: string): void;
+        setImageTransparency(backgroundTransparency: boolean): void;
+        setVisibleLayers(layers: string[]): void;
     }
     export class WMSLayerInfo {
         constructor(layer : esri.layers.Layer);
@@ -2205,7 +2203,7 @@ declare module esri.layers {
         constructor(options : Object);
     }
     export class WebTiledLayer {
-        constructor(urlTemplate, options);
+        constructor(urlTemplate: string, options?: Object);
         copyright: string;
         fullExtent: esri.geometry.Extent;
         initialExtent: esri.geometry.Extent;
@@ -2214,6 +2212,9 @@ declare module esri.layers {
         tileServers: string[];
     }
 }
+
+// fleray : TODOXXX : Classes checked till end of module esri.layers !
+
 declare module esri.renderer {
     export function fromJson(json : Object) : Object;
     export class ClassBreaksRenderer extends Renderer {
@@ -2720,7 +2721,7 @@ declare module esri.tasks {
     }
     export class FindTask {
         constructor(url, options?);
-        url: void;
+        url: string;
         execute(findParameters, callback: Function, errback: Function): dojo.Deferred;
         onComplete(findResults): void;
         onError(error): void;
@@ -2776,7 +2777,7 @@ declare module esri.tasks {
         UNIT_ARES: string;
         UNIT_HECTARES: string;
         UNIT_SQUARE_KILOMETERS: string;
-        url: void;
+        url: string;
         areasAndLengths(areasAndLengthsParameters, callback: Function, errback: Function): dojo.Deferred;
         autoComplete(polygons, polylines, callback: Function, errback: Function): dojo.Deferred;
         buffer(bufferParameters, callback: Function, errback: Function): dojo.Deferred;
@@ -2896,7 +2897,7 @@ declare module esri.tasks {
     }
     export class IdentifyTask {
         constructor(url, options?);
-        url: void;
+        url: string;
         execute(identifyParameters, callback: Function, errback: Function): dojo.Deferred;
         onComplete(identifyResults): void;
         onError(error): void;
@@ -2963,7 +2964,7 @@ declare module esri.tasks {
     export class Locator {
         constructor(url : string);
         outSpatialReference: SpatialReference;
-        url: void;
+        url: string;
         addressToLocations(params, callback: Function, errback: Function): dojo.Deferred;
         addressesToLocations(params, callback: Function, errback: Function): dojo.Deferred;
         locationToAddress(location, distance, callback: Function, errback: Function): dojo.Deferred;
@@ -3089,7 +3090,7 @@ declare module esri.tasks {
     }
     export class QueryTask {
         constructor(url, options?);
-        url: void;
+        url: string;
         execute(parameters, callback: Function, errback: Function): dojo.Deferred;
         executeForCount(query, callback: Function, errback: Function): dojo.Deferred;
         executeForIds(parameters, callback: Function, errback: Function): dojo.Deferred;
@@ -3183,7 +3184,7 @@ declare module esri.tasks {
     }
     export class RouteTask {
         constructor(url : string);
-        url: void;
+        url: string;
         solve(params, callback: Function, errback: Function): dojo.Deferred;
         onError(error): void;
         onSolveComplete(solveResults): void;
@@ -3375,7 +3376,7 @@ declare module esri.virtualearth {
         onAddressToLocationsComplete(geocodeResults): void;
         onError(error): void;
     }
-    export class VETiledLayer {
+    export class VETiledLayer extends esri.layers.TiledMapServiceLayer {
         constructor(options : Object);
         MAP_STYLE_AERIAL: string;
         MAP_STYLE_AERIAL_WITH_LABELS: string;
@@ -3397,7 +3398,7 @@ declare module esri.virtualearth {
         spatialReference: SpatialReference;
         suspended: boolean;
         tileInfo: esri.layers.TileInfo;
-        url: void;
+        url: string;
         visible: boolean;
         visibleAtMapScale: boolean;
         getAttributionData(): dojo.Deferred;
@@ -3408,17 +3409,17 @@ declare module esri.virtualearth {
         resume(): void;
         setCulture(culture): void;
         setMapStyle(style): void;
-        setMaxScale(scale): void;
-        setMinScale(scale): void;
+        setMaxScale(scale: number): void;
+        setMinScale(scale: number): void;
         setOpacity(): void;
-        setScaleRange(minScale, maxScale): void;
-        setVisibility(isVisible): void;
+        setScaleRange(minScale: number, maxScale: number): void;
+        setVisibility(isVisible: boolean): void;
         show(): void;
         suspend(): void;
         onError(error): void;
         onLoad(layer : esri.layers.Layer): void;
         onMapStyleChange(): void;
-        onOpacityChange(opacity): void;
+        onOpacityChange(opacity: number): void;
         onResume(): void;
         onScaleRangeChange(): void;
         onScaleVisibilityChange(): void;
@@ -3426,7 +3427,7 @@ declare module esri.virtualearth {
         onUpdate(): void;
         onUpdateEnd(error): void;
         onUpdateStart(): void;
-        onVisibilityChange(visbility): void;
+        onVisibilityChange(visibility: boolean): void;
         //    error: <Error> error;
         //    load: Layer;
         //    opacity-change : <number> opacity;
