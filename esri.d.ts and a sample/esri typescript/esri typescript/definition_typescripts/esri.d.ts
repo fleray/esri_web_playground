@@ -11,20 +11,20 @@ declare module esri {
     var config: void;
     var documentBox: Object;
     var version: number;
-	export function addProxyRule(rule : Object): number;
+    export function addProxyRule(rule : Object): number;
     export function filter(object: Object, callback: Function, thisObject: Object): Object;
-	export function getGeometries(graphics : esri.Graphic[]): esri.geometry.Geometry[];
-	export function getProxyRule(url : string): Object;
+    export function getGeometries(graphics : esri.Graphic[]): esri.geometry.Geometry[];
+    export function getProxyRule(url : string): Object;
     export function graphicsExtent(graphics: esri.Graphic[]): esri.geometry.Extent;
-	export function hide(element : Element): void;
-	export function isDefined(value : Object): boolean;
+    export function hide(element : Element): void;
+    export function isDefined(value : Object): boolean;
     export function request(request: Object, options: Object): dojo.Deferred;
-	export function setRequestPreCallback(callbackFunction : Function): void;
-	export function show(element : Element): void;
-	export function substitute(data : Object, template? : string, first? : boolean): void;
-	export function toggle(element  :Element): void;
-	export function urlToObject(url : string): Object;
-	export function valueOf(array : Array, value : Object): Object;
+    export function setRequestPreCallback(callbackFunction : Function): void;
+    export function show(element : Element): void;
+    export function substitute(data : Object, template? : string, first? : boolean): void;
+    export function toggle(element  :Element): void;
+    export function urlToObject(url : string): Object;
+    export function valueOf(array : Array, value : Object): Object;
 
     export class Credential {
         expires: string;
