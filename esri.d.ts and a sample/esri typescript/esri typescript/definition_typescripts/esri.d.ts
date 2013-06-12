@@ -2213,15 +2213,14 @@ declare module esri.layers {
     }
 }
 
-// fleray : TODOXXX : Classes checked till end of module esri.layers !
-
 declare module esri.renderer {
-    export function fromJson(json : Object) : Object;
+    export function fromJson(json: Object): Object;
+
     export class ClassBreaksRenderer extends Renderer {
-        constructor(defaultSymbol: Object, attributeField);
+        constructor(defaultSymbol: Object, attributeField: string);
         constructor(json : Object);
         attributeField: void;
-        breaks: void;
+        breaks: string;
         classificationMethod: string;
         defaultSymbol: esri.symbol.Symbol;
         infos: Object[];
@@ -2230,14 +2229,14 @@ declare module esri.renderer {
         normalizationType: string;
         addBreak(minValueOrInfo: number, maxValue: number, symbol: esri.symbol.Symbol): void;
         clearBreaks(): void;
-        getSymbol(graphic): esri.symbol.Symbol;
-        removeBreak(minValue, maxValue): void;
-        setMaxInclusive(enable): void;
+        getSymbol(graphic: esri.Graphic): esri.symbol.Symbol;
+        removeBreak(minValue: number, maxValue: number): void;
+        setMaxInclusive(enable: boolean): void;
         toJson(): Object;
     }
     export class Renderer {
         defaultSymbol: esri.symbol.Symbol;
-        getSymbol(graphic): esri.symbol.Symbol;
+        getSymbol(graphic: esri.Graphic): esri.symbol.Symbol;
         toJson(): Object;
     }
     export class SimpleRenderer extends Renderer {
@@ -2247,18 +2246,19 @@ declare module esri.renderer {
         description: string;
         label: string;
         symbol: esri.symbol.Symbol;
-        getSymbol(graphic): esri.symbol.Symbol;
+        getSymbol(graphic: esri.Graphic): esri.symbol.Symbol;
         toJson(): Object;
     }
     export class SymbolAger {
-        getAgedSymbol(symbol, graphic): esri.symbol.Symbol;
+        getAgedSymbol(symbol: esri.symbol.Symbol, graphic: esri.Graphic): esri.symbol.Symbol;
     }
     export class TemporalRenderer {
-        constructor(observationRenderer, latestObservationRenderer?, trackRenderer?, observationAger?);
-        getSymbol(graphic): esri.symbol.Symbol;
+        constructor(observationRenderer: esri.renderer.Renderer, latestObservationRenderer?: esri.renderer.Renderer,
+            trackRenderer?: esri.renderer.Renderer, observationAger?: esri.renderer.SymbolAger);
+        getSymbol(graphic: esri.Graphic): esri.symbol.Symbol;
     }
     export class TimeClassBreaksAger extends SymbolAger {
-        constructor(infos);
+        constructor(infos: Object[]);
         UNIT_DAYS: string;
         UNIT_HOURS: string;
         UNIT_MILLISECONDS: string;
@@ -2267,39 +2267,39 @@ declare module esri.renderer {
         UNIT_SECONDS: string;
         UNIT_WEEKS: string;
         UNIT_YEARS: string;
-        getAgedSymbol(symbol, graphic): esri.symbol.Symbol;
+        getAgedSymbol(symbol: esri.symbol.Symbol, graphic: esri.Graphic): esri.symbol.Symbol;
     }
     export class TimeRampAger extends SymbolAger {
-        constructor(colorRange?, sizeRange?, alphaRange?);
-        getAgedSymbol(symbol, graphic): esri.symbol.Symbol;
+        constructor(colorRange?: dojo.Color, sizeRange?: number[], alphaRange?: number[]);
+        getAgedSymbol(symbol: esri.symbol.Symbol, graphic: esri.Graphic): esri.symbol.Symbol;
     }
-    export class UniqueValueRenderer extends Renderer {
-        constructor(defaultSymbol: Object, attributeField, attributeField2?, attributeField3?, fieldDelimeter?);
+    export class UniqueValueRenderer extends Renderer { 
+        constructor(defaultSymbol: esri.symbol.Symbol, attributeField: string,
+            attributeField2?: string, attributeField3?: string, fieldDelimeter?: string);
         constructor(json : Object);
-        attributeField: void;
+        attributeField: string;
         attributeField2: string;
         attributeField3: string;
         defaultLabel: string;
         defaultSymbol: esri.symbol.Symbol;
         fieldDelimiter: string;
         infos: Object[];
-        values: void;
-        addValue(valueOrInfo: number, symbol: esri.symbol.Symbol): void;
-        getSymbol(graphic): esri.symbol.Symbol;
-        removeValue(value): void;
+        values: string[];
+        addValue(valueOrInfo: string, symbol: esri.symbol.Symbol): void;
+        addValue(valueAndSymbolAndLabelAndDescription: Object): void;
+        getSymbol(graphic: esri.Graphic): esri.symbol.Symbol;
+        removeValue(value: string): void;
         toJson(): Object;
     }
-    export class namespace_renderer {
-        fromJson(json : Object): Object;
-    }
 }
+
 declare module esri.symbol {
     export function fromJson(json : Object): esri.symbol.Symbol;
     export function getShapeDescriptors(): Object;
 
     export class CartographicLineSymbol extends SimpleLineSymbol{
         constructor();
-        constructor(style?, color?, width?, cap?, join?, miterLimit?);
+        constructor(style?: string, color?: dojo.Color, width?: number, cap?: string, join?: string, miterLimit?: string);
         constructor(json : Object);
         CAP_BUTT: string;
         CAP_ROUND: string;
@@ -2314,22 +2314,22 @@ declare module esri.symbol {
         STYLE_LONGDASH: string;
         STYLE_LONGDASHDOT: string;
         cap: string;
-        color: void;
+        color: dojo.Color;
         join: string;
         miterLimit: string;
         style: string;
         type: string;
         width: number;
-        setCap(cap): CartographicLineSymbol;
-        setColor(color): esri.symbol.Symbol;
-        setJoin(join): CartographicLineSymbol;
-        setMiterLimit(miterLimit): CartographicLineSymbol;
-        setStyle(style): esri.symbol.SimpleLineSymbol;
-        setWidth(width): LineSymbol;
+        setCap(cap: string): CartographicLineSymbol;
+        setColor(color: dojo.Color): esri.symbol.Symbol;
+        setJoin(join: string): CartographicLineSymbol;
+        setMiterLimit(miterLimit: string): CartographicLineSymbol;
+        setStyle(style: string): esri.symbol.SimpleLineSymbol;
+        setWidth(width: number): LineSymbol;
         toJson(): Object;
     }
     export class FillSymbol extends Symbol {
-        color: void;
+        color: dojo.Color;
         outline: esri.symbol.SimpleLineSymbol;
         type: string;
         setColor(color): esri.symbol.Symbol;
@@ -2338,7 +2338,7 @@ declare module esri.symbol {
     }
     export class Font {
         constructor();
-        constructor(size, style, variant, weight, family);
+        constructor(size: number, style: string, variant: string, weight: string, family: string);
         constructor(json : Object);
         STYLE_NORMAL: string;
         STYLE_ITALIC: string;
@@ -2361,30 +2361,30 @@ declare module esri.symbol {
         setWeight(): Font;
     }
     export class LineSymbol extends Symbol {
-        color: void;
+        color: dojo.Color;
         type: string;
         width: number;
-        setColor(color): esri.symbol.Symbol;
-        setWidth(width): LineSymbol;
+        setColor(color: dojo.Color): esri.symbol.Symbol;
+        setWidth(width: number): LineSymbol;
         toJson(): Object;
     }
     export class MarkerSymbol extends Symbol {
         angle: number;
-        color: void;
+        color: dojo.Color;
         size: number;
         type: string;
         xoffset: number;
         yoffset: number;
-        setAngle(angle): MarkerSymbol;
-        setColor(color): esri.symbol.Symbol;
-        setOffset(x, y): MarkerSymbol;
-        setSize(size): MarkerSymbol;
+        setAngle(angle: number): MarkerSymbol;
+        setColor(color: dojo.Color): esri.symbol.Symbol;
+        setOffset(x: number, y: number): MarkerSymbol;
+        setSize(size: number): MarkerSymbol;
         toJson(): Object;
     }
     export class PictureFillSymbol extends FillSymbol {
-        constructor(url, outline, width : number, height : number);
+        constructor(url: string, outline : esri.symbol.SimpleLineSymbol, width : number, height : number);
         constructor(json : Object);
-        color: void;
+        color: dojo.Color;
         height: number;
         outline: esri.symbol.SimpleLineSymbol;
         type: string;
@@ -2394,21 +2394,21 @@ declare module esri.symbol {
         xscale: number;
         yoffset: number;
         yscale: number;
-        setColor(color): esri.symbol.Symbol;
-        setHeight(height): PictureFillSymbol;
-        setOffset(x, y): PictureFillSymbol;
-        setOutline(outline): FillSymbol;
+        setColor(color: dojo.Color): esri.symbol.Symbol;
+        setHeight(height: number): PictureFillSymbol;
+        setOffset(x: number, y: number): PictureFillSymbol;
+        setOutline(outline: esri.symbol.SimpleLineSymbol): FillSymbol;
         setUrl(url : string): PictureFillSymbol;
-        setWidth(width): PictureFillSymbol;
-        setXScale(scale): PictureFillSymbol;
-        setYScale(scale): PictureFillSymbol;
+        setWidth(width: number): PictureFillSymbol;
+        setXScale(scale: number): PictureFillSymbol;
+        setYScale(scale: number): PictureFillSymbol;
         toJson(): Object;
     }
     export class PictureMarkerSymbol extends MarkerSymbol {
-        constructor(url, width : number, height : number);
+        constructor(url: string, width : number, height : number);
         constructor(json : Object);
         angle: number;
-        color: void;
+        color: dojo.Color;
         height: number;
         size: number;
         type: string;
@@ -2416,18 +2416,18 @@ declare module esri.symbol {
         width: number;
         xoffset: number;
         yoffset: number;
-        setAngle(angle): MarkerSymbol;
-        setColor(color): esri.symbol.Symbol;
-        setHeight(height): PictureMarkerSymbol;
-        setOffset(x, y): MarkerSymbol;
-        setSize(size): MarkerSymbol;
+        setAngle(angle: number): MarkerSymbol;
+        setColor(color: dojo.Color): esri.symbol.Symbol;
+        setHeight(height: number): PictureMarkerSymbol;
+        setOffset(x: number, y: number): MarkerSymbol;
+        setSize(size: number): MarkerSymbol;
         setUrl(url : string): PictureMarkerSymbol;
-        setWidth(width): PictureMarkerSymbol;
+        setWidth(width: number): PictureMarkerSymbol;
         toJson(): Object;
     }
     export class SimpleFillSymbol extends FillSymbol {
         constructor();
-        constructor(style, outline, color);
+        constructor(style: string, outline: esri.symbol.SimpleLineSymbol, color: dojo.Color);
         constructor(json : Object);
         STYLE_SOLID: string;
         STYLE_NULL: string;
@@ -2437,18 +2437,18 @@ declare module esri.symbol {
         STYLE_BACKWARD_DIAGONAL: string;
         STYLE_CROSS: string;
         STYLE_DIAGONAL_CROSS: string;
-        color: void;
+        color: dojo.Color;
         outline: esri.symbol.SimpleLineSymbol;
         style: string;
         type: string;
-        setColor(color): esri.symbol.Symbol;
-        setOutline(outline): FillSymbol;
-        setStyle(style): SimpleFillSymbol;
+        setColor(color: dojo.Color): esri.symbol.Symbol;
+        setOutline(outline : esri.symbol.SimpleLineSymbol): FillSymbol;
+        setStyle(style: string): SimpleFillSymbol;
         toJson(): Object;
     }
     export class SimpleLineSymbol extends LineSymbol {
         constructor();
-        constructor(style, color, width);
+        constructor(style: string, color: dojo.Color, width: number);
         constructor(json : Object);
         STYLE_SOLID: string;
         STYLE_DASH: string;
@@ -2462,18 +2462,18 @@ declare module esri.symbol {
         STYLE_SHORTDASHDOT: string;
         STYLE_LONGDASH: string;
         STYLE_LONGDASHDOT: string;
-        color: void;
+        color: dojo.Color;
         style: string;
         type: string;
         width: number;
-        setColor(color): esri.symbol.Symbol;
-        setStyle(style): esri.symbol.SimpleLineSymbol;
-        setWidth(width): LineSymbol;
+        setColor(color: dojo.Color): esri.symbol.Symbol;
+        setStyle(style: string): esri.symbol.SimpleLineSymbol;
+        setWidth(width: number): LineSymbol;
         toJson(): Object;
     }
     export class SimpleMarkerSymbol extends MarkerSymbol {
         constructor();
-        constructor(style, size, outline, color);
+        constructor(style: string, size: number, outline: esri.symbol.SimpleLineSymbol, color: dojo.Color);
         constructor(json : Object);
         STYLE_CIRCLE: string;
         STYLE_SQUARE: string;
@@ -2482,31 +2482,31 @@ declare module esri.symbol {
         STYLE_DIAMOND: string;
         STYLE_PATH: string;
         angle: number;
-        color: void;
+        color: dojo.Color;
         outline: esri.symbol.SimpleLineSymbol;
         size: number;
         style: string;
         type: string;
         xoffset: number;
         yoffset: number;
-        setAngle(angle): MarkerSymbol;
-        setColor(color): esri.symbol.Symbol;
-        setOffset(x, y): MarkerSymbol;
-        setOutline(outline): esri.symbol.SimpleMarkerSymbol;
-        setPath(): esri.symbol.SimpleMarkerSymbol;
-        setSize(size): MarkerSymbol;
-        setStyle(style): esri.symbol.SimpleMarkerSymbol;
+        setAngle(angle: number): MarkerSymbol;
+        setColor(color: dojo.Color): esri.symbol.Symbol;
+        setOffset(x: number, y: number): MarkerSymbol;
+        setOutline(outline: esri.symbol.SimpleLineSymbol): esri.symbol.SimpleMarkerSymbol;
+        setPath(path: string): esri.symbol.SimpleMarkerSymbol;
+        setSize(size: number): MarkerSymbol;
+        setStyle(style: string): esri.symbol.SimpleMarkerSymbol;
         toJson(): Object;
     }
     export class Symbol {
-        color: void;
+        color: dojo.Color;
         type: string;
-        setColor(color): esri.symbol.Symbol;
+        setColor(color: dojo.Color): esri.symbol.Symbol;
         toJson(): Object;
     }
     export class TextSymbol extends Symbol {
         constructor(text: string);
-        constructor(text: string, font: string, color: string);
+        constructor(text: string, font: esri.symbol.Font, color: dojo.Color);
         constructor(json: Object);
         ALIGN_START: string;
         ALIGN_MIDDLE: string;
@@ -2517,7 +2517,7 @@ declare module esri.symbol {
         DECORATION_LINETHROUGH: string;
         align: string;
         angle: number;
-        color: void;
+        color: dojo.Color;
         decoration: string;
         font: Font;
         kerning: boolean;
@@ -2526,22 +2526,22 @@ declare module esri.symbol {
         type: string;
         xoffset: number;
         yoffset: number;
-        setAlign(align): TextSymbol;
-        setAngle(angle): TextSymbol;
-        setColor(color): esri.symbol.Symbol;
-        setDecoration(decoration): TextSymbol;
-        setFont(font): TextSymbol;
-        setKerning(kerning): TextSymbol;
-        setOffset(x, y): TextSymbol;
-        setRotated(rotated): TextSymbol;
-        setText(text): TextSymbol;
+        setAlign(align: string): TextSymbol;
+        setAngle(angle: number): TextSymbol;
+        setColor(color: dojo.Color): esri.symbol.Symbol;
+        setDecoration(decoration: string): TextSymbol;
+        setFont(font: esri.symbol.Font): TextSymbol;
+        setKerning(kerning: boolean): TextSymbol;
+        setOffset(x: number, y: number): TextSymbol;
+        setRotated(rotated: boolean): TextSymbol;
+        setText(text: string): TextSymbol;
         toJson(): Object;
     }
-    //export class namespace_symbol {
-    //	esri.symbol.fromJson() : esri.symbol.Symbol;
-    //	esri.symbol.getShapeDescriptors() : void;
-    //}
 }
+
+// fleray : TODOXXX : Classes checked till end of module esri.symbol !
+
+
 declare module esri.tasks {
     export class AddressCandidate {
         address: Object;
