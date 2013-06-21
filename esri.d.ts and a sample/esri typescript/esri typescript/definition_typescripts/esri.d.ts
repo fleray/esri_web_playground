@@ -1529,10 +1529,10 @@ declare module esri.layers {
         types: FeatureType[];
         version: number;
         visibleAtMapScale: boolean;
-        addAttachment(objectId : number, formNode : HTMLFormElement, callback: Function, errback: Function): dojo.Deferred;
-        applyEdits(adds: esri.Graphic[], updates: esri.Graphic[], deletes: esri.Graphic[], callback: Function, errback: Function): dojo.Deferred;
+        addAttachment(objectId : number, formNode : HTMLFormElement, callback?: Function, errback?: Function): dojo.Deferred;
+        applyEdits(adds: esri.Graphic[], updates: esri.Graphic[], deletes: esri.Graphic[], callback?: Function, errback?: Function): dojo.Deferred;
         clearSelection(): FeatureLayer;
-        deleteAttachments(objectId: number, attachmentIds: number[], callback: Function, errback: Function): dojo.Deferred;
+        deleteAttachments(objectId: number, attachmentIds: number[], callback?: Function, errback?: Function): dojo.Deferred;
         getAttributionData(): dojo.Deferred;
         getDefinitionExpression(): string;
         getEditCapabilities(options : Object): Object;
@@ -2539,9 +2539,6 @@ declare module esri.symbol {
     }
 }
 
-// fleray : TODOXXX : Classes checked till end of module esri.symbol !
-
-
 declare module esri.tasks {
     export class AddressCandidate {
         address: Object;
@@ -2558,9 +2555,9 @@ declare module esri.tasks {
     }
     export class AreasAndLengthsParameters {
         constructor();
-        areaUnit: esri.tasks.GeometryService;
+        areaUnit: string; // esri.tasks.GeometryService;
         calculationType: string;
-        lengthUnit: esri.tasks.GeometryService;
+        lengthUnit: string; // esri.tasks.GeometryService;
         polygons: esri.geometry.Geometry[];
     }
     export class BufferParameters {
@@ -2569,7 +2566,7 @@ declare module esri.tasks {
         distances: number[];
         geodesic: boolean;
         geometries: esri.geometry.Geometry[];
-        outSpatialReference: SpatialReference;
+        outSpatialReference: esri.SpatialReference;
         unionResults: boolean;
         unit: string;
     }
@@ -2609,9 +2606,9 @@ declare module esri.tasks {
         outputGeometryPrecision: number;
         outputGeometryPrecisionUnits: string;
         outputLines: string;
-        pointBarriers: void;
-        polygonBarriers: void;
-        polylineBarriers: void;
+        pointBarriers: Object;
+        polygonBarriers: Object;
+        polylineBarriers: Object;
         restrictUTurns: string;
         restrictionAttributes: string[];
         returnDirections: boolean;
@@ -2621,13 +2618,13 @@ declare module esri.tasks {
         returnPolygonBarriers: boolean;
         returnPolylineBarriers: boolean;
         returnRoutes: boolean;
-        timeOfDay: Date;
+        timeOfDay: esri.tasks.Date;
         timeOfDayUsage: string;
-        travelDirection: void;
+        travelDirection: string;
         useHierarchy: boolean;
     }
     export class ClosestFacilitySolveResult {
-        directions: DirectionsFeatureSet;
+        directions: esri.tasks.DirectionsFeatureSet;
         facilities: esri.geometry.Point[];
         incidents: esri.geometry.Point[];
         messages: esri.tasks.NAMessage;
@@ -2637,9 +2634,9 @@ declare module esri.tasks {
         routes: Graphic[];
     }
     export class ClosestFacilityTask {
-        constructor();
-        solve(params, callback: Function, errback: Function): dojo.Deferred;
-        onSolveComplete(closestFacilitySolveResult): void;
+        constructor(url?: string);
+        solve(params: esri.tasks.ClosestFacilityParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        onSolveComplete(closestFacilitySolveResult: esri.tasks.ClosestFacilitySolveResult): void;
         // solve-complete : <ClosestFacilityResult> result;
     }
     export class DataFile {
@@ -2664,7 +2661,7 @@ declare module esri.tasks {
     }
     export class Date {
         constructor();
-        date: Date;
+        date: esri.tasks.Date;
         format: string;
     }
     export class DirectionsFeatureSet extends FeatureSet {
@@ -2685,7 +2682,7 @@ declare module esri.tasks {
     }
     export class DistanceParameters {
         constructor();
-        distanceUnit: esri.tasks.GeometryService;
+        distanceUnit: string; // esri.tasks.GeometryService Constant.
         geodesic: boolean;
         geometry1: esri.geometry.Geometry;
         geometry2: esri.geometry.Geometry;
@@ -2705,7 +2702,7 @@ declare module esri.tasks {
         contains: boolean;
         dynamicLayerInfos: esri.layers.DynamicLayerInfo[];
         layerDefinitions: string[];
-        layerIds: void;
+        layerIds: number[];
         maxAllowableOffset: number;
         outSpatialReference: SpatialReference;
         returnGeometry: boolean;
@@ -2720,11 +2717,11 @@ declare module esri.tasks {
         layerName: string;
     }
     export class FindTask {
-        constructor(url, options?);
+        constructor(url: string, options?: Object);
         url: string;
-        execute(findParameters, callback: Function, errback: Function): dojo.Deferred;
-        onComplete(findResults): void;
-        onError(error): void;
+        execute(findParameters: esri.tasks.FindParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        onComplete(findResults: esri.tasks.FindResult[]): void;
+        onError(error: Error): void;
         complete: FindResult[];
     }
     export class GPMessage {
@@ -2741,21 +2738,21 @@ declare module esri.tasks {
     }
     export class GeneralizeParameters {
         constructor();
-        deviationUnit: void;
+        deviationUnit: string; // esri.tasks.GeometryService Constant.
         geometries: esri.geometry.Geometry[];
         maxDeviation: number;
     }
     export class GenerateRendererParameters {
         constructor();
-        classificationDefinition: ClassificationDefinition;
+        classificationDefinition: esri.tasks.ClassificationDefinition;
         where: string;
     }
     export class GenerateRendererTask {
-        constructor(url, options?);
-        execute(generateRendererParameters, callback: Function, errback: Function): dojo.Deferred;
-        onComplete(renderer): void;
-        onError(error): void;
-        complete: esri.renderer.Renderer;
+        constructor(url: string, options?: Object);
+        execute(generateRendererParameters: esri.tasks.GenerateRendererParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        onComplete(renderer: esri.renderer.Renderer): void;
+        onError(error: Error): void;
+        // complete: esri.renderer.Renderer;
     }
     export class GeometryService {
         constructor(url : string);
@@ -2778,43 +2775,43 @@ declare module esri.tasks {
         UNIT_HECTARES: string;
         UNIT_SQUARE_KILOMETERS: string;
         url: string;
-        areasAndLengths(areasAndLengthsParameters, callback: Function, errback: Function): dojo.Deferred;
-        autoComplete(polygons, polylines, callback: Function, errback: Function): dojo.Deferred;
-        buffer(bufferParameters, callback: Function, errback: Function): dojo.Deferred;
-        convexHull(geometries, callback: Function, errback: Function): dojo.Deferred;
-        cut(geometries, cutterGeometry, callback: Function, errback: Function): dojo.Deferred;
-        difference(geometries, geometry, callback: Function, errback: Function): dojo.Deferred;
-        distance(params, callback: Function, errback: Function): dojo.Deferred;
-        generalize(params, callback: Function, errback: Function): dojo.Deferred;
-        intersect(geometries, geometry, callback: Function, errback: Function): dojo.Deferred;
-        labelPoints(polygons, callback: Function, errback: Function): dojo.Deferred;
-        lengths(lengthsParameter, callback: Function, errback: Function): dojo.Deferred;
-        offset(params, callback: Function, errback: Function): dojo.Deferred;
-        project(params, callback: Function, errback: Function): dojo.Deferred;
-        relation(relationParameters, callback: Function, errback: Function): dojo.Deferred;
-        reshape(targetGeometry, reshaperGeometry, callback: Function, errback: Function): dojo.Deferred;
-        simplify(geometries, callback: Function, errback: Function): dojo.Deferred;
-        trimExtend(params, callback: Function, errback: Function): dojo.Deferred;
-        union(geometries, callback: Function, errback: Function): dojo.Deferred;
-        onAreasAndLengthsComplete(areasAndLengths): void;
-        onAutoCompleteComplete(polygons): void;
-        onBufferComplete(geometries): void;
-        onConvexHullComplete(geometry): void;
-        onCutComplete(results): void;
-        onDifferenceComplete(geometries): void;
-        onDistanceComplete(distance): void;
-        onError(error): void;
-        onGeneralizeComplete(geometries): void;
-        onIntersectComplete(geometries): void;
-        onLabelPointsComplete(labelPoints): void;
-        onLengthsComplete(lengths): void;
-        onOffsetComplete(geometries): void;
-        onProjectComplete(geometries): void;
-        onRelationComplete(relationships): void;
-        onReshapeComplete(geometry): void;
-        onSimplifyComplete(geometries): void;
-        onTrimExtendComplete(geometries): void;
-        onUnionComplete(geometry): void;
+        areasAndLengths(areasAndLengthsParameters: esri.tasks.AreasAndLengthsParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        autoComplete(polygons: esri.geometry.Polygon[], polylines: esri.geometry.Polyline[], callback?: Function, errback?: Function): dojo.Deferred;
+        buffer(bufferParameter: esri.tasks.BufferParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        convexHull(geometries: esri.geometry.Geometry[], callback?: Function, errback?: Function): dojo.Deferred;
+        cut(geometries: esri.geometry.Geometry[], cutterGeometry: esri.geometry.Geometry, callback?: Function, errback?: Function): dojo.Deferred;
+        difference(geometries: esri.geometry.Geometry[], geometry: esri.geometry.Geometry, callback?: Function, errback?: Function): dojo.Deferred;
+        distance(params: esri.tasks.DistanceParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        generalize(params:esri.tasks.GeneralizeParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        intersect(geometries: esri.geometry.Geometry[], geometry: esri.geometry.Geometry, callback?: Function, errback?: Function): dojo.Deferred;
+        labelPoints(polygons: esri.geometry.Geometry[], callback?: Function, errback?: Function): dojo.Deferred;
+        lengths(lengthsParameter: esri.tasks.LengthsParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        offset(params: esri.tasks.OffsetParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        project(params: esri.tasks.ProjectParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        relation(relationParameters: esri.tasks.RelationParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        reshape(targetGeometry: esri.geometry.Geometry, reshaperGeometry: esri.geometry.Geometry, callback?: Function, errback?: Function): dojo.Deferred;
+        simplify(geometries: esri.geometry.Geometry[], callback?: Function, errback?: Function): dojo.Deferred;
+        trimExtend(params: esri.tasks.TrimExtendParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        union(geometries: esri.geometry.Geometry[], callback?: Function, errback?: Function): dojo.Deferred;
+        onAreasAndLengthsComplete(areasAndLengths: Object): void;
+        onAutoCompleteComplete(polygons: esri.geometry.Polygon[]): void;
+        onBufferComplete(geometries: esri.geometry.Geometry[]): void;
+        onConvexHullComplete(geometry: esri.geometry.Geometry): void;
+        onCutComplete(results: Object): void;
+        onDifferenceComplete(geometries: esri.geometry.Geometry[]): void;
+        onDistanceComplete(distance: number): void;
+        onError(error: Error): void;
+        onGeneralizeComplete(geometries: esri.geometry.Geometry[]): void;
+        onIntersectComplete(geometries: esri.geometry.Geometry[]): void;
+        onLabelPointsComplete(labelPoints: esri.geometry.Geometry[]): void;
+        onLengthsComplete(lengths: Object): void;
+        onOffsetComplete(geometries: esri.geometry.Geometry[]): void;
+        onProjectComplete(geometries: esri.geometry.Geometry[]): void;
+        onRelationComplete(relationships: Object[]): void;
+        onReshapeComplete(geometry: esri.geometry.Geometry): void;
+        onSimplifyComplete(geometries: esri.geometry.Geometry[]): void;
+        onTrimExtendComplete(geometries: esri.geometry.Geometry[]): void;
+        onUnionComplete(geometry: esri.geometry.Geometry): void;
         //    areas-and - lengths-complete : <Object> result;
         //auto - complete-complete : esri.geometry.Polygon[];
         //convex - hull-complete : esri.geometry.Geometry;
@@ -2833,6 +2830,9 @@ declare module esri.tasks {
         //trim - extend-complete : esri.geometry.Geometry[];
         //		union-complete : esri.geometry.Geometry;
     }
+
+    // fleray : TODOXXX : Classes checked till end of module esri.tasks !
+
     export class Geoprocessor {
         constructor(url : string);
         outSpatialReference: SpatialReference;
@@ -2840,18 +2840,18 @@ declare module esri.tasks {
         processSpatialReference: SpatialReference;
         updateDelay: number;
         url: string;
-        cancelJob(jobId, callback: Function, errback: Function): dojo.Deferred;
+        cancelJob(jobId, callback?: Function, errback?: Function): dojo.Deferred;
         cancelJobStatusUpdates(jobId): void;
-        checkJobStatus(jobId, callback: Function, errback: Function): void;
-        execute(inputParameters, callback: Function, errback: Function): dojo.Deferred;
-        getResultData(jobId, parameterName, callback: Function, errback: Function): dojo.Deferred;
-        getResultImage(jobId, parameterName, imageParameters, callback: Function, errback: Function): dojo.Deferred;
-        getResultImageLayer(jobId, parameterName, imageParameters, callback: Function, errback: Function): void;
+        checkJobStatus(jobId, callback?: Function, errback?: Function): void;
+        execute(inputParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        getResultData(jobId, parameterName, callback?: Function, errback?: Function): dojo.Deferred;
+        getResultImage(jobId, parameterName, imageParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        getResultImageLayer(jobId, parameterName, imageParameters, callback?: Function, errback?: Function): void;
         setOutSpatialReference(spatialReference): void;
         setOutputSpatialReference(spatialReference): void;
         setProcessSpatialReference(spatialReference): void;
         setUpdateDelay(delay): void;
-        submitJob(inputParameters, callback: Function, statuscallback: Function, errback: Function): void;
+        submitJob(inputParameters, callback: Function, statuscallback?: Function, errback?: Function): void;
         onError(error): void;
         onExecuteComplete(results, messages): void;
         onGetResultDataComplete(result): void;
@@ -2898,7 +2898,7 @@ declare module esri.tasks {
     export class IdentifyTask {
         constructor(url, options?);
         url: string;
-        execute(identifyParameters, callback: Function, errback: Function): dojo.Deferred;
+        execute(identifyParameters, callback?: Function, errback?: Function): dojo.Deferred;
         onComplete(identifyResults): void;
         onError(error): void;
         complete: IdentifyResult[];
@@ -2924,7 +2924,7 @@ declare module esri.tasks {
     }
     export class ImageServiceIdentifyTask {
         constructor(url : string);
-        execute(params, callback: Function, errback: Function): dojo.Deferred;
+        execute(params, callback?: Function, errback?: Function): dojo.Deferred;
         onComplete(imageServiceIdentifyResult): void;
         complete: ImageServiceIdentifyResult;
     }
@@ -2965,9 +2965,9 @@ declare module esri.tasks {
         constructor(url : string);
         outSpatialReference: SpatialReference;
         url: string;
-        addressToLocations(params, callback: Function, errback: Function): dojo.Deferred;
-        addressesToLocations(params, callback: Function, errback: Function): dojo.Deferred;
-        locationToAddress(location, distance, callback: Function, errback: Function): dojo.Deferred;
+        addressToLocations(params, callback?: Function, errback?: Function): dojo.Deferred;
+        addressesToLocations(params, callback?: Function, errback?: Function): dojo.Deferred;
+        locationToAddress(location, distance, callback?: Function, errback?: Function): dojo.Deferred;
         setOutSpatialReference(spatialReference): void;
         onAddressToLocationsComplete(addressCandidates): void;
         onAddressesToLocationsComplete(addressCandidates): void;
@@ -3038,7 +3038,7 @@ declare module esri.tasks {
     export class PrintTask {
         constructor(url, params);
         url: string;
-        execute(printParameters, callback: Function, errback: Function): dojo.Deferred;
+        execute(printParameters, callback?: Function, errback?: Function): dojo.Deferred;
         onComplete(result): void;
         onError(error): void;
         // complete: <String> url;
@@ -3091,10 +3091,10 @@ declare module esri.tasks {
     export class QueryTask {
         constructor(url, options?);
         url: string;
-        execute(parameters, callback: Function, errback: Function): dojo.Deferred;
-        executeForCount(query, callback: Function, errback: Function): dojo.Deferred;
-        executeForIds(parameters, callback: Function, errback: Function): dojo.Deferred;
-        executeRelationshipQuery(parameters, callback: Function, errback: Function): dojo.Deferred;
+        execute(parameters, callback?: Function, errback?: Function): dojo.Deferred;
+        executeForCount(query, callback?: Function, errback?: Function): dojo.Deferred;
+        executeForIds(parameters, callback?: Function, errback?: Function): dojo.Deferred;
+        executeRelationshipQuery(parameters, callback?: Function, errback?: Function): dojo.Deferred;
         onComplete(featureSet): void;
         onError(error): void;
         onExecuteForCountComplete(count): void;
@@ -3185,7 +3185,7 @@ declare module esri.tasks {
     export class RouteTask {
         constructor(url : string);
         url: string;
-        solve(params, callback: Function, errback: Function): dojo.Deferred;
+        solve(params, callback?: Function, errback?: Function): dojo.Deferred;
         onError(error): void;
         onSolveComplete(solveResults): void;
         // solve-complete : <Object> result;
@@ -3236,7 +3236,7 @@ declare module esri.tasks {
     }
     export class ServiceAreaTask {
         constructor();
-        solve(params, callback: Function, errback: Function): dojo.Deferred;
+        solve(params, callback?: Function, errback?: Function): dojo.Deferred;
         onSolveComplete(serviceAreaSolveResult): void;
         //solve-complete : <ServiceAreaResult> result;
     }
@@ -3371,7 +3371,7 @@ declare module esri.virtualearth {
     export class VEGeocoder {
         constructor(options : Object);
         culture: void;
-        addressToLocations(query, callback: Function, errback: Function): dojo.Deferred;
+        addressToLocations(query, callback?: Function, errback?: Function): dojo.Deferred;
         setCulture(culture): void;
         onAddressToLocationsComplete(geocodeResults): void;
         onError(error): void;
