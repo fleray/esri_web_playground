@@ -8,7 +8,7 @@
 /// <reference path="dojo.d.ts" />
 
 declare module esri {
-    var config: void;
+    var config: Object;
     var documentBox: Object;
     var version: number;
     export function addProxyRule(rule : Object): number;
@@ -18,7 +18,7 @@ declare module esri {
     export function graphicsExtent(graphics: esri.Graphic[]): esri.geometry.Extent;
     export function hide(element : Element): void;
     export function isDefined(value : Object): boolean;
-    export function request(request: Object, options: Object): dojo.Deferred;
+    export function request(request: Object, options?: Object): dojo.Deferred;
     export function setRequestPreCallback(callbackFunction : Function): void;
     export function show(element : Element): void;
     export function substitute(data : Object, template? : string, first? : boolean): void;
@@ -2831,35 +2831,33 @@ declare module esri.tasks {
         //		union-complete : esri.geometry.Geometry;
     }
 
-    // fleray : TODOXXX : Classes checked till end of module esri.tasks !
-
     export class Geoprocessor {
         constructor(url : string);
         outSpatialReference: SpatialReference;
-        outputSpatialReference: SpatialReference;
+        outputSpatialReference: SpatialReference; // depracted since 2.0 => use outSpatialReference instead.
         processSpatialReference: SpatialReference;
         updateDelay: number;
         url: string;
-        cancelJob(jobId, callback?: Function, errback?: Function): dojo.Deferred;
-        cancelJobStatusUpdates(jobId): void;
-        checkJobStatus(jobId, callback?: Function, errback?: Function): void;
-        execute(inputParameters, callback?: Function, errback?: Function): dojo.Deferred;
-        getResultData(jobId, parameterName, callback?: Function, errback?: Function): dojo.Deferred;
-        getResultImage(jobId, parameterName, imageParameters, callback?: Function, errback?: Function): dojo.Deferred;
-        getResultImageLayer(jobId, parameterName, imageParameters, callback?: Function, errback?: Function): void;
-        setOutSpatialReference(spatialReference): void;
-        setOutputSpatialReference(spatialReference): void;
-        setProcessSpatialReference(spatialReference): void;
-        setUpdateDelay(delay): void;
-        submitJob(inputParameters, callback: Function, statuscallback?: Function, errback?: Function): void;
-        onError(error): void;
-        onExecuteComplete(results, messages): void;
-        onGetResultDataComplete(result): void;
-        onGetResultImageComplete(mapImage): void;
-        onGetResultImageLayerComplete(ArcGISDynamicMapServiceLayer): void;
-        onJobCancel(status): void;
-        onJobComplete(status): void;
-        onStatusUpdate(status): void;
+        cancelJob(jobId: string, callback: Function, errback: Function): dojo.Deferred;
+        cancelJobStatusUpdates(jobId: string): void;
+        checkJobStatus(jobId: string, callback?: Function, errback?: Function): void;
+        execute(inputParameters: Object, callback?: Function, errback?: Function): dojo.Deferred;
+        getResultData(jobId: string, parameterName: string, callback?: Function, errback?: Function): dojo.Deferred;
+        getResultImage(jobId: string, parameterName: string, imageParameters: esri.tasks.IdentifyParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        getResultImageLayer(jobId: string, parameterName: string, imageParameters: esri.tasks.IdentifyParameters, callback?: Function, errback?: Function): void;
+        setOutSpatialReference(spatialReference: esri.SpatialReference): void;
+        setOutputSpatialReference(spatialReference: esri.SpatialReference): void;
+        setProcessSpatialReference(spatialReference: esri.SpatialReference): void;
+        setUpdateDelay(delay: number): void;
+        submitJob(inputParameters: Object, callback?: Function, statuscallback?: Function, errback?: Function): void;
+        onError(error: Error): void;
+        onExecuteComplete(results: esri.tasks.ParameterValue[], messages: esri.tasks.GPMessage[]): void;
+        onGetResultDataComplete(result: esri.tasks.ParameterValue): void;
+        onGetResultImageComplete(mapImage: esri.layers.MapImage): void;
+        onGetResultImageLayerComplete(AGSDynamicMapServiceLayer: esri.layers.Layer): void;
+        onJobCancel(status: Object): void;
+        onJobComplete(status: esri.tasks.JobInfo): void;
+        onStatusUpdate(status: esri.tasks.JobInfo): void;
         //execute-complete : ParameterValue[]; // TODO : remove all CSS stuff
         //		get - result - data-complete : ParameterValue;
         //get - result - image-complete : MapImage;
@@ -2878,7 +2876,7 @@ declare module esri.tasks {
         geometry: esri.geometry.Geometry;
         height: number;
         layerDefinitions: string[];
-        layerIds: void;
+        layerIds: number[];
         layerOption: string;
         layerTimeOptions: esri.layers.LayerTimeOptions[];
         mapExtent: esri.geometry.Extent;
@@ -2896,11 +2894,11 @@ declare module esri.tasks {
         layerName: string;
     }
     export class IdentifyTask {
-        constructor(url, options?);
+        constructor(url: string, options?: Object);
         url: string;
-        execute(identifyParameters, callback?: Function, errback?: Function): dojo.Deferred;
-        onComplete(identifyResults): void;
-        onError(error): void;
+        execute(identifyParameters: esri.tasks.IdentifyParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        onComplete(identifyResults: esri.tasks.IdentifyResult[]): void;
+        onError(error: Error): void;
         complete: IdentifyResult[];
     }
     export class ImageServiceIdentifyParameters {
@@ -2923,10 +2921,10 @@ declare module esri.tasks {
         value: string;
     }
     export class ImageServiceIdentifyTask {
-        constructor(url : string);
-        execute(params, callback?: Function, errback?: Function): dojo.Deferred;
-        onComplete(imageServiceIdentifyResult): void;
-        complete: ImageServiceIdentifyResult;
+        constructor(url: string);
+        execute(params: esri.tasks.ImageServiceIdentifyParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        onComplete(imageServiceIdentifyResult: esri.tasks.ImageServiceIdentifyResult): void;
+        // complete: ImageServiceIdentifyResult; // Event to remove TODO : F.Leray
     }
     export class JobInfo {
         esriJobCancelled: string;
@@ -2951,35 +2949,35 @@ declare module esri.tasks {
     }
     export class LengthsParameters {
         constructor();
-        calculationType: string;
-        geodesic: boolean;
+        calculationType: string; // planar, geodesic or preserveShape.
+        geodesic: boolean; // Note:If you are using an ArcGIS Server 10.1 or greater then use the calculationType property instead.
         lengthUnit: esri.tasks.GeometryService;
         polylines: esri.geometry.Geometry[];
     }
     export class LinearUnit {
         constructor();
         distance: number;
-        units: string;
+        units: string; // esriMeters, esriMiles or esriKilometers
     }
     export class Locator {
-        constructor(url : string);
+        constructor(url: string);
         outSpatialReference: SpatialReference;
         url: string;
-        addressToLocations(params, callback?: Function, errback?: Function): dojo.Deferred;
-        addressesToLocations(params, callback?: Function, errback?: Function): dojo.Deferred;
-        locationToAddress(location, distance, callback?: Function, errback?: Function): dojo.Deferred;
-        setOutSpatialReference(spatialReference): void;
-        onAddressToLocationsComplete(addressCandidates): void;
-        onAddressesToLocationsComplete(addressCandidates): void;
-        onError(error): void;
-        onLocationToAddressComplete(addressCandidate): void;
+        addressToLocations(params: Object, callback?: Function, errback?: Function): dojo.Deferred;
+        addressesToLocations(params: Object, callback?: Function, errback?: Function): dojo.Deferred;
+        locationToAddress(location : esri.geometry.Point, distance: number, callback?: Function, errback?: Function): dojo.Deferred;
+        setOutSpatialReference(spatialReference: esri.SpatialReference): void;
+        onAddressToLocationsComplete(addressCandidates: esri.tasks.AddressCandidate[]): void;
+        onAddressesToLocationsComplete(addressCandidates: esri.tasks.AddressCandidate[]): void;
+        onError(error: Error): void;
+        onLocationToAddressComplete(addressCandidate: esri.tasks.AddressCandidate): void;
         //address-to - locations-complete : AddressCandidate[]; // TODO : remove all CSS stuff
         //addresses-to - locations-complete : AddressCandidate[];
         //location-to - address-complete : AddressCandidate;
     }
     export class MultipartColorRamp {
         constructor();
-        colorRamps: AlgorithmicColorRamp[];
+        colorRamps: esri.tasks.AlgorithmicColorRamp[];
         toJson(): Object;
     }
     export class NAMessage {
@@ -3020,8 +3018,8 @@ declare module esri.tasks {
         bevelRatio: number;
         geometries: esri.geometry.Geometry[];
         offsetDistance: number;
-        offsetHow: string;
-        offsetUnit: void;
+        offsetHow: string; // esriGeometryOffsetBevelled, esriGeometryOffsetMitered or esriGeometryOffsetRounded.
+        offsetUnit: string;
     }
     export class ParameterValue {
         dataType: string;
@@ -3031,16 +3029,16 @@ declare module esri.tasks {
     export class PrintParameters {
         constructor();
         extraParameters: Object;
-        map: Map;
-        outSpatialReference: SpatialReference;
-        template: PrintTemplate;
+        map: esri.Map;
+        outSpatialReference: esri.SpatialReference;
+        template: esri.tasks.PrintTemplate;
     }
     export class PrintTask {
-        constructor(url, params);
+        constructor(url: string, params: Object);
         url: string;
-        execute(printParameters, callback?: Function, errback?: Function): dojo.Deferred;
-        onComplete(result): void;
-        onError(error): void;
+        execute(printParameters: esri.tasks.PrintParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        onComplete(result: Object): void;
+        onError(error: Error): void;
         // complete: <String> url;
     }
     export class PrintTemplate {
@@ -3056,7 +3054,7 @@ declare module esri.tasks {
     export class ProjectParameters {
         constructor();
         geometries: esri.geometry.Geometry[];
-        outSR: SpatialReference;
+        outSR: esri.SpatialReference;
         transformation: Object;
         transformationForward: boolean;
     }
@@ -3077,29 +3075,29 @@ declare module esri.tasks {
         maxAllowableOffset: number;
         objectIds: number[];
         orderByFields: string[];
-        outFields: void;
-        outSpatialReference: SpatialReference;
-        outStatistics: StatisticDefinition[];
+        outFields: string[];
+        outSpatialReference: esri.SpatialReference;
+        outStatistics: esri.tasks.StatisticDefinition[];
         pixelSize: esri.symbol.Symbol;
         relationParam: string;
-        returnGeometry: void;
+        returnGeometry: boolean;
         spatialRelationship: string;
         text: string;
         timeExtent: TimeExtent;
         where: string;
     }
     export class QueryTask {
-        constructor(url, options?);
+        constructor(url: string, options?: Object);
         url: string;
-        execute(parameters, callback?: Function, errback?: Function): dojo.Deferred;
-        executeForCount(query, callback?: Function, errback?: Function): dojo.Deferred;
-        executeForIds(parameters, callback?: Function, errback?: Function): dojo.Deferred;
-        executeRelationshipQuery(parameters, callback?: Function, errback?: Function): dojo.Deferred;
-        onComplete(featureSet): void;
-        onError(error): void;
-        onExecuteForCountComplete(count): void;
-        onExecuteForIdsComplete(featureIds): void;
-        onExecuteRelationshipQueryComplete(relatedFeatureSets): void;
+        execute(parameters: esri.tasks.Query, callback?: Function, errback?: Function): dojo.Deferred;
+        executeForCount(query: esri.tasks.Query, callback?: Function, errback?: Function): dojo.Deferred;
+        executeForIds(parameters: esri.tasks.Query, callback?: Function, errback?: Function): dojo.Deferred;
+        executeRelationshipQuery(parameters: esri.tasks.RelationshipQuery, callback?: Function, errback?: Function): dojo.Deferred;
+        onComplete(featureSet: esri.tasks.FeatureSet): void;
+        onError(error: Error): void;
+        onExecuteForCountComplete(count: number): void;
+        onExecuteForIdsComplete(featureIds: number[]): void;
+        onExecuteRelationshipQueryComplete(relatedFeatureSets: Object): void;
         //    complete: FeatureSet;
         //    execute-for-count-complete : <number> count;
         //		execute-for-ids-complete : <number[]> objectIds;
@@ -3136,10 +3134,10 @@ declare module esri.tasks {
         geometryPrecision: number;
         maxAllowableOffset: number;
         objectIds: number[];
-        outFields: void;
-        outSpatialReference: SpatialReference;
+        outFields: number[];    
+        outSpatialReference: esri.SpatialReference;
         relationshipId: number;
-        returnGeometry: void;
+        returnGeometry: boolean;
     }
     export class RouteParameters {
         constructor();
@@ -3155,39 +3153,39 @@ declare module esri.tasks {
         findBestSequence: boolean;
         ignoreInvalidLocations: boolean;
         impedanceAttribute: string;
-        outSpatialReference: SpatialReference;
+        outSpatialReference: esri.SpatialReference;
         outputGeometryPrecision: number;
         outputGeometryPrecisionUnits: string;
-        outputLines: void;
-        polygonBarriers: void;
-        polylineBarriers: void;
+        outputLines: string;
+        polygonBarriers: Object;
+        polylineBarriers: Object;
         preserveFirstStop: boolean;
         preserveLastStop: boolean;
         restrictUTurns: string;
         restrictionAttributes: string[];
         returnBarriers: boolean;
-        returnDirections: void;
+        returnDirections: boolean;
         returnPolygonBarriers: boolean;
         returnPolylineBarriers: boolean;
         returnRoutes: boolean;
         returnStops: boolean;
-        startTime: Date;
+        startTime: esri.tasks.Date;
         stops: Object;
         useHierarchy: boolean;
         useTimeWindows: boolean;
     }
     export class RouteResult {
-        directions: DirectionsFeatureSet;
-        route: Graphic;
+        directions: esri.tasks.DirectionsFeatureSet;
+        route: esri.Graphic;
         routeName: string;
-        stops: Graphic[];
+        stops: esri.Graphic[];
     }
     export class RouteTask {
-        constructor(url : string);
+        constructor(url: string);
         url: string;
-        solve(params, callback?: Function, errback?: Function): dojo.Deferred;
-        onError(error): void;
-        onSolveComplete(solveResults): void;
+        solve(params: esri.tasks.RouteParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        onError(error: Error): void;
+        onSolveComplete(solveResults: Object): void;
         // solve-complete : <Object> result;
     }
     export class ServiceAreaParameters {
@@ -3197,7 +3195,7 @@ declare module esri.tasks {
         defaultBreaks: number[];
         doNotLocateOnRestrictedElements: boolean;
         excludeSourcesFromPolygons: string[];
-        facilities: void;
+        facilities: Object;
         impedanceAttribute: string;
         mergeSimilarPolygonRanges: boolean;
         outSpatialReference: esri.SpatialReference;
@@ -3207,10 +3205,10 @@ declare module esri.tasks {
         outputPolygons: string;
         overlapLines: boolean;
         overlapPolygons: boolean;
-        pointBarriers: void;
-        polygonBarriers: void;
-        polylineBarriers: void;
-        restrictUTurns: void;
+        pointBarriers: Object;
+        polygonBarriers: Object;
+        polylineBarriers: Object;
+        restrictUTurns: string;
         restrictionAttributes: string[];
         returnFacilities: boolean;
         returnPointBarriers: boolean;
@@ -3218,11 +3216,11 @@ declare module esri.tasks {
         returnPolylineBarriers: boolean;
         splitLinesAtBreaks: boolean;
         splitPolygonsAtBreaks: boolean;
-        timeOfDay: Date;
-        travelDirection: void;
+        timeOfDay: esri.tasks.Date;
+        travelDirection: string;
         trimOuterPolygon: boolean;
         trimPolygonDistance: number;
-        trimPolygonDistanceUnits: void;
+        trimPolygonDistanceUnits: string;
         useHierarchy: boolean;
     }
     export class ServiceAreaSolveResult {
@@ -3236,8 +3234,8 @@ declare module esri.tasks {
     }
     export class ServiceAreaTask {
         constructor();
-        solve(params, callback?: Function, errback?: Function): dojo.Deferred;
-        onSolveComplete(serviceAreaSolveResult): void;
+        solve(params: esri.tasks.ServiceAreaParameters, callback?: Function, errback?: Function): dojo.Deferred;
+        onSolveComplete(serviceAreaSolveResult: esri.tasks.ServiceAreaSolveResult): void;
         //solve-complete : <ServiceAreaResult> result;
     }
     export class StatisticDefinition {
@@ -3264,7 +3262,7 @@ declare module esri.tasks {
 }
 declare module esri.toolbars {
     export class Draw {
-        constructor(map, options);
+        constructor(map: esri.Map, options: Object);
         POINT: string;
         LINE: string;
         EXTENT: string;
@@ -3286,57 +3284,57 @@ declare module esri.toolbars {
         lineSymbol: esri.symbol.SimpleLineSymbol;
         markerSymbol: esri.symbol.SimpleMarkerSymbol;
         respectDrawingVertexOrder: boolean;
-        activate(geometryType, options): void;
+        activate(geometryType: string, options: Object): void;
         deactivate(): void;
         finishDrawing(): void;
-        setFillSymbol(fillSymbol): void;
-        setLineSymbol(lineSymbol): void;
-        setMarkerSymbol(markerSymbol): void;
-        setRespectDrawingVertexOrder(set ): void;
-        onDrawComplete(): void;
-        onDrawEnd(geometry): void;
+        setFillSymbol(fillSymbol: esri.symbol.FillSymbol): void;
+        setLineSymbol(lineSymbol: esri.symbol.LineSymbol): void;
+        setMarkerSymbol(markerSymbol: esri.symbol.MarkerSymbol): void;
+        setRespectDrawingVertexOrder(respectDrawingVertexOrder: boolean): void;
+        onDrawComplete(event: Event): void; // TODO F.Leray : to check again : documentation is missing about the type of argument passed to this method.
+        onDrawEnd(geometry: esri.geometry.Geometry): void;
     }
     export class Edit {
-        constructor(map, options?);
+        constructor(map: esri.Map, options?: Object);
         EDIT_VERTICES: string;
         MOVE: string;
         SCALE: string;
         ROTATE: string;
-        activate(tool, graphic, options): void;
+        activate(tool: string, graphic: esri.Graphic, options: Object): void;
         deactivate(): void;
         getCurrentState(): Object;
         refresh(): void;
-        onActivate(tool, graphic): void;
-        onDeactivate(tool, graphic, info): void;
-        onGraphicClick(graphic, info): void;
-        onGraphicFirstMove(graphic): void;
-        onGraphicMove(graphic, transform): void;
-        onGraphicMoveStart(graphic): void;
+        onActivate(tool: string, graphic: esri.Graphic): void;
+        onDeactivate(tool: string, graphic: esri.Graphic, info: Object): void;
+        onGraphicClick(graphic: esri.Graphic, info: Object): void;
+        onGraphicFirstMove(graphic: esri.Graphic): void;
+        onGraphicMove(graphic: esri.Graphic, transform: Object): void;
+        onGraphicMoveStart(graphic: esri.Graphic): void;
         onGraphicMoveStop(graphic, transform): void;
-        onRotate(graphic, info): void;
-        onRotateFirstMove(graphic): void;
-        onRotateStart(graphic): void;
-        onRotateStop(graphic, info): void;
+        onRotate(graphic: esri.Graphic, info: Object): void;
+        onRotateFirstMove(graphic: esri.Graphic): void;
+        onRotateStart(graphic: esri.Graphic): void;
+        onRotateStop(graphic: esri.Graphic, info: Object): void;
         onScale(graphic, info): void;
-        onScaleFirstMove(graphic): void;
-        onScaleStart(graphic): void;
-        onScaleStop(graphic, info): void;
-        onVertexAdd(graphic, vertexInfo): void;
-        onVertexClick(graphic, vertexInfo): void;
-        onVertexDelete(graphic, vertexInfo): void;
-        onVertexFirstMove(graphic, vertexInfo): void;
-        onVertexMouseOut(graphic, vertexInfo): void;
-        onVertexMouseOver(graphic, vertexInfo): void;
-        onVertexMove(graphic, vertexInfo, transform): void;
-        onVertexMoveStart(graphic, vertexInfo): void;
-        onVertexMoveStop(graphic, vertexInfo, transform): void;
+        onScaleFirstMove(graphic: esri.Graphic): void;
+        onScaleStart(graphic: esri.Graphic): void;
+        onScaleStop(graphic: esri.Graphic, info: Object): void;
+        onVertexAdd(graphic: esri.Graphic, vertexInfo: Object): void;
+        onVertexClick(graphic: esri.Graphic, vertexInfo: Object): void;
+        onVertexDelete(graphic: esri.Graphic, vertexInfo: Object): void;
+        onVertexFirstMove(graphic: esri.Graphic, vertexInfo: Object): void;
+        onVertexMouseOut(graphic: esri.Graphic, vertexInfo: Object): void;
+        onVertexMouseOver(graphic: esri.Graphic, vertexInfo: Object): void;
+        onVertexMove(graphic: esri.Graphic, vertexInfo: Object, transform: Object): void;
+        onVertexMoveStart(graphic: esri.Graphic, vertexInfo: Object): void;
+        onVertexMoveStop(graphic: esri.Graphic, vertexInfo: Object, transform: Object): void;
     }
     export class Navigation {
-        constructor(map : esri.Map);
+        constructor(map: esri.Map);
         ZOOM_IN: string;
         ZOOM_OUT: string;
         PAN: string;
-        activate(navType): void;
+        activate(navType: string): void;
         deactivate(): void;
         isFirstExtent(): boolean;
         isLastExtent(): boolean;
@@ -3359,32 +3357,32 @@ declare module esri.virtualearth {
         postalTown: string;
     }
     export class VEGeocodeResult {
-        address: VEAddress;
+        address: esri.virtualearth.VEAddress;
         bestView: esri.geometry.Extent;
-        calculationMethod: void;
+        calculationMethod: string;
         confidence: string;
         displayName: string;
-        entityType: void;
+        entityType: string;
         location: esri.geometry.Point;
-        matchCodes: void;
+        matchCodes: string;
     }
     export class VEGeocoder {
         constructor(options : Object);
-        culture: void;
-        addressToLocations(query, callback?: Function, errback?: Function): dojo.Deferred;
-        setCulture(culture): void;
-        onAddressToLocationsComplete(geocodeResults): void;
-        onError(error): void;
+        culture: string;
+        addressToLocations(query: string, callback?: Function, errback?: Function): dojo.Deferred;
+        setCulture(culture): string;
+        onAddressToLocationsComplete(geocodeResults: esri.virtualearth.VEGeocodeResult[]): void;
+        onError(error: Error): void;
     }
     export class VETiledLayer extends esri.layers.TiledMapServiceLayer {
-        constructor(options : Object);
+        constructor(options: Object);
         MAP_STYLE_AERIAL: string;
         MAP_STYLE_AERIAL_WITH_LABELS: string;
         MAP_STYLE_ROAD: string;
         attributionDataUrl: string;
         copyright: string;
         credential: Credential;
-        culture: void;
+        culture: string;
         fullExtent: esri.geometry.Extent;
         hasAttributionData: boolean;
         id: string;
@@ -3395,28 +3393,28 @@ declare module esri.virtualearth {
         minScale: number;
         opacity: number;
         showAttribution: boolean;
-        spatialReference: SpatialReference;
+        spatialReference: esri.SpatialReference;
         suspended: boolean;
         tileInfo: esri.layers.TileInfo;
         url: string;
         visible: boolean;
         visibleAtMapScale: boolean;
         getAttributionData(): dojo.Deferred;
-        getTileUrl(level, row, column): string;
+        getTileUrl(level: number, row: number, column: number): string;
         hide(): void;
-        isVisibleAtScale(scale): boolean;
+        isVisibleAtScale(scale: number): boolean;
         refresh(): void;
         resume(): void;
-        setCulture(culture): void;
-        setMapStyle(style): void;
+        setCulture(culture: string): void;
+        setMapStyle(style: string): void;
         setMaxScale(scale: number): void;
         setMinScale(scale: number): void;
-        setOpacity(): void;
+        setOpacity(valueBetweenZeroAndOne : number): void;
         setScaleRange(minScale: number, maxScale: number): void;
         setVisibility(isVisible: boolean): void;
         show(): void;
         suspend(): void;
-        onError(error): void;
+        onError(error: Error): void;
         onLoad(layer : esri.layers.Layer): void;
         onMapStyleChange(): void;
         onOpacityChange(opacity: number): void;
@@ -3425,7 +3423,7 @@ declare module esri.virtualearth {
         onScaleVisibilityChange(): void;
         onSuspend(): void;
         onUpdate(): void;
-        onUpdateEnd(error): void;
+        onUpdateEnd(error: Error): void;
         onUpdateStart(): void;
         onVisibilityChange(visibility: boolean): void;
         //    error: <Error> error;
