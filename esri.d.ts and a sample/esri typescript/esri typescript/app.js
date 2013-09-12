@@ -8,21 +8,21 @@
 window.onload = function () {
     // create the map with a default basemap (strret) and add it inside the HTML mapDiv
     var map = new esri.Map("mapDiv", {
-        center: [
-            -56.049, 
-            38.485
-        ],
+        center: [-56.049, 38.485],
         zoom: 3,
         basemap: "streets"
     });
+
     var imageParameters = new esri.layers.ImageParameters();
     imageParameters.format = "jpeg";
+
     // take a URL to a non cached map service.
     var dynamicMapServiceLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/MapServer", {
         "opacity": 0.5,
         "imageParameters": imageParameters
     });
+
     // add the layer to the map
     map.addLayer(dynamicMapServiceLayer);
 };
-//@ sourceMappingURL=app.js.map
+//# sourceMappingURL=app.js.map
