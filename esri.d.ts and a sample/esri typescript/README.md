@@ -8,8 +8,6 @@
 The esri TypeScript definition file (esri.d.ts) is inside the definition_typescripts folder.
 
 Also in this folder are the Dojo files (dojo*.ts) for the needed Dojo 1.9 dependency.
-Many thank's to schungx for his Dojo AMD 1.9 binding.
-Thanks to Patrice Freydiere for his work on esri AMD version (see his implementation at https://github.com/frett27/ESRI-TypeScript and samples at https://github.com/frett27/ESRI-TypeScript-Samples).
 
 Bug fixes 13/09/2013 : 
 - Adapt the code to match the new Dojo.Deferred<TYPE> signature.
@@ -67,3 +65,8 @@ Quick FAQ :
 Furthermore, I develop esri.d.ts on my spare time so let me know if you want to take part of it.
 
 Finally I would greatly appreciate to be aware of the projects using the esri.d.ts library. A simple mail is a nice reward.
+
+Thanks :
+Many thank's to schungx for his Dojo AMD 1.9 binding.
+
+Thanks to Patrice Freydiere for his work on esri AMD version (see his implementation at https://github.com/frett27/ESRI-TypeScript and samples at https://github.com/frett27/ESRI-TypeScript-Samples).
