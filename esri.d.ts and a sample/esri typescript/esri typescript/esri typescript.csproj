@@ -28,6 +28,7 @@
     <TypeScriptCompile Include="app.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="definition_typescripts\dijit.d.ts" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
