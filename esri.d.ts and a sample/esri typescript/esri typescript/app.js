@@ -1,5 +1,5 @@
 // Code under MIT License (see main license file).
-// Typescript definition file for ArcGIS API for JavaScript Version 3.4
+// Typescript definition file for ArcGIS API for JavaScript Version 3.7
 // Associated API : http://developers.arcgis.com/en/javascript/
 // Git repo : https://github.com/fleray/esri_web_playground.git
 // Email : fabrice.leray.dev(at)gmail(dot)com
