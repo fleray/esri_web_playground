@@ -1,5 +1,5 @@
 <p><i>This document is under MIT License (see main license file).</i></p>
-<p><i>Typescript definition file for ESRI ArcGIS API for JavaScript Version 3.4</i></p>
+<p><i>Typescript definition file for ESRI ArcGIS API for JavaScript Version 3.7</i></p>
 <p><i>Associated API : http://developers.arcgis.com/en/javascript/</i></p>
 <p><i>Git repo : https://github.com/fleray/esri_web_playground.git</i></p>
 <p><i>Email : fabrice.leray.dev(at)gmail(dot)com</i></p>
@@ -8,6 +8,9 @@
 The esri TypeScript definition file (esri.d.ts) is inside the definition_typescripts folder.
 
 Also in this folder are the Dojo files (dojo*.ts) for the needed Dojo 1.9 dependency.
+
+Version upgrade 19/10/2013 :
+- Version 3.7 (corresponding to ESRI JavaScript 3.7) is now fully available.
 
 Bug fixes 13/09/2013 : 
 - Adapt the code to match the new Dojo.Deferred<TYPE> signature.
@@ -19,14 +22,14 @@ You can run the project :
 A) using Microsoft Visual Studio 2012
 ===============================
  - Step 1 : install Microsoft Visual Studio 2012.
- - Step 2 : get and install the TypeScript 0.9.0 alpha from https://typescript.codeplex.com/releases/view/105503
+ - Step 2 : get and install the TypeScript 0.9.1.1 from http://www.microsoft.com/en-us/download/details.aspx?id=34790
  - Step 3 : download the current project "esri.d.ts and a sample" from GitHub.
  - Step 4 : double-click the esri "typescript.sln" solution file.
  - Step 5 : build and run the solution using Visual Studio.
 
 B) using the TypeScript command line tool
 =========================================
- - Step 1 : get and install the TypeScript 0.9.0 alpha from https://typescript.codeplex.com/releases/view/105503
+ - Step 1 : get and install the TypeScript 0.9.1.1 from http://www.microsoft.com/en-us/download/details.aspx?id=34790
  - Step 2 : download the current project "esri.d.ts and a sample" from GitHub.
  - Step 3 : open a the Windows command line and change directory to the first "esri typescript" folder.
  - Step 4 : execute the following command line to build the project:
