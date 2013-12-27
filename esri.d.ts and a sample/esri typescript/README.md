@@ -9,6 +9,10 @@ The esri TypeScript definition file (esri.d.ts) is inside the definition_typescr
 
 Also in this folder are the Dojo files (dojo*.ts) for the needed Dojo 1.9 dependency.
 
+Version upgrade 27/12/2013 :
+- Migrate from TypeScript 0.9.1.1 to 0.9.5 : review dojo dependency code to fix a bug introduced by the "Overload resolution rules simplified" in the breaking changes between TypeScript 0.9.1.1 to 0.9.5
+
+
 Version upgrade 19/10/2013 :
 - Version 3.7 (corresponding to ESRI JavaScript 3.7) is now fully available.
 
@@ -22,14 +26,14 @@ You can run the project :
 A) using Microsoft Visual Studio 2012
 ===============================
  - Step 1 : install Microsoft Visual Studio 2012.
- - Step 2 : get and install the TypeScript 0.9.1.1 from http://www.microsoft.com/en-us/download/details.aspx?id=34790
+ - Step 2 : get and install the TypeScript 0.9.5 from http://www.microsoft.com/en-us/download/details.aspx?id=34790
  - Step 3 : download the current project "esri.d.ts and a sample" from GitHub.
  - Step 4 : double-click the esri "typescript.sln" solution file.
  - Step 5 : build and run the solution using Visual Studio.
 
 B) using the TypeScript command line tool
 =========================================
- - Step 1 : get and install the TypeScript 0.9.1.1 from http://www.microsoft.com/en-us/download/details.aspx?id=34790
+ - Step 1 : get and install the TypeScript 0.9.5 from http://www.microsoft.com/en-us/download/details.aspx?id=34790
  - Step 2 : download the current project "esri.d.ts and a sample" from GitHub.
  - Step 3 : open a the Windows command line and change directory to the first "esri typescript" folder.
  - Step 4 : execute the following command line to build the project:
@@ -53,7 +57,7 @@ Quick FAQ :
  - Why this development ?
  
 	To be used in TypeScript, each library must have a given definition  file (an XXX.d.ts file where XXX stands for the name of the associated JavaScript library).
-	Here is proposed a TypeScript definition file for the esri Javascript library named "ArcGIS API for JavaScript Version 3.4"
+	Here is proposed a TypeScript definition file for the esri Javascript library named "ArcGIS API for JavaScript Version 3.7"
 
  - Do I have to have Microsoft Visual Studio 2012 ?
  
