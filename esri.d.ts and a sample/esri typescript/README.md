@@ -39,7 +39,7 @@ B) using the TypeScript command line tool
  - Step 4 : execute the following command line to build the project:
 
 <pre><code>
-tsc.exe --comments --module AMD --sourcemap --target ES3 "esri typescript\definition_typescripts\dojo.d.ts" "esri typescript\definition_typescripts\esri.d.ts" "esri typescript\app.ts"
+tsc --module AMD --sourcemap --target ES3 "esri typescript\definition_typescripts\dojo.d.ts" "esri typescript\definition_typescripts\esri.d.ts" "esri typescript\app.ts"
 </code></pre>
 
 And it's done. Then launch the default.html in your favorite browser.
