@@ -27,7 +27,7 @@ declare module esri {
     export function substitute(data : Object, template? : string, first? : boolean): void;
     export function toggle(element  :Element): void;
     export function urlToObject(url : string): Object;
-    export function valueOf(array : Array, value : Object): Object;
+    export function valueOf(array : Array<any>, value : Object): Object;
 
     export class Credential {
         expires: string;
@@ -389,7 +389,7 @@ declare module esri.arcgis {
         createMap(itemId: string, mapDiv: string, options?: Object): dojo.Deferred<any>;
         createMap(itemInfo: Object, mapDiv: string, options?: Object): dojo.Deferred<any>;
         getItem(itemId : string): dojo.Deferred<any>;
-        getLegendLayers(): Array;   
+        getLegendLayers(): Array<Object>;   
     }
 
     export class Portal {
@@ -759,9 +759,10 @@ declare module esri.dijit {
         mergedRouteGraphic: esri.Graphic;
         stops: Graphic[];
         theme: string;
-        addStop(stop :Array, index : number): dojo.Deferred<any>;
+        addStop(stop :string, index : number): dojo.Deferred<any>;
         addStop(stop : esri.geometry.Point, index : number): dojo.Deferred<any>;
-        addStops(stops : Array, index: number): dojo.Deferred<any>;
+        addStops(stops : Array<string>, index: number): dojo.Deferred<any>; // An array of strings or point that defines the input stops.
+        addStops(stops : Array<esri.geometry.Point>, index: number): dojo.Deferred<any>; // An array of strings or point that defines the input stops.
         centerAtSegmentStart(index : number): void;
         clearDirections(): void;
         destroy(): void;

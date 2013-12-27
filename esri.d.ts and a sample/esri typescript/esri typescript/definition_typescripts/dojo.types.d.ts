@@ -124,7 +124,7 @@ declare module dojo
 		emit(type: string, event: { bubbles?: boolean; cancelable?: boolean; }): void;
 		emit(type: Dojo.ExtensionEvent, event: { bubbles?: boolean; cancelable?: boolean; }): void;
 
-		on(type: string, listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+
 		on(type: "abort", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
 		on(type: "afterprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "beforeprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
@@ -186,6 +186,8 @@ declare module dojo
 		on(type: "volumechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "waiting", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: Dojo.ExtensionEvent, listener: EventListener): Dojo.RemovableHandle;
+		on(type: string, listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		
 	}
 	
 	// Stateful
@@ -252,6 +254,55 @@ declare module "dojo/_base/declare"
 
 	export = declare;
 }
+
+
+
+declare module Dojo {
+
+
+	class Url {
+		
+		constructor(u : string);
+
+		authority : any;
+		fragment : any;
+		host : any;
+		password : any;
+		path : any;
+		port : any;
+		query : any;
+		scheme : any;
+		uri : any;
+		user : any;
+
+	}
+
+	class Kernel {
+
+		locale : string;
+	}
+
+
+}
+
+
+
+
+declare module "dojo/_base/url"
+{
+	var declare: Dojo.Url;
+	export = declare;
+
+}
+
+
+declare module "dojo/_base/kernel"
+{
+	var declare: Dojo.Kernel;
+	export = declare;
+
+}
+
 
 
 // Widgets
@@ -382,10 +433,12 @@ declare module dijit
 		isLeftToRight(): boolean;
 		isValid(): boolean;
 
+
 		on(type: "abort", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
 		on(type: "afterprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "beforeprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean): Dojo.RemovableHandle;
+		on(type: string, listener: (ev: BeforeUnloadEvent) => boolean): Dojo.RemovableHandle;
 		on(type: "blur", listener: (ev: FocusEvent) => boolean): Dojo.RemovableHandle;
 		on(type: "canplay", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "canplaythrough", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
@@ -414,6 +467,7 @@ declare module dijit
 		on(type: "loadedmetadata", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "loadstart", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "message", listener: (ev: MessageEvent) => boolean): Dojo.RemovableHandle;
+		on(type: string, listener: (ev: MessageEvent) => boolean): Dojo.RemovableHandle;
 		on(type: "mousedown", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
 		on(type: "mousemove", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
 		on(type: "mouseout", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
@@ -434,8 +488,10 @@ declare module dijit
 		on(type: "seeked", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "seeking", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "select", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: string, listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
 		on(type: "stalled", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "storage", listener: (ev: StorageEvent) => boolean): Dojo.RemovableHandle;
+		on(type: string, listener: (ev: StorageEvent) => boolean): Dojo.RemovableHandle;
 		on(type: "submit", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "suspend", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "timeupdate", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
