@@ -24,8 +24,7 @@ Install TypeScript 0.9.5 and launch the .sln file.
 
 You are highly encouraged to report bugs and feedback on this demo.
 
-Maybe you would have done it differenlty, no ?
-Explaining us why and how : we think it is the best way for everyone to improve on TypeScript, this not-so-old language :)
+Maybe would you have done it differently ? If so, explaining us why and how is, for us, the best way for everyone to improve on TypeScript, this not-so-old language :)
 
 **Thank's :**
 -------------
