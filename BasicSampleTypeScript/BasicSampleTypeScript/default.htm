@@ -1,0 +1,119 @@
+﻿<html>
+<!-- 
+   Code under MIT License (see main license file).
+   Email : fabrice.leray.dev(at)gmail(dot)com
+   Copyright (c) 2013 Fabrice Leray 
+-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"
+    />
+    <title>Simple Map</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.7/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.7/js/esri/css/esri.css">
+    <style>
+        html, body, #map {
+            height:100%;
+            width:100%;
+            margin:0;
+            padding:0;
+        }
+        body {
+            background-color:#FFF;
+            overflow:hidden;
+            font-family:"Trebuchet MS";
+        }
+    </style>
+    <script type="text/javascript">
+
+        var package_path = window.location.toString().substring(0, window.location.toString().lastIndexOf('/'));
+
+        var dojoConfig = {
+            async: true,
+            baseURL: './',
+            packages: [
+            {
+                name: "classes",
+                location: package_path + '/classes'
+            },
+            {
+                name: "jquery",
+                location: 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1',
+                main: 'jquery.min'
+            }
+            ]
+        };
+    </script>
+
+
+
+    <script src="//js.arcgis.com/3.7/"></script>
+    <script type="text/javascript">
+        require(["classes/MainApp"], function (mainApp) {
+            mainApp(); // The main entry point.
+        });
+    </script>
+
+
+
+</head>
+
+<body>
+
+
+    <div id="container" style="width:auto;">
+
+        <div id="header" style="background-color:#FFA500;">
+        <h1 style="margin-bottom:0;">Technical demo 1</h1></div>
+
+        <div id="menu" style="background-color:#FFD700;height:90%;width:30%;float:left;">
+        <span>This is a basic demo demonstrating the TypeScript capabilities such as : <//span>
+        <ul>
+            <li>class building and modules organizations with TypeScript</li>
+            <li>a TypeScript implementation of an observer/listener pattern (for custom events)</li>
+            <li>dojo tricks (lang.hitch, dojo.on...)</li>
+            <li>jQuery TypeScript integration</li>
+            <li>Esri TypeScript AMD integration</li>
+        </ul>
+        <span><b>Note : </b> the functional side is not the key point here. We just to illustratre what can be done with TypeScript and how to achieve those points.</span>
+        <p/>
+        <div>Functionally you can only do a few things :
+        <ul>
+            <li>Double-click on the mini map to trigger a dojo/on event to display the current zoomed extent (because double-click natively produces a map zoom).</li> 
+            <li>Pan the mini map : an event is triggered, propagated through an event bus mecanism (see classes EventManager.ts and MessageManager.ts)</li>
+        </ul>
+        <span>
+            For the custom observer/listener pattern, I get inspired by this article on <a href="http://www.wintellect.com/blogs/jlikness/building-a-javascript-event-aggregator-using-typescript">Building a JavaScript Event Aggregator using TypeScript</a> by <b>Jeremy Likness</b>.
+            I also used  : </span>
+            <ul>
+                <li>the bery good advices of Blork Fish Blog with <a href="http://blorkfish.wordpress.com/2012/10/23/typescript-organizing-your-code-with-amd-modules-and-require-js/">"TypeScript: Organizing your code with AMD modules and require.js"</a></li>
+                                <li>the <a href="https://github.com/frett27/ESRI-TypeScript">Esri TypeScript AMD version</a> initiated by <b>Patrice Freydiere</b>. Samples are also available on <a href="https://github.com/frett27/ESRI-TypeScript-Samples">his Git Hub samples repository</a></li>
+            </ul>
+            <br />
+            <br />
+        <span>    Finally, I insist : the interest here is to explore all the mechanisms used inside the code. <b>Feedback is very welcome</b> to improve what can be done with TypeScript.
+        </span>
+        </div>
+        <br />
+        <div>Current zoomed extent :</div>
+        <div id="events" style="width: 800px; height: 50px"><i>No double-click detected yet !</i></div> <!-- NOTE : div "events" IS referenced in the TypeScript code-->
+
+        </div>
+
+        <div id="mainDiv" style="background-color:#EEEEEE;float:left; display: inline-block;">
+            <div id="content" style="width:800px; height:300px;"></div> <!-- NOTE : div "content" IS referenced in the TypeScript code-->
+            <div id="content2" style="width: 800px; height: 500px"></div> <!-- NOTE : div "content2" IS referenced in the TypeScript code-->
+        </div>
+
+        <div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
+        Copyright (c) Fabrice Leray 2013 under MIT License (see license terms)</div>
+    </div>
+</body>
+
+</html>
+
+
+
+
