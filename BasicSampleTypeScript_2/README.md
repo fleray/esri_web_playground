@@ -51,6 +51,7 @@ Finally, once Grunt is installed, open a command line and enjoy the "Grunt Power
 _Important note : in order to produce the `Gruntfile.js` and `package.json`, we also needed the [Yo](http://yeoman.io/) and [Bower](http://bower.io/) packages. But those packages are not needed here as those files already exists in the project._
 
 **Run the demo**
+
 Several launchers are available inside the grunt configuration (see Gruntfile.js file).
 
 For development purpose, use :  
