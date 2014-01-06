@@ -37,11 +37,11 @@ This demo is intended for developers. It demonstrates the benefit of continuous 
 Therefore, you MUST install a complete development system.  
 To do so, make sure you have installed [Node.js](http://nodejs.org/), [Ruby](https://www.ruby-lang.org/fr/) and [Compass](http://compass-style.org/install/).
 
-Ruby comes with `gem`installer (used to install Compass).  
-Node comes with the `npm` package installer (for installing EVERYTHING else). 
+Ruby comes with `gem`installer (used to install Compass with the command `gem install compass`).  
+Node comes with the `npm` package installer (for installing "any package" else with the command `npm install ANY_PACKAGE`). 
 
 Once `Node`, `Ruby` and `Compass` are installed, have `Grunt` _globally_ installed :  
-`npm install -g grunt`
+`npm install -g grunt-cli`
 
 
 Finally, once Grunt is installed, open a command line and enjoy the "Grunt Power" :  
