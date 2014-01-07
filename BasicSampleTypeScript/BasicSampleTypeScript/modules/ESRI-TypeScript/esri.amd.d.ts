@@ -416,31 +416,31 @@ declare module esri {
         //undo : void;
     }
     export class Units {
-        CENTIMETERS: string;
-        DECIMAL_DEGREES: string;
-        DECIMETERS: string;
-        FEET: string;
-        INCHES: string;
-        KILOMETERS: string;
-        ACRES: string;
-        METERS: string;
-        ARES: string;
-        MILES: string;
-        SQUARE_KILOMETERS: string;
-        MILLIMETERS: string;
-        SQUARE_MILES: string;
-        NAUTICAL_MILES: string;
-        POINTS: string;
-        SQUARE_FEET: string;
-        UNKNOWN: string;
-        SQUARE_METERS: string;
-        YARDS: string;
-        HECTARES: string;
-        SQUARE_YARDS: string;
-        SQUARE_INCHES: string;
-        SQUARE_MILLIMETERS: string;
-        SQUARE_CENTIMETERS: string;
-        SQUARE_DECIMETERS: string;
+        static CENTIMETERS: string;
+        static DECIMAL_DEGREES: string;
+        static DECIMETERS: string;
+        static FEET: string;
+        static INCHES: string;
+        static KILOMETERS: string;
+        static ACRES: string;
+        static METERS: string;
+        static ARES: string;
+        static MILES: string;
+        static SQUARE_KILOMETERS: string;
+        static MILLIMETERS: string;
+        static SQUARE_MILES: string;
+        static NAUTICAL_MILES: string;
+        static POINTS: string;
+        static SQUARE_FEET: string;
+        static UNKNOWN: string;
+        static SQUARE_METERS: string;
+        static YARDS: string;
+        static HECTARES: string;
+        static SQUARE_YARDS: string;
+        static SQUARE_INCHES: string;
+        static SQUARE_MILLIMETERS: string;
+        static SQUARE_CENTIMETERS: string;
+        static SQUARE_DECIMETERS: string;
     }
 }
 
@@ -752,9 +752,9 @@ declare module esri.dijit.editing {
 declare module esri.dijit {
     export class AttributeInspector {
         constructor(params : Object, srcNodeRef : string);
-        STRING_FIELD_OPTION_TEXTBOX: string;
-        STRING_FIELD_OPTION_TEXTAREA: string;
-        STRING_FIELD_OPTION_RICHTEXT: string;
+        static STRING_FIELD_OPTION_TEXTBOX: string;
+        static STRING_FIELD_OPTION_TEXTAREA: string;
+        static STRING_FIELD_OPTION_RICHTEXT: string;
         esriAttributeInspector: string;
         atiLayerName: string;
         atiField: string;
@@ -930,16 +930,16 @@ declare module esri.dijit {
     }
     export class Editor {
         constructor(params : Object, srcNodeRef : Object);
-        CREATE_TOOL_FREEHAND_POLYGON: string;
-        CREATE_TOOL_POLYGON: string;
-        CREATE_TOOL_AUTOCOMPLETE: string;
-        CREATE_TOOL_FREEHAND_POLYLINE: string;
-        CREATE_TOOL_POLYLINE: string;
-        CREATE_TOOL_ARROW: string;
-        CREATE_TOOL_TRIANGLE: string;
-        CREATE_TOOL_RECTANGLE: string;
-        CREATE_TOOL_CIRCLE: string;
-        CREATE_TOOL_ELLIPSE: string;
+        static CREATE_TOOL_FREEHAND_POLYGON: string;
+        static CREATE_TOOL_POLYGON: string;
+        static CREATE_TOOL_AUTOCOMPLETE: string;
+        static CREATE_TOOL_FREEHAND_POLYLINE: string;
+        static CREATE_TOOL_POLYLINE: string;
+        static CREATE_TOOL_ARROW: string;
+        static CREATE_TOOL_TRIANGLE: string;
+        static CREATE_TOOL_RECTANGLE: string;
+        static CREATE_TOOL_CIRCLE: string;
+        static CREATE_TOOL_ELLIPSE: string;
     }
     export class Gallery {
         constructor(params : Object, srcNodeRef : string);
@@ -1030,10 +1030,10 @@ declare module esri.dijit {
     export class InfoWindow extends InfoWindowBase {
         constructor(params: Object, srcNodeRef: string);
         constructor(params: Object, srcNodeRef: Node);
-        ANCHOR_UPPERRIGHT: string;
-        ANCHOR_LOWERRIGHT: string;
-        ANCHOR_LOWERLEFT: string;
-        ANCHOR_UPPERLEFT: string;
+        static ANCHOR_UPPERRIGHT: string;
+        static ANCHOR_LOWERRIGHT: string;
+        static ANCHOR_LOWERLEFT: string;
+        static ANCHOR_UPPERLEFT: string;
         anchor: string;
         coords: esri.geometry.Point;
         domNode: Object;
@@ -1280,7 +1280,7 @@ declare module esri.geometry {
     export class Extent extends Geometry {
         constructor(xmin: number, ymin: number, xmax: number, ymax: number, spatialReference : esri.SpatialReference);
         constructor(json : Object);
-        spatialReference: SpatialReference;
+        spatialReference: esri.SpatialReference;
         type: string;
         xmax: number;
         xmin: number;
@@ -1327,7 +1327,7 @@ declare module esri.geometry {
         constructor(long: number, lat: number);
         constructor(pointXY : number[]);
         constructor(point: esri.geometry.Point);
-        spatialReference: SpatialReference;
+        spatialReference: esri.SpatialReference;
         type: string;
         x: number;
         y: number;
@@ -1712,15 +1712,15 @@ declare module esri.layers {
     export class FeatureLayer extends GraphicsLayer {
         constructor(url: string, options? : Object);
         constructor(featureCollectionObject: Object, options? : Object);
-        SELECTION_SUBTRACT: string;
-        MODE_SNAPSHOT: string;
-        MODE_ONDEMAND: string;
-        MODE_SELECTION: string;
-        POPUP_NONE: string;
-        POPUP_HTML_TEXT: string;
-        POPUP_URL: string;
-        SELECTION_ADD: string;
-        SELECTION_NEW: string;
+        static SELECTION_SUBTRACT: string;
+        static MODE_SNAPSHOT: string;
+        static MODE_ONDEMAND: string;
+        static MODE_SELECTION: string;
+        static POPUP_NONE: string;
+        static POPUP_HTML_TEXT: string;
+        static POPUP_URL: string;
+        static SELECTION_ADD: string;
+        static SELECTION_NEW: string;
         allowGeometryUpdates: boolean;
         attributionDataUrl: string;
         capabilities: string;
@@ -1840,17 +1840,17 @@ declare module esri.layers {
 
 
     export class FeatureTemplate {
-        TOOL_AUTO_COMPLETE_POLYGON: string;
-        TOOL_CIRCLE: string;
-        TOOL_ELLIPSE: string;
-        TOOL_FREEHAND: string;
-        TOOL_LINE: string;
-        TOOL_NONE: string;
-        TOOL_POINT: string;
-        TOOL_POLYGON: string;
-        TOOL_RECTANGLE: string;
-        TOOL_ARROW: string;
-        TOOL_TRIANGLE: string;
+        static TOOL_AUTO_COMPLETE_POLYGON: string;
+        static TOOL_CIRCLE: string;
+        static TOOL_ELLIPSE: string;
+        static TOOL_FREEHAND: string;
+        static TOOL_LINE: string;
+        static TOOL_NONE: string;
+        static TOOL_POINT: string;
+        static TOOL_POLYGON: string;
+        static TOOL_RECTANGLE: string;
+        static TOOL_ARROW: string;
+        static TOOL_TRIANGLE: string;
         description: string;
         drawingTool: string;
         name: string;
@@ -1966,10 +1966,10 @@ declare module esri.layers {
     }
     export class ImageParameters {
         constructor();
-        LAYER_OPTION_SHOW: string;
-        LAYER_OPTION_HIDE: string;
-        LAYER_OPTION_INCLUDE: string;
-        LAYER_OPTION_EXCLUDE: string;
+        static LAYER_OPTION_SHOW: string;
+        static LAYER_OPTION_HIDE: string;
+        static LAYER_OPTION_INCLUDE: string;
+        static LAYER_OPTION_EXCLUDE: string;
         bbox: esri.geometry.Extent;
         dpi: void;
         format: string;
@@ -1985,10 +1985,10 @@ declare module esri.layers {
     }
     export class ImageServiceParameters {
         constructor();
-        INTERPOLATION_BILINEAR: string;
-        INTERPOLATION_CUBICCONVOLUTION: string;
-        INTERPOLATION_MAJORITY: string;
-        INTERPOLATION_NEARESTNEIGHBOR: string;
+        static INTERPOLATION_BILINEAR: string;
+        static INTERPOLATION_CUBICCONVOLUTION: string;
+        static INTERPOLATION_MAJORITY: string;
+        static INTERPOLATION_NEARESTNEIGHBOR: string;
         bandIds: number[];
         compressionQuality: number;
         extent: esri.geometry.Extent;
@@ -2246,20 +2246,20 @@ declare module esri.layers {
     }
     export class MosaicRule {
         constructor();
-        METHOD_NONE: string;
-        METHOD_CENTER: string;
-        METHOD_NADIR: string;
-        METHOD_VIEWPOINT: string;
-        METHOD_ATTRIBUTE: string;
-        METHOD_LOCKRASTER: string;
-        METHOD_NORTHWEST: string;
-        METHOD_SEAMLINE: string;
-        OPERATION_FIRST: string;
-        OPERATION_LAST: string;
-        OPERATION_MIN: string;
-        OPERATION_MAX: string;
-        OPERATION_MEAN: string;
-        OPERATION_BLEND: string;
+        static METHOD_NONE: string;
+        static METHOD_CENTER: string;
+        static METHOD_NADIR: string;
+        static METHOD_VIEWPOINT: string;
+        static METHOD_ATTRIBUTE: string;
+        static METHOD_LOCKRASTER: string;
+        static METHOD_NORTHWEST: string;
+        static METHOD_SEAMLINE: string;
+        static OPERATION_FIRST: string;
+        static OPERATION_LAST: string;
+        static OPERATION_MIN: string;
+        static OPERATION_MAX: string;
+        static OPERATION_MEAN: string;
+        static OPERATION_BLEND: string;
         ascending: boolean;
         lockRasterIds: number[];
         method: string;
@@ -2373,17 +2373,17 @@ declare module esri.layers {
         //visibility-change : <boolean> visible;
     }
     export class TimeInfo {
-        esriTimeUnitsCenturies: string;
-        esriTimeUnitsDays: string;
-        esriTimeUnitsDecades: string;
-        esriTimeUnitsHours: string;
-        esriTimeUnitsMilliseconds: string;
-        esriTimeUnitsMinutes: string;
-        esriTimeUnitsMonths: string;
-        esriTimeUnitsSeconds: string;
-        esriTimeUnitsUnknown: string;
-        esriTimeUnitsWeeks: string;
-        esriTimeUnitsYears: string;
+        static esriTimeUnitsCenturies: string;
+        static esriTimeUnitsDays: string;
+        static esriTimeUnitsDecades: string;
+        static esriTimeUnitsHours: string;
+        static esriTimeUnitsMilliseconds: string;
+        static esriTimeUnitsMinutes: string;
+        static esriTimeUnitsMonths: string;
+        static esriTimeUnitsSeconds: string;
+        static esriTimeUnitsUnknown: string;
+        static esriTimeUnitsWeeks: string;
+        static esriTimeUnitsYears: string;
         endTimeField: string;
         exportOptions: LayerTimeOptions;
         startTimeField: string;
@@ -2501,14 +2501,14 @@ declare module esri.renderer {
     }
     export class TimeClassBreaksAger extends SymbolAger {
         constructor(infos: Object[]);
-        UNIT_DAYS: string;
-        UNIT_HOURS: string;
-        UNIT_MILLISECONDS: string;
-        UNIT_MINUTES: string;
-        UNIT_MONTHS: string;
-        UNIT_SECONDS: string;
-        UNIT_WEEKS: string;
-        UNIT_YEARS: string;
+        static UNIT_DAYS: string;
+        static UNIT_HOURS: string;
+        static UNIT_MILLISECONDS: string;
+        static UNIT_MINUTES: string;
+        static UNIT_MONTHS: string;
+        static UNIT_SECONDS: string;
+        static UNIT_WEEKS: string;
+        static UNIT_YEARS: string;
         getAgedSymbol(symbol: esri.symbol.Symbol, graphic: esri.Graphic): esri.symbol.Symbol;
     }
     export class TimeRampAger extends SymbolAger {
@@ -2546,18 +2546,18 @@ declare module esri.symbol {
         constructor();
         constructor(style?: string, color?: Dojo.Color, width?: number, cap?: string, join?: string, miterLimit?: string);
         constructor(json : Object);
-        CAP_BUTT: string;
-        CAP_ROUND: string;
-        CAP_SQUARE: string;
-        JOIN_MITER: string;
-        JOIN_ROUND: string;
-        JOIN_BEVEL: string;
-        STYLE_SHORTDASH: string;
-        STYLE_SHORTDOT: string;
-        STYLE_SHORTDASHDOT: string;
-        STYLE_SHORTDASHDOTDOT: string;
-        STYLE_LONGDASH: string;
-        STYLE_LONGDASHDOT: string;
+        static CAP_BUTT: string;
+        static CAP_ROUND: string;
+        static CAP_SQUARE: string;
+        static JOIN_MITER: string;
+        static JOIN_ROUND: string;
+        static JOIN_BEVEL: string;
+        static STYLE_SHORTDASH: string;
+        static STYLE_SHORTDOT: string;
+        static STYLE_SHORTDASHDOT: string;
+        static STYLE_SHORTDASHDOTDOT: string;
+        static STYLE_LONGDASH: string;
+        static STYLE_LONGDASHDOT: string;
         cap: string;
         color: Dojo.Color;
         join: string;
@@ -2585,15 +2585,15 @@ declare module esri.symbol {
         constructor();
         constructor(size: number, style: string, variant: string, weight: string, family: string);
         constructor(json : Object);
-        STYLE_NORMAL: string;
-        STYLE_ITALIC: string;
-        STYLE_OBLIQUE: string;
-        VARIANT_NORMAL: string;
-        VARIANT_SMALLCAPS: string;
-        WEIGHT_NORMAL: string;
-        WEIGHT_BOLD: string;
-        WEIGHT_BOLDER: string;
-        WEIGHT_LIGHTER: string;
+        static STYLE_NORMAL: string;
+        static STYLE_ITALIC: string;
+        static STYLE_OBLIQUE: string;
+        static VARIANT_NORMAL: string;
+        static VARIANT_SMALLCAPS: string;
+        static WEIGHT_NORMAL: string;
+        static WEIGHT_BOLD: string;
+        static WEIGHT_BOLDER: string;
+        static WEIGHT_LIGHTER: string;
         family: string;
         size: string;
         style: string;
@@ -2674,14 +2674,14 @@ declare module esri.symbol {
         constructor();
         constructor(style: string, outline: esri.symbol.SimpleLineSymbol, color: Dojo.Color);
         constructor(json : Object);
-        STYLE_SOLID: string;
-        STYLE_NULL: string;
-        STYLE_HORIZONTAL: string;
-        STYLE_VERTICAL: string;
-        STYLE_FORWARD_DIAGONAL: string;
-        STYLE_BACKWARD_DIAGONAL: string;
-        STYLE_CROSS: string;
-        STYLE_DIAGONAL_CROSS: string;
+        static STYLE_SOLID: string;
+        static STYLE_NULL: string;
+        static STYLE_HORIZONTAL: string;
+        static STYLE_VERTICAL: string;
+        static STYLE_FORWARD_DIAGONAL: string;
+        static STYLE_BACKWARD_DIAGONAL: string;
+        static STYLE_CROSS: string;
+        static STYLE_DIAGONAL_CROSS: string;
         color: Dojo.Color;
         outline: esri.symbol.SimpleLineSymbol;
         style: string;
@@ -2695,18 +2695,18 @@ declare module esri.symbol {
         constructor();
         constructor(style: string, color: Dojo.Color, width: number);
         constructor(json : Object);
-        STYLE_SOLID: string;
-        STYLE_DASH: string;
-        STYLE_DOT: string;
-        STYLE_DASHDOTDOT: string;
-        STYLE_NULL: string;
-        STYLE_DASHDOT: string;
-        STYLE_SHORTDASH: string;
-        STYLE_SHORTDOT: string;
-        STYLE_SHORTDASHDOTDOT: string;
-        STYLE_SHORTDASHDOT: string;
-        STYLE_LONGDASH: string;
-        STYLE_LONGDASHDOT: string;
+        static STYLE_SOLID: string;
+        static STYLE_DASH: string;
+        static STYLE_DOT: string;
+        static STYLE_DASHDOTDOT: string;
+        static STYLE_NULL: string;
+        static STYLE_DASHDOT: string;
+        static STYLE_SHORTDASH: string;
+        static STYLE_SHORTDOT: string;
+        static STYLE_SHORTDASHDOTDOT: string;
+        static STYLE_SHORTDASHDOT: string;
+        static STYLE_LONGDASH: string;
+        static STYLE_LONGDASHDOT: string;
         color: Dojo.Color;
         style: string;
         type: string;
@@ -2720,12 +2720,12 @@ declare module esri.symbol {
         constructor();
         constructor(style: string, size: number, outline: esri.symbol.SimpleLineSymbol, color: Dojo.Color);
         constructor(json : Object);
-        STYLE_CIRCLE: string;
-        STYLE_SQUARE: string;
-        STYLE_CROSS: string;
-        STYLE_X: string;
-        STYLE_DIAMOND: string;
-        STYLE_PATH: string;
+        static STYLE_CIRCLE: string;
+        static STYLE_SQUARE: string;
+        static STYLE_CROSS: string;
+        static STYLE_X: string;
+        static STYLE_DIAMOND: string;
+        static STYLE_PATH: string;
         angle: number;
         color: Dojo.Color;
         outline: esri.symbol.SimpleLineSymbol;
@@ -2753,13 +2753,13 @@ declare module esri.symbol {
         constructor(text: string);
         constructor(text: string, font: esri.symbol.Font, color: Dojo.Color);
         constructor(json: Object);
-        ALIGN_START: string;
-        ALIGN_MIDDLE: string;
-        ALIGN_END: string;
-        DECORATION_NONE: string;
-        DECORATION_UNDERLINE: string;
-        DECORATION_OVERLINE: string;
-        DECORATION_LINETHROUGH: string;
+        static ALIGN_START: string;
+        static ALIGN_MIDDLE: string;
+        static ALIGN_END: string;
+        static DECORATION_NONE: string;
+        static DECORATION_UNDERLINE: string;
+        static DECORATION_OVERLINE: string;
+        static DECORATION_LINETHROUGH: string;
         align: string;
         angle: number;
         color: Dojo.Color;
@@ -2891,14 +2891,14 @@ declare module esri.tasks {
     }
     export class DataLayer {
         constructor();
-        SPATIAL_REL_INTERSECTS: string;
-        SPATIAL_REL_CONTAINS: string;
-        SPATIAL_REL_CROSSES: string;
-        SPATIAL_REL_ENVELOPEINTERSECTS: string;
-        SPATIAL_REL_INDEXINTERSECTS: string;
-        SPATIAL_REL_OVERLAPS: string;
-        SPATIAL_REL_TOUCHES: string;
-        SPATIAL_REL_WITHIN: string;
+        static SPATIAL_REL_INTERSECTS: string;
+        static SPATIAL_REL_CONTAINS: string;
+        static SPATIAL_REL_CROSSES: string;
+        static SPATIAL_REL_ENVELOPEINTERSECTS: string;
+        static SPATIAL_REL_INDEXINTERSECTS: string;
+        static SPATIAL_REL_OVERLAPS: string;
+        static SPATIAL_REL_TOUCHES: string;
+        static SPATIAL_REL_WITHIN: string;
         geometry: esri.geometry.Geometry;
         name: string;
         spatialRelationship: string;
@@ -2970,14 +2970,14 @@ declare module esri.tasks {
         complete: FindResult[];
     }
     export class GPMessage {
-        TYPE_ABORT: string;
-        TYPE_EMPTY: string;
-        TYPE_ERROR: string;
-        TYPE_INFORMATIVE: string;
-        TYPE_PROCESS_DEFINITION: string;
-        TYPE_PROCESS_START: string;
-        TYPE_PROCESS_STOP: string;
-        TYPE_WARNING: string;
+        static TYPE_ABORT: string;
+        static TYPE_EMPTY: string;
+        static TYPE_ERROR: string;
+        static TYPE_INFORMATIVE: string;
+        static TYPE_PROCESS_DEFINITION: string;
+        static TYPE_PROCESS_START: string;
+        static TYPE_PROCESS_STOP: string;
+        static TYPE_WARNING: string;
         description: string;
         type: number;
     }
@@ -3001,24 +3001,24 @@ declare module esri.tasks {
     }
     export class GeometryService {
         constructor(url : string);
-        UNIT_FOOT: string;
-        UNIT_KILOMETER: string;
-        UNIT_METER: string;
-        UNIT_NAUTICAL_MILE: string;
-        UNIT_STATUTE_MILE: string;
-        UNIT_US_NAUTICAL_MILE: string;
-        UNIT_SQUARE_INCHES: string;
-        UNIT_SQUARE_FEET: string;
-        UNIT_SQUARE_YARDS: string;
-        UNIT_ACRES: string;
-        UNIT_SQUARE_MILES: string;
-        UNIT_SQUARE_MILLIMETERS: string;
-        UNIT_SQUARE_CENTIMETERS: string;
-        UNIT_SQUARE_DECIMETERS: string;
-        UNIT_SQUARE_METERS: string;
-        UNIT_ARES: string;
-        UNIT_HECTARES: string;
-        UNIT_SQUARE_KILOMETERS: string;
+        static UNIT_FOOT: string;
+        static UNIT_KILOMETER: string;
+        static UNIT_METER: string;
+        static UNIT_NAUTICAL_MILE: string;
+        static UNIT_STATUTE_MILE: string;
+        static UNIT_US_NAUTICAL_MILE: string;
+        static UNIT_SQUARE_INCHES: string;
+        static UNIT_SQUARE_FEET: string;
+        static UNIT_SQUARE_YARDS: string;
+        static UNIT_ACRES: string;
+        static UNIT_SQUARE_MILES: string;
+        static UNIT_SQUARE_MILLIMETERS: string;
+        static UNIT_SQUARE_CENTIMETERS: string;
+        static UNIT_SQUARE_DECIMETERS: string;
+        static UNIT_SQUARE_METERS: string;
+        static UNIT_ARES: string;
+        static UNIT_HECTARES: string;
+        static UNIT_SQUARE_KILOMETERS: string;
         url: string;
         areasAndLengths(areasAndLengthsParameters: esri.tasks.AreasAndLengthsParameters, callback?: Function, errback?: Function): dojo.Deferred<any>;
         autoComplete(polygons: esri.geometry.Polygon[], polylines: esri.geometry.Polyline[], callback?: Function, errback?: Function): dojo.Deferred<any>;
@@ -3113,9 +3113,9 @@ declare module esri.tasks {
     }
     export class IdentifyParameters {
         constructor();
-        LAYER_OPTION_TOP: string;
-        LAYER_OPTION_VISIBLE: string;
-        LAYER_OPTION_ALL: string;
+        static LAYER_OPTION_TOP: string;
+        static LAYER_OPTION_VISIBLE: string;
+        static LAYER_OPTION_ALL: string;
         dpi: number;
         dynamicLayerInfos: esri.layers.DynamicLayerInfo[];
         geometry: esri.geometry.Geometry;
@@ -3231,37 +3231,37 @@ declare module esri.tasks {
         toJson(): Object;
     }
     export class NAMessage {
-        TYPE_ABORT: string;
-        TYPE_EMPTY: string;
-        TYPE_ERROR: string;
-        TYPE_INFORMATIVE: string;
-        TYPE_PROCESS_DEFINITION: string;
-        TYPE_PROCESS_START: string;
-        TYPE_PROCESS_STOP: string;
-        TYPE_WARNING: string;
+        static TYPE_ABORT: string;
+        static TYPE_EMPTY: string;
+        static TYPE_ERROR: string;
+        static TYPE_INFORMATIVE: string;
+        static TYPE_PROCESS_DEFINITION: string;
+        static TYPE_PROCESS_START: string;
+        static TYPE_PROCESS_STOP: string;
+        static TYPE_WARNING: string;
         description: string;
         type: number;
     }
     export class NAOutputLine {
-        NONE: string;
-        STRAIGHT: string;
-        TRUE_SHAPE: string;
-        TRUE_SHAPE_WITH_MEASURE: string;
+        static NONE: string;
+        static STRAIGHT: string;
+        static TRUE_SHAPE: string;
+        static TRUE_SHAPE_WITH_MEASURE: string;
     }
     export class NAOutputPolygon {
-        NONE: string;
-        SIMPLIFIED: string;
-        DETAILED: string;
+        static NONE: string;
+        static SIMPLIFIED: string;
+        static DETAILED: string;
     }
     export class NATravelDirection {
-        FROM_FACILITY: string;
-        TO_FACILITY: string;
+        static FROM_FACILITY: string;
+        static TO_FACILITY: string;
     }
     export class NAUTurn {
-        ALLOW_BACKTRACK: string;
-        AT_DEAD_ENDS_ONLY: string;
-        NO_BACKTRACK: string;
-        AT_DEAD_ENDS_AND_INTERSECTIONS: string;
+        static ALLOW_BACKTRACK: string;
+        static AT_DEAD_ENDS_ONLY: string;
+        static NO_BACKTRACK: string;
+        static AT_DEAD_ENDS_AND_INTERSECTIONS: string;
     }
     export class OffsetParameters {
         constructor();
@@ -3310,15 +3310,15 @@ declare module esri.tasks {
     }
     export class Query {
         constructor();
-        SPATIAL_REL_INTERSECTS: string;
-        SPATIAL_REL_CONTAINS: string;
-        SPATIAL_REL_CROSSES: string;
-        SPATIAL_REL_ENVELOPEINTERSECTS: string;
-        SPATIAL_REL_INDEXINTERSECTS: string;
-        SPATIAL_REL_OVERLAPS: string;
-        SPATIAL_REL_TOUCHES: string;
-        SPATIAL_REL_WITHIN: string;
-        SPATIAL_REL_RELATION: string;
+        static SPATIAL_REL_INTERSECTS: string;
+        static SPATIAL_REL_CONTAINS: string;
+        static SPATIAL_REL_CROSSES: string;
+        static SPATIAL_REL_ENVELOPEINTERSECTS: string;
+        static SPATIAL_REL_INDEXINTERSECTS: string;
+        static SPATIAL_REL_OVERLAPS: string;
+        static SPATIAL_REL_TOUCHES: string;
+        static SPATIAL_REL_WITHIN: string;
+        static SPATIAL_REL_RELATION: string;
         geometry: esri.geometry.Geometry;
         geometryPrecision: number;
         groupByFieldsForStatistics: string[];
@@ -3361,18 +3361,18 @@ declare module esri.tasks {
     }
     export class RelationParameters {
         constructor();
-        SPATIAL_REL_COINCIDENCE: string;
-        SPATIAL_REL_CROSS: string;
-        SPATIAL_REL_DISJOINT: string;
-        SPATIAL_REL_IN: string;
-        SPATIAL_REL_INTERIORINTERSECTION: string;
-        SPATIAL_REL_INTERSECTION: string;
-        SPATIAL_REL_LINETOUCH: string;
-        SPATIAL_REL_OVERLAP: string;
-        SPATIAL_REL_POINTTOUCH: string;
-        SPATIAL_REL_RELATION: string;
-        SPATIAL_REL_TOUCH: string;
-        SPATIAL_REL_WITHIN: string;
+        static SPATIAL_REL_COINCIDENCE: string;
+        static SPATIAL_REL_CROSS: string;
+        static SPATIAL_REL_DISJOINT: string;
+        static SPATIAL_REL_IN: string;
+        static SPATIAL_REL_INTERIORINTERSECTION: string;
+        static SPATIAL_REL_INTERSECTION: string;
+        static SPATIAL_REL_LINETOUCH: string;
+        static SPATIAL_REL_OVERLAP: string;
+        static SPATIAL_REL_POINTTOUCH: string;
+        static SPATIAL_REL_RELATION: string;
+        static SPATIAL_REL_TOUCH: string;
+        static SPATIAL_REL_WITHIN: string;
         geometries1: esri.geometry.Geometry[];
         geometries2: esri.geometry.Geometry[];
         relation: esri.tasks.RelationParameters;
@@ -3513,23 +3513,23 @@ declare module esri.tasks {
 declare module esri.toolbars {
     export class Draw {
         constructor(map: esri.Map, options: Object);
-        POINT: string;
-        LINE: string;
-        EXTENT: string;
-        POLYLINE: string;
-        POLYGON: string;
-        FREEHAND_POLYLINE: string;
-        FREEHAND_POLYGON: string;
-        MULTI_POINT: string;
-        ARROW: string;
-        TRIANGLE: string;
-        CIRCLE: string;
-        ELLIPSE: string;
-        RECTANGLE: string;
-        LEFT_ARROW: string;
-        RIGHT_ARROW: string;
-        UP_ARROW: string;
-        DOWN_ARROW: string;
+        static POINT: string;
+        static LINE: string;
+        static EXTENT: string;
+        static POLYLINE: string;
+        static POLYGON: string;
+        static FREEHAND_POLYLINE: string;
+        static FREEHAND_POLYGON: string;
+        static MULTI_POINT: string;
+        static ARROW: string;
+        static TRIANGLE: string;
+        static CIRCLE: string;
+        static ELLIPSE: string;
+        static RECTANGLE: string;
+        static LEFT_ARROW: string;
+        static RIGHT_ARROW: string;
+        static UP_ARROW: string;
+        static DOWN_ARROW: string;
         fillSymbol: esri.symbol.SimpleFillSymbol;
         lineSymbol: esri.symbol.SimpleLineSymbol;
         markerSymbol: esri.symbol.SimpleMarkerSymbol;
@@ -3546,10 +3546,10 @@ declare module esri.toolbars {
     }
     export class Edit {
         constructor(map: esri.Map, options?: Object);
-        EDIT_VERTICES: string;
-        MOVE: string;
-        SCALE: string;
-        ROTATE: string;
+        static EDIT_VERTICES: string;
+        static MOVE: string;
+        static SCALE: string;
+        static ROTATE: string;
         activate(tool: string, graphic: esri.Graphic, options: Object): void;
         deactivate(): void;
         getCurrentState(): Object;
@@ -3581,9 +3581,9 @@ declare module esri.toolbars {
     }
     export class Navigation {
         constructor(map: esri.Map);
-        ZOOM_IN: string;
-        ZOOM_OUT: string;
-        PAN: string;
+        static ZOOM_IN: string;
+        static ZOOM_OUT: string;
+        static PAN: string;
         activate(navType: string): void;
         deactivate(): void;
         isFirstExtent(): boolean;
@@ -3626,9 +3626,9 @@ declare module esri.virtualearth {
     }
     export class VETiledLayer extends esri.layers.TiledMapServiceLayer {
         constructor(options: Object);
-        MAP_STYLE_AERIAL: string;
-        MAP_STYLE_AERIAL_WITH_LABELS: string;
-        MAP_STYLE_ROAD: string;
+        static MAP_STYLE_AERIAL: string;
+        static MAP_STYLE_AERIAL_WITH_LABELS: string;
+        static MAP_STYLE_ROAD: string;
         attributionDataUrl: string;
         copyright: string;
         credential: Credential;
