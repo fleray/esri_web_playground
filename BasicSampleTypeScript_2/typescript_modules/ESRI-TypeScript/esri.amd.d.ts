@@ -749,6 +749,20 @@ declare module esri.dijit.editing {
         showAttachments(graphic : esri.Graphic, featureLayer : esri.layers.FeatureLayer): void;
         startup(): void;
     }
+    export class Editor {
+        constructor(params: Object, srcNodeRef: Object);
+        static CREATE_TOOL_FREEHAND_POLYGON: string;
+        static CREATE_TOOL_POLYGON: string;
+        static CREATE_TOOL_AUTOCOMPLETE: string;
+        static CREATE_TOOL_FREEHAND_POLYLINE: string;
+        static CREATE_TOOL_POLYLINE: string;
+        static CREATE_TOOL_ARROW: string;
+        static CREATE_TOOL_TRIANGLE: string;
+        static CREATE_TOOL_RECTANGLE: string;
+        static CREATE_TOOL_CIRCLE: string;
+        static CREATE_TOOL_ELLIPSE: string;
+    }
+
    export class TemplatePicker {
        constructor(params: Object, srcNodeRef: string);
        constructor(params: Object, domNode: Element);
@@ -774,10 +788,10 @@ declare module esri.dijit.editing {
 declare module esri.dijit {
     export class AttributeInspector {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
-        STRING_FIELD_OPTION_TEXTBOX: string;
-        STRING_FIELD_OPTION_TEXTAREA: string;
-        STRING_FIELD_OPTION_RICHTEXT: string;
+        constructor(params: Object, domNode: HTMLElement);
+        static STRING_FIELD_OPTION_TEXTBOX: string;
+        static STRING_FIELD_OPTION_TEXTAREA: string;
+        static STRING_FIELD_OPTION_RICHTEXT: string;
         esriAttributeInspector: string;
         atiLayerName: string;
         atiField: string;
@@ -803,7 +817,7 @@ declare module esri.dijit {
     }
     export class Attribution {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         esriAttributionList: string;
         esriAttributionItem: string;
         esriAttributionLastItem: string;
@@ -823,7 +837,7 @@ declare module esri.dijit {
     }
     export class BasemapGallery {
         constructor(params: Object, srcNodeRef?: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         esriBasemapGallery: string;
         esriBasemapGalleryNode: string;
         esriBasemapGallerySelectedNode: string;
@@ -856,7 +870,7 @@ declare module esri.dijit {
 // New 3.7
     export class BasemapToggle {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
 		basemapContainer : string;
 		toggleButton : string;
 		basemapImage : string;
@@ -880,7 +894,7 @@ declare module esri.dijit {
     }
     export class Bookmarks {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         esriBookmarks: string;
         esriBookmarkTable: string;
         esriBookmarkItem: string;
@@ -903,7 +917,7 @@ declare module esri.dijit {
     }
     export class Directions {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         esriDirectionsContainer: string;
         esriStopsContainer: string;
         esriStopsReverse: string;
@@ -985,22 +999,9 @@ declare module esri.dijit {
         onSegmentHighlight(graphic : esri.Graphic): void;
         onSegmentSelect(graphic : esri.Graphic): void;
     }
-    export class Editor {
-        constructor(params : Object, srcNodeRef : Object);
-        static CREATE_TOOL_FREEHAND_POLYGON: string;
-        static CREATE_TOOL_POLYGON: string;
-        static CREATE_TOOL_AUTOCOMPLETE: string;
-        static CREATE_TOOL_FREEHAND_POLYLINE: string;
-        static CREATE_TOOL_POLYLINE: string;
-        static CREATE_TOOL_ARROW: string;
-        static CREATE_TOOL_TRIANGLE: string;
-        static CREATE_TOOL_RECTANGLE: string;
-        static CREATE_TOOL_CIRCLE: string;
-        static CREATE_TOOL_ELLIPSE: string;
-    }
     export class Gallery {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         esriMobileGallery: string;
         //esriMobileGallery.galleryLandscape : string; // TODO FLE : remove CSS Stuff
         //esriMobileGallery.thumbnailContainer : string;
@@ -1024,7 +1025,7 @@ declare module esri.dijit {
     }
     export class Gauge {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         gaugeContainer: string;
         destroy(): void;
         get(): any; //varies;
@@ -1033,7 +1034,7 @@ declare module esri.dijit {
     }
     export class Geocoder {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         esriGeocoder: string;
         esriGeocoderMultiple: string;
         esriGeocoderContainer: string;
@@ -1089,7 +1090,7 @@ declare module esri.dijit {
 // New 3.7
    export class HistogramTimeSlider {
        constructor(params: Object, srcNodeRef: string);
-       constructor(params: Object, domNode: Element);
+       constructor(params: Object, domNode: HTMLElement);
 		// histogram-timeslider : string;
 		// histogram-timeslider #histogram-range : string;
 		destroy() : void;
@@ -1101,7 +1102,7 @@ declare module esri.dijit {
 // New 3.7
     export class HomeButton {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
 		homeContainer : string;
 		home : string;
 		loading : string;
@@ -1175,7 +1176,7 @@ declare module esri.dijit {
 	// New 3.7
     export class LayerSwipe {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
 		handleContainer : string;
 		handle : string;
 		clip : number;
@@ -1198,7 +1199,7 @@ declare module esri.dijit {
     }
     export class Legend {
         constructor(params: Object, srcNodeRef: string); // TO CHECK : in esri code sample parameters are inverted..??
-        constructor(params: Object, domNode: Element); // TO CHECK : in esri code sample parameters are inverted..??
+        constructor(params: Object, domNode: HTMLElement); // TO CHECK : in esri code sample parameters are inverted..??
         esriLegendService: string;
         esriLegendServiceLabel: string;
         esriLegendGroupLayer: string;
@@ -1211,7 +1212,7 @@ declare module esri.dijit {
 	// New 3.7
     export class LocateButton {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
 		locateContainer : string;
 		zoomLocateButton : string;
 		loading : string;
@@ -1235,7 +1236,7 @@ declare module esri.dijit {
     }
     export class Measurement {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         distanceIcon: string;
         areaIcon: string;
         locationIcon: string;
@@ -1256,7 +1257,7 @@ declare module esri.dijit {
 
     export class OverviewMap {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         destroy(): void;
         hide(): void;
         show(): void;
@@ -1264,7 +1265,7 @@ declare module esri.dijit {
     }
     export class Popup extends esri.InfoWindowBase {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         count: number;
         deferreds: dojo.Deferred<esri.Graphic>[];
         domNode: Object;
@@ -1303,7 +1304,7 @@ declare module esri.dijit {
     }
     export class PopupMobile extends InfoWindowBase {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         titlePane: string;
         //pointer.top : string;
         //pointer.bottom : string;
@@ -1331,7 +1332,7 @@ declare module esri.dijit {
     }
     export class Print {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         esriPrint: string;
         esriPrintButton: string;
         esriPrintout: string;
@@ -1345,7 +1346,7 @@ declare module esri.dijit {
     }
     export class Scalebar {
         constructor(params: Object, srcNodeRef? : string);
-        constructor(params: Object, domNode? : Element);
+        constructor(params: Object, domNode? : HTMLElement);
         esriScalebar: string;
         esriScalebarRuler: string;
         esriScalebarLabel: string;
@@ -1357,7 +1358,7 @@ declare module esri.dijit {
     }
     export class TimeSlider {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
         loop: boolean;
         playing: boolean;
         thumbCount: number;
@@ -1408,7 +1409,7 @@ declare module esri.dijit.analysis {
     }
     export class AggregatePoints extends esri.dijit.analysis.AnalysisBase {
         constructor(params: Object, srcNodeRef: string);
-        constructor(params: Object, domNode: Element);
+        constructor(params: Object, domNode: HTMLElement);
 		analysisGpServer : string;
 		groupByField : string;
 		keepBoundariesWithNoPoints : boolean;
@@ -4878,28 +4879,6 @@ declare module "esri/OperationBase" {
 	export = i;
 }
 
-/*
-	not available yet
-	@TODO
-
-//class,esri/PopupBase,PopupBase
-declare module "esri/PopupBase" {
-	var i : esri.PopupBase;
-	export = i;
-}
-*/
-
-/*
-	not available yet
-	@TODO
-
-//class,esri/PopupInfo,PopupInfo
-declare module "esri/PopupInfo" {
-	var i : esri.PopupInfo;
-	export = i;
-}
-*/
-
 //class,esri/ServerInfo,ServerInfo
 declare module "esri/ServerInfo" {
 	var i : esri.ServerInfo;
@@ -4925,11 +4904,6 @@ declare module "esri/arcgis/Portal" {
 	var i : esri.arcgis.Portal;
 	export = i;
 }
-
-/*
-Dijit to do
-
-
 
 //class,esri/dijit/AttributeInspector,AttributeInspector
 declare module "esri/dijit/AttributeInspector" {
@@ -4976,14 +4950,15 @@ declare module "esri/dijit/Geocoder" {
 	var i : esri.dijit.Geocoder;
 	export = i;
 }
+//class,esri/dijit/Gauge,Gauge
+declare module "esri/dijit/Gauge" {
+    var i: esri.dijit.Gauge;
+    export = i;
+}
+
 //class,esri/dijit/HistogramTimeSlider,HistogramTimeSlider
 declare module "esri/dijit/HistogramTimeSlider" {
 	var i : esri.dijit.HistogramTimeSlider;
-	export = i;
-}
-//class,esri/dijit/InfoView,InfoView
-declare module "esri/dijit/InfoView" {
-	var i : esri.dijit.InfoView;
 	export = i;
 }
 //class,esri/dijit/InfoWindow,InfoWindow
@@ -5021,11 +4996,6 @@ declare module "esri/dijit/PopupMobile" {
 	var i : esri.dijit.PopupMobile;
 	export = i;
 }
-//class,esri/dijit/PopupRenderer,PopupRenderer
-declare module "esri/dijit/PopupRenderer" {
-	var i : esri.dijit.PopupRenderer;
-	export = i;
-}
 //class,esri/dijit/PopupTemplate,PopupTemplate
 declare module "esri/dijit/PopupTemplate" {
 	var i : esri.dijit.PopupTemplate;
@@ -5046,82 +5016,72 @@ declare module "esri/dijit/TimeSlider" {
 	var i : esri.dijit.TimeSlider;
 	export = i;
 }
-*/
 
-
-
-/* new class 
-   not available yet
-
-//class,esri/dijit/analysisAggregateTool,AggregateTool
-declare module "esri/dijit/analysisAggregateTool" {
-	var i : esri.dijit.analysisAggregateTool;
+//class,esri/dijit/analysis/AnalysisBase,AnalysisBase
+declare module "esri/dijit/analysis/AnalysisBase" {
+	var i : esri.dijit.analysis.AnalysisBase;
 	export = i;
 }
-//class,esri/dijit/analysisAnalysisBase,AnalysisBase
-declare module "esri/dijit/analysisAnalysisBase" {
-	var i : esri.dijit.analysisAnalysisBase;
+//class,esri/dijit/analysis/AggregatePoints,AggregatePoints
+declare module "esri/dijit/analysis/AggregatePoints" {
+	var i : esri.dijit.analysis.AggregatePoints;
 	export = i;
 }
-//class,esri/dijit/analysisBufferTool,BufferTool
-declare module "esri/dijit/analysisBufferTool" {
-	var i : esri.dijit.analysisBufferTool;
+//class,esri/dijit/analysis/CreateBuffers,CreateBuffers
+declare module "esri/dijit/analysis/CreateBuffers" {
+    var i: esri.dijit.analysis.CreateBuffers;
+    export = i;
+}
+//class,esri/dijit/analysis/CreateDriveTimeAreas,CreateDriveTimeAreas
+declare module "esri/dijit/analysis/CreateDriveTimeAreas" {
+	var i : esri.dijit.analysis.CreateDriveTimeAreas;
 	export = i;
 }
-//class,esri/dijit/analysisCreateDriveTimeAreas,CreateDriveTimeAreas
-declare module "esri/dijit/analysisCreateDriveTimeAreas" {
-	var i : esri.dijit.analysisCreateDriveTimeAreas;
+//class,esri/dijit/analysis/DissolveBoundaries,DissolveBoundaries
+declare module "esri/dijit/analysis/DissolveBoundaries" {
+	var i : esri.dijit.analysis.DissolveBoundaries;
 	export = i;
 }
-//class,esri/dijit/analysisDissolveBoundaries,DissolveBoundaries
-declare module "esri/dijit/analysisDissolveBoundaries" {
-	var i : esri.dijit.analysisDissolveBoundaries;
+//class,esri/dijit/analysis/EnrichLayer,EnrichLayer
+declare module "esri/dijit/analysis/EnrichLayer" {
+	var i : esri.dijit.analysis.EnrichLayer;
 	export = i;
 }
-//class,esri/dijit/analysisEnrichLayer,EnrichLayer
-declare module "esri/dijit/analysisEnrichLayer" {
-	var i : esri.dijit.analysisEnrichLayer;
+//class,esri/dijit/analysis/ExtractData,ExtractData
+declare module "esri/dijit/analysis/ExtractData" {
+	var i : esri.dijit.analysis.ExtractData;
 	export = i;
 }
-//class,esri/dijit/analysisExtractData,ExtractData
-declare module "esri/dijit/analysisExtractData" {
-	var i : esri.dijit.analysisExtractData;
+//class,esri/dijit/analysis/FindHotSpots,FindHotSpots
+declare module "esri/dijit/analysis/FindHotSpots" {
+	var i : esri.dijit.analysis.FindHotSpots;
 	export = i;
 }
-//class,esri/dijit/analysisFindHotSpots,FindHotSpots
-declare module "esri/dijit/analysisFindHotSpots" {
-	var i : esri.dijit.analysisFindHotSpots;
+//class,esri/dijit/analysis/FindNearest,FindNearest
+declare module "esri/dijit/analysis/FindNearest" {
+	var i : esri.dijit.analysis.FindNearest;
 	export = i;
 }
-//class,esri/dijit/analysisFindNearest,FindNearest
-declare module "esri/dijit/analysisFindNearest" {
-	var i : esri.dijit.analysisFindNearest;
+//class,esri/dijit/analysis/MergeLayers,MergeLayers
+declare module "esri/dijit/analysis/MergeLayers" {
+	var i : esri.dijit.analysis.MergeLayers;
 	export = i;
 }
-//class,esri/dijit/analysisMergeLayers,MergeLayers
-declare module "esri/dijit/analysisMergeLayers" {
-	var i : esri.dijit.analysisMergeLayers;
+//class,esri/dijit/analysis/OverlayLayers,OverlayLayers
+declare module "esri/dijit/analysis/OverlayLayers" {
+	var i : esri.dijit.analysis.OverlayLayers;
 	export = i;
 }
-//class,esri/dijit/analysisOverlayLayers,OverlayLayers
-declare module "esri/dijit/analysisOverlayLayers" {
-	var i : esri.dijit.analysisOverlayLayers;
+//class,esri/dijit/analysis/SummarizeNearby,SummarizeNearby
+declare module "esri/dijit/analysis/SummarizeNearby" {
+	var i : esri.dijit.analysis.SummarizeNearby;
 	export = i;
 }
-//class,esri/dijit/analysisSummarizeNearby,SummarizeNearby
-declare module "esri/dijit/analysisSummarizeNearby" {
-	var i : esri.dijit.analysisSummarizeNearby;
+//class,esri/dijit/analysis/SummarizeWithin,SummarizeWithin
+declare module "esri/dijit/analysis/SummarizeWithin" {
+	var i : esri.dijit.analysis.SummarizeWithin;
 	export = i;
 }
-//class,esri/dijit/analysisSummarizeWithin,SummarizeWithin
-declare module "esri/dijit/analysisSummarizeWithin" {
-	var i : esri.dijit.analysisSummarizeWithin;
-	export = i;
-}
-
-*/
-
-/*
 
 //class,esri/dijit/editing/AttachmentEditor,AttachmentEditor
 declare module "esri/dijit/editing/AttachmentEditor" {
@@ -5139,22 +5099,20 @@ declare module "esri/dijit/editing/TemplatePicker" {
 	export = i;
 }
 //class,esri/dijt/geoenrichment/Infographic,Infographic
-declare module "esri/dijt/geoenrichment/Infographic" {
-	var i : esri.dijt.geoenrichment.Infographic;
+declare module "esri/dijit/geoenrichment/Infographic" {
+	var i : esri.dijit.geoenrichment.Infographic;
 	export = i;
 }
 //class,esri/dijt/geoenrichment/InfographicsCarousel,InfographicsCarousel
 declare module "esri/dijt/geoenrichment/InfographicsCarousel" {
-	var i : esri.dijt.geoenrichment.InfographicsCarousel;
+	var i : esri.dijit.geoenrichment.InfographicsCarousel;
 	export = i;
 }
 //class,esri/dijt/geoenrichment/InfographicsOptions,InfographicsOptions
 declare module "esri/dijt/geoenrichment/InfographicsOptions" {
-	var i : esri.dijt.geoenrichment.InfographicsOptions;
+	var i : esri.dijit.geoenrichment.InfographicsOptions;
 	export = i;
 }
-
-*/
 
 //class,esri/geometry/Extent,Extent
 declare module "esri/geometry/Extent" {
@@ -5207,14 +5165,6 @@ declare module "esri/layers/ArcGISImageServiceLayer" {
 	var i : esri.layers.ArcGISImageServiceLayer;
 	export = i;
 }
-
-/*
-//class,esri/layers/ArcGISMapServiceLayer,ArcGISMapServiceLayer
-declare module "esri/layers/ArcGISMapServiceLayer" {
-	var i : esri.layers.ArcGISMapServiceLayer;
-	export = i;
-}
-*/
 
 //class,esri/layers/ArcGISTiledMapServiceLayer,ArcGISTiledMapServiceLayer
 declare module "esri/layers/ArcGISTiledMapServiceLayer" {
@@ -5347,19 +5297,6 @@ declare module "esri/layers/LayerMapSource" {
 	export = i;
 }
 
-/*
-    not found
-	TODO
-
-//class,esri/layers/LayerSource,LayerSource
-declare module "esri/layers/LayerSource" {
-	var i : esri.layers.LayerSource;
-	export = i;
-}
-
-*/
-
-
 //class,esri/layers/LayerTimeOptions,LayerTimeOptions
 declare module "esri/layers/LayerTimeOptions" {
 	var i : esri.layers.LayerTimeOptions;
@@ -5401,15 +5338,11 @@ declare module "esri/layers/RasterDataSource" {
 	export = i;
 }
 
-/*
-  new class TODO
 //class,esri/layers/StreamLayer,StreamLayer
 declare module "esri/layers/StreamLayer" {
 	var i : esri.layers.StreamLayer;
 	export = i;
 }
-
-*/
 
 //class,esri/layers/TableDataSource,TableDataSource
 declare module "esri/layers/TableDataSource" {
@@ -5632,15 +5565,6 @@ declare module "esri/tasks/Date" {
 	export = i;
 }
 
-/* new class TODO
-
-//class,esri/tasks/DensifyParameters,DensifyParameters
-declare module "esri/tasks/DensifyParameters" {
-	var i : esri.tasks.DensifyParameters;
-	export = i;
-}
-*/
-
 //class,esri/tasks/DirectionsFeatureSet,DirectionsFeatureSet
 declare module "esri/tasks/DirectionsFeatureSet" {
 	var i : esri.tasks.DirectionsFeatureSet;
@@ -5861,7 +5785,7 @@ declare module "esri/tasks/UniqueValueDefinition" {
 	var i : esri.tasks.UniqueValueDefinition;
 	export = i;
 }
-//class,esri/tasks/query,Query
+//class,esri/tasks/query,Query0
 declare module "esri/tasks/query" {
 	var i : esri.tasks.Query;
 	export = i;
@@ -5906,6 +5830,3 @@ declare module "esri/virtualearth/VETiledLayer" {
 	var i : esri.virtualearth.VETiledLayer;
 	export = i;
 }
-
-
-
