@@ -14,7 +14,7 @@ window.onload = function () {
     });
 
     var imageParameters = new esri.layers.ImageParameters();
-    imageParameters.format = "jpeg";
+    imageParameters.format = "jpeg"; //set the image type to PNG24, note default is PNG8.
 
     // take a URL to a non cached map service.
     var dynamicMapServiceLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/MapServer", {

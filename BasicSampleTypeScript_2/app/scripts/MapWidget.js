@@ -25,7 +25,7 @@ define(["require", "exports", 'jquery', "esri/layers/ArcGISDynamicMapServiceLaye
         };
 
         MapWidget.prototype.addMap = function () {
-            $(this.element).css("background", "red");
+            $(this.element).css("background", "yellow");
             $(this.element).css("width", "200px");
             $(this.element).css("height", "200px");
             this.map = new esri.Map(this.element, {

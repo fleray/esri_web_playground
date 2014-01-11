@@ -239,7 +239,7 @@ declare module esri {
         getInfoWindowAnchor(screenCoords : esri.geometry.Point): void;
         getLayer(id : string): esri.layers.Layer ;
         getLayersVisibleAtScaleRange(scale : number): esri.layers.Layer[];
-        getLevel(): void;
+        getLevel(): number;
         getMaxScale(): number;
         getMaxZoom(): number;
         getMinScale(): number;

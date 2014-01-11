@@ -60,6 +60,9 @@
     <Content Include="modules\ESRI-TypeScript\LICENSE" />
     <Content Include="modules\ESRI-TypeScript\README.md" />
     <Content Include="modules\Dojo-TypeScript\README.md" />
+    <Content Include="README.md">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
