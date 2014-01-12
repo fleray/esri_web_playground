@@ -6,7 +6,7 @@
 /// <reference path='../../typescript_modules/ESRI-TypeScript/esri.amd.d.ts' />
  
 /*
- * This is the main entry point (main class).
+ * This is the main entry point (main class). 
  * Here we define 2 maps : one is built directly in the main body, the other in the Greeter class (calling MapWidget).
  */
 
